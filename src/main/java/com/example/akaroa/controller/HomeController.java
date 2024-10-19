@@ -1,4 +1,4 @@
-package com.example.akaroa.controllers;
+package com.example.akaroa.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index(Model model) {
-        return "index";
+        return "login";
     }
 
     @GetMapping("/atributos")
@@ -42,9 +42,9 @@ public class HomeController {
         return "proveedores";
     }
 
-    @GetMapping("/register")
+    @GetMapping("/registrousuario")
     public String register(Model model) {
-        return "register";
+        return "registrousuario";
     }
 
     @GetMapping("/reportes")
@@ -52,8 +52,8 @@ public class HomeController {
         return "reportes";
     }
 
-    @GetMapping("/usuarios")
+    @GetMapping("/usuario")
     public String usuarios(Model model) {
-        return "usuarios";
+        return "usuario";
     }
 }

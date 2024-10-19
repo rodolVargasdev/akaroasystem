@@ -2,9 +2,136 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet"  href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Gestionar Lotes</title>
 </head>
 <body>
-    <h1>Lotes</h1>
+<div th:replace="fragments/header :: headerFragment (title='Administrador')"></div>
+<main class="main-productos-container" style="padding-left: 350px">
+    <div class="product-form-container">
+        <h1>Gestionar Lotes</h1>
+        <h3>Ingresar nuevo lote</h3>
+        <form action="">
+            <div class="product-input-container">
+                <label for="proveedorLote">Proveedor del lote</label>
+                <select name="proveedor" id="proveedorLote">
+                    <option value="Proveedor 1">Proveedor 1</option>
+                    <option value="Proveedor 2">Proveedor 2</option>
+                    <option value="Proveedor 3">Proveedor 3</option>
+                </select>
+                <!--                    <input type="text" placeholder="Seleccione presentación del producto" name="presentacionProducto" id="presentacionProducto" value="descripcionProducto">-->
+            </div>
+            <div class="product-input-container">
+                <label for="vencimientoLote">Fecha vencimiento del lote (si aplica)</label>
+                <input type="date" placeholder="Ingrese fecha" name="vencimientoLote" id="vencimientoLote" value="vencimientoLote">
+            </div>
+            <div class="product-input-container">
+                <label for="recepcionLote">Fecha de recepcion del lote</label>
+                <input type="date" placeholder="Ingrese fecha" name="recepcionLote" id="recepcionLote" value="recepcionLote">
+            </div>
+            <div class="product-input-container">
+                <label for="cantidadLote">Cantidad de producto</label>
+                <input type="text" placeholder="Ingrese cantidad" name="cantidad" id="cantidadLote" value="">
+            </div>
+
+            <button type="submit">Ingresar Producto</button>
+        </form>
+    </div>
+
+    <br>
+
+    <div class="product-searchProduct-container">
+        <h3>Buscar lote</h3>
+        <div class="product-searcher-container">
+            <input type="search" placeholder="Ingrese" name="searchProduct" id="search-product">
+            <button>Buscar</button>
+        </div>
+        <div class="product-products-container">
+            <div class="product-card-container">
+                <div class="product-card-information">
+                    <img src="" alt="imagen lote">
+                    <div>
+                        <h4>Lote</h4>
+                        <p>Proveedor del lote</p>
+                        <p>Fecha de recepción</p>
+                        <p>Fecha de vencimiento</p>
+                        <p>Cantidad</p>
+                    </div>
+                </div>
+                <div class="product-card-actions">
+                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
+                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                </div>
+            </div>
+            <div class="product-card-container">
+                <div class="product-card-information">
+                    <img src="" alt="imagen lote">
+                    <div>
+                        <h4>Lote</h4>
+                        <p>Proveedor del lote</p>
+                        <p>Fecha de recepción</p>
+                        <p>Fecha de vencimiento</p>
+                        <p>Cantidad</p>
+                    </div>
+                </div>
+                <div class="product-card-actions">
+                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
+                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                </div>
+            </div>
+            <div class="product-card-container">
+                <div class="product-card-information">
+                    <img src="" alt="imagen lote">
+                    <div>
+                        <h4>Lote</h4>
+                        <p>Proveedor del lote</p>
+                        <p>Fecha de recepción</p>
+                        <p>Fecha de vencimiento</p>
+                        <p>Cantidad</p>
+                    </div>
+                </div>
+                <div class="product-card-actions">
+                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
+                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                </div>
+            </div>
+            <div class="product-card-container">
+                <div class="product-card-information">
+                    <img src="" alt="imagen lote">
+                    <div>
+                        <h4>Lote</h4>
+                        <p>Proveedor del lote</p>
+                        <p>Fecha de recepción</p>
+                        <p>Fecha de vencimiento</p>
+                        <p>Cantidad</p>
+                    </div>
+                </div>
+                <div class="product-card-actions">
+                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
+                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                </div>
+            </div>
+            <div class="product-card-container">
+                <div class="product-card-information">
+                    <img src="" alt="imagen lote">
+                    <div>
+                        <h4>Lote</h4>
+                        <p>Proveedor del lote</p>
+                        <p>Fecha de recepción</p>
+                        <p>Fecha de vencimiento</p>
+                        <p>Cantidad</p>
+                    </div>
+                </div>
+                <div class="product-card-actions">
+                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
+                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
