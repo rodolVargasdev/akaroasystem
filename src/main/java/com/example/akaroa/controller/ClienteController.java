@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/clientes")
+@RequestMapping("api/clientes")
 public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
 
     @GetMapping
-    public List<Cliente> getAllClientes() {
+    public List<Cliente> getAllClients() {
         return clienteService.findAll();
     }
 

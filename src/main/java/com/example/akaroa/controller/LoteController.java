@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/lotes")
+@RequestMapping("api/lots")
 public class LoteController {
 
     @Autowired
@@ -38,7 +38,7 @@ public class LoteController {
         if (lote.isPresent()) {
             Lote updatedLote = lote.get();
             updatedLote.setFechaVencimiento(loteDetails.getFechaVencimiento());
-            updatedLote.setProveedor(loteDetails.getProveedor());
+            updatedLote.setIdProveedor(loteDetails.getIdProveedor());
             updatedLote.setCantidadProducto(loteDetails.getCantidadProducto());
 
             return ResponseEntity.ok(loteService.save(updatedLote));

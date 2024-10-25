@@ -13,8 +13,6 @@ public class Cliente {
     private String nombreCliente;
     private String telefono;
     private String direccion;
-
-    @Lob
     private String historialCompras;
 
     // Getters and Setters

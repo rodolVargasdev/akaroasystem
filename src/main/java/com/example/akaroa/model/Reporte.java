@@ -20,8 +20,8 @@ public class Reporte {
     private String contenido;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    @JoinColumn(name = "idUsuario")
+    private Usuario idUsuario;
 
     // Getters and Setters
     public Integer getIdReporte() {
@@ -56,11 +56,11 @@ public class Reporte {
         this.contenido = contenido;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(Usuario usuario) {
+        this.idUsuario = usuario;
     }
 }

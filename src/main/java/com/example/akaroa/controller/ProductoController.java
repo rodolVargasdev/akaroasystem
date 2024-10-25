@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/productos")
+@RequestMapping("api/products")
 public class ProductoController {
 
     @Autowired
@@ -39,9 +39,9 @@ public class ProductoController {
             Producto updatedProducto = producto.get();
             updatedProducto.setPrecio(productoDetails.getPrecio());
             updatedProducto.setDescripcion(productoDetails.getDescripcion());
-            updatedProducto.setCategoria(productoDetails.getCategoria());
-            updatedProducto.setLote(productoDetails.getLote());
-            updatedProducto.setPresentacion(productoDetails.getPresentacion());
+            updatedProducto.setIdCategoria(productoDetails.getIdCategoria());
+            updatedProducto.setIdLote(productoDetails.getIdLote());
+            updatedProducto.setIdPresentacion(productoDetails.getIdPresentacion());
             updatedProducto.setNombreProducto(productoDetails.getNombreProducto());
             updatedProducto.setImagenUrl(productoDetails.getImagenUrl());
             return ResponseEntity.ok(productoService.save(updatedProducto));

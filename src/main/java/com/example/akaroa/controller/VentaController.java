@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/ventas")
+@RequestMapping("/api/ventas")
 public class VentaController {
 
     @Autowired
@@ -38,8 +38,8 @@ public class VentaController {
         if (venta.isPresent()) {
             Venta updatedVenta = venta.get();
             updatedVenta.setFechaVenta(ventaDetails.getFechaVenta());
-            updatedVenta.setCliente(ventaDetails.getCliente());
-            updatedVenta.setUsuario(ventaDetails.getUsuario());
+            updatedVenta.setIdCliente(ventaDetails.getIdCliente());
+            updatedVenta.setIdUsuario(ventaDetails.getIdUsuario());
             return ResponseEntity.ok(ventaService.save(updatedVenta));
         } else {
             return ResponseEntity.notFound().build();

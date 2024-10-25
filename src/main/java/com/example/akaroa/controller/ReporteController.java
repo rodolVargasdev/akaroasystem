@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/reportes")
+@RequestMapping("api/reports")
 public class ReporteController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class ReporteController {
             Reporte updatedReporte = reporte.get();
             updatedReporte.setTipoReporte(reporteDetails.getTipoReporte());
             updatedReporte.setContenido(reporteDetails.getContenido());
-            updatedReporte.setUsuario(reporteDetails.getUsuario());
+            updatedReporte.setIdUsuario(reporteDetails.getIdUsuario());
             updatedReporte.setFechaGeneracion(reporteDetails.getFechaGeneracion());
 
             return ResponseEntity.ok(reporteService.save(updatedReporte));

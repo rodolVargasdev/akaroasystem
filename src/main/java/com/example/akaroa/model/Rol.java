@@ -8,17 +8,17 @@ public class Rol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idRole;
+    private Integer idRol;
 
     private String nombreRole;
 
     // Getters and Setters
-    public Integer getIdRole() {
-        return idRole;
+    public Integer getIdRol() {
+        return idRol;
     }
 
-    public void setIdRole(Integer idRole) {
-        this.idRole = idRole;
+    public void setIdRol(Integer idRole) {
+        this.idRol = idRole;
     }
 
     public String getNombreRole() {

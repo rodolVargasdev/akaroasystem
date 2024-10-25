@@ -1,4 +1,4 @@
-package com.example.akaroa.model;;
+package com.example.akaroa.model;
 
 import jakarta.persistence.*;
 import java.util.Date;
@@ -15,12 +15,12 @@ public class Venta {
     private Date fechaVenta;
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
-    private Cliente cliente;
+    @JoinColumn(name = "idCliente")
+    private Cliente idCliente;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    @JoinColumn(name = "idUsuario")
+    private Usuario idUsuario;
 
     // Getters and Setters
     public Integer getIdVenta() {
@@ -39,19 +39,19 @@ public class Venta {
         this.fechaVenta = fechaVenta;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Cliente getIdCliente() {
+        return idCliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setIdCliente(Cliente cliente) {
+        this.idCliente = cliente;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(Usuario usuario) {
+        this.idUsuario = usuario;
     }
 }

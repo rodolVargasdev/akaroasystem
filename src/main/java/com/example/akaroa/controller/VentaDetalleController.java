@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/ventas-detalles")
+@RequestMapping("api/ventas-detalles")
 public class VentaDetalleController {
 
     @Autowired
@@ -39,7 +39,7 @@ public class VentaDetalleController {
             VentaDetalle updatedVentaDetalle = ventaDetalle.get();
             updatedVentaDetalle.setCantidad(ventaDetalleDetails.getCantidad());
             updatedVentaDetalle.setPrecioUnitario(ventaDetalleDetails.getPrecioUnitario());
-            updatedVentaDetalle.setProducto(ventaDetalleDetails.getProducto());
+            updatedVentaDetalle.setIdProducto(ventaDetalleDetails.getIdProducto());
 
             return ResponseEntity.ok(ventaDetalleService.save(updatedVentaDetalle));
         } else {

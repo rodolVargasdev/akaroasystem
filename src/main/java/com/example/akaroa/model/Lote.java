@@ -17,8 +17,8 @@ public class Lote {
     private Integer cantidadProducto;
 
     @ManyToOne
-    @JoinColumn(name = "id_proveedor")
-    private Proveedor proveedor;
+    @JoinColumn(name = "idProveedor")
+    private Proveedor idProveedor;
 
     // Getters and Setters
     public Integer getIdLote() {
@@ -45,11 +45,11 @@ public class Lote {
         this.cantidadProducto = cantidadProducto;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
+    public Proveedor getIdProveedor() {
+        return idProveedor;
     }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setIdProveedor(Proveedor proveedor) {
+        this.idProveedor = proveedor;
     }
 }

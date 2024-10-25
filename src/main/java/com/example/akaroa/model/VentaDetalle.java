@@ -11,12 +11,12 @@ public class VentaDetalle {
     private Integer idDetalle;
 
     @ManyToOne
-    @JoinColumn(name = "id_venta")
-    private Venta venta;
+    @JoinColumn(name = "idVenta")
+    private Venta idVenta;
 
     @ManyToOne
-    @JoinColumn(name = "id_producto")
-    private Producto producto;
+    @JoinColumn(name = "idProducto")
+    private Producto idProducto;
 
     private Integer cantidad;
     private Double precioUnitario;
@@ -30,20 +30,20 @@ public class VentaDetalle {
         this.idDetalle = idDetalle;
     }
 
-    public Venta getVenta() {
-        return venta;
+    public Venta getIdVenta() {
+        return idVenta;
     }
 
-    public void setVenta(Venta venta) {
-        this.venta = venta;
+    public void setIdVenta(Venta venta) {
+        this.idVenta = venta;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public Producto getIdProducto() {
+        return idProducto;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setIdProducto(Producto producto) {
+        this.idProducto = producto;
     }
 
     public Integer getCantidad() {

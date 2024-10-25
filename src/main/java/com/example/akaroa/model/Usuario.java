@@ -15,24 +15,24 @@ public class Usuario {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "id_role")
-    private Rol role;
+    @JoinColumn(name = "idRol")
+    private Rol idRol;
 
     // Getters and Setters
     public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setIdUsuario(Integer id_usuario) {
+        this.idUsuario = id_usuario;
     }
 
     public String getNombreUsuario() {
         return nombreUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setNombreUsuario(String nombre_usuario) {
+        this.nombreUsuario = nombre_usuario;
     }
 
     public String getEmail() {
@@ -51,11 +51,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public Rol getRole() {
-        return role;
+    public Rol getIdRol() {
+        return idRol;
     }
 
-    public void setRole(Rol role) {
-        this.role = role;
+    public void setIdRol(Rol role) {
+        this.idRol = role;
     }
 }

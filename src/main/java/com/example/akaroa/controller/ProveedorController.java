@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/proveedores")
+@RequestMapping("api/provendered")
 public class ProveedorController {
 
     @Autowired

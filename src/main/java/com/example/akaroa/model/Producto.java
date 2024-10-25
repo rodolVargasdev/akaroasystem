@@ -19,20 +19,20 @@ public class Producto {
     private String imagenUrl;
 
     @ManyToOne
-    @JoinColumn(name = "id_lote")
-    private Lote lote;
+    @JoinColumn(name = "idLote")
+    private Lote idLote;
 
     @ManyToOne
-    @JoinColumn(name = "id_presentacion")
-    private Presentacion presentacion;
+    @JoinColumn(name = "idPresentacion")
+    private Presentacion idPresentacion;
 
     @ManyToOne
-    @JoinColumn(name = "id_unidad_medida")
-    private UnidadMedida unidadMedida;
+    @JoinColumn(name = "idUnidadMedida")
+    private UnidadMedida idUnidadMedida;
 
     @ManyToOne
-    @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
+    @JoinColumn(name = "idCategoria")
+    private Categoria idCategoria;
 
     // Getters and Setters
     public Integer getIdProducto() {
@@ -75,35 +75,35 @@ public class Producto {
         this.imagenUrl = imagenUrl;
     }
 
-    public Lote getLote() {
-        return lote;
+    public Lote getIdLote() {
+        return idLote;
     }
 
-    public void setLote(Lote lote) {
-        this.lote = lote;
+    public void setIdLote(Lote lote) {
+        this.idLote = lote;
     }
 
-    public Presentacion getPresentacion() {
-        return presentacion;
+    public Presentacion getIdPresentacion() {
+        return idPresentacion;
     }
 
-    public void setPresentacion(Presentacion presentacion) {
-        this.presentacion = presentacion;
+    public void setIdPresentacion(Presentacion presentacion) {
+        this.idPresentacion = presentacion;
     }
 
-    public UnidadMedida getUnidadMedida() {
-        return unidadMedida;
+    public UnidadMedida getIdUnidadMedida() {
+        return idUnidadMedida;
     }
 
-    public void setUnidadMedida(UnidadMedida unidadMedida) {
-        this.unidadMedida = unidadMedida;
+    public void setIdUnidadMedida(UnidadMedida unidadMedida) {
+        this.idUnidadMedida = unidadMedida;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public Categoria getIdCategoria() {
+        return idCategoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setIdCategoria(Categoria categoria) {
+        this.idCategoria = categoria;
     }
 }
