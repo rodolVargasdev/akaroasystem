@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Registro de usuarios</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: headerFragment (title='Administrador')"></div>
+    <main class="main-productos-container" style="padding-left: 350px">
+        <div class="registro-main-container">
+            <div class="registro-title-container">
+                <h1>Registro de usuarios</h1>
+            </div>
+            <div class="registro-form-background">
+                <div class="registro-main-container">
+                    <div class="registro-title-container">
+                        <h3>Registrar nuevo usuario</h3>
+                    </div>
+                    <div class="registro-form-container">
+                        <div class="registro-form-nombres">
+                            <label for="registro-nombres" class="registro-form-label">Nombre y apellido</label>
+                            <input type="text" placeholder="Ingrese teléfono" name="registro-nombres" id="registro-nombres">
+                        </div>
+                        <div class="registro-form-tipousuario">
+                            <label for="registro-tipousuario" class="registro-form-label">Tipo de usuario</label>
+                            <select name="registro-tipousuario" id="registro-tipousuario">
+                                <option value="Administrador">Administrador</option>
+                                <option value="Vendedor">Vendedor</option>
+                                <option value="Gerente">Gerente</option>
+                            </select>
+                        </div>
+                        <div class="registro-form-email">
+                            <label for="registro-email" class="registro-form-label">Correo electrónico</label>
+                            <input type="email" placeholder="Ingrese correo electrónico" name="registro-email" id="registro-email">
+                        </div>
+                        <div class="registro-form-usuario">
+                            <label for="registro-usuario" class="registro-form-label">Usuario</label>
+                            <input type="text" placeholder="Ingrese usuario" name="registro-usuario" id="registro-usuario">
+                        </div>
+                        <div class="registro-form-password">
+                            <label for="registro-password" class="registro-form-label">Contraseña</label>
+                            <input type="password" placeholder="Ingrese contraseña" name="registro-password" id="registro-password">
+                        </div>
+                        <div class="registro-form-password">
+                            <label for="registro-password2" class="registro-form-label">Repetir contraseña</label>
+                            <input type="password" placeholder="Repetir contraseña" name="registro-password" id="registro-password2">
+                        </div>
+                        <div class="registro-form-button">
+                            <button type="submit">Ingresar nuevo usuario</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-searchProduct-container">
+                <h3>Buscar usuarios</h3>
+                <div class="product-searcher-container">
+                    <input type="search" placeholder="Ingrese el nombre del usuario" name="searchProduct" id="search-product">
+                    <button>Buscar</button>
+                </div>
+                <div class="product-products-container">
+                    <div class="product-card-container">
+                        <div class="product-card-information">
+                            <img src="" alt="imagen usuario">
+                            <div>
+                                <h4>Nombre Apellido</h4>
+                                <p>nombre.apellido</p>
+                                <p>nombre.apellido@email.com</p>
+                            </div>
+                        </div>
+                        <div class="product-card-actions">
+                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
+                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                        </div>
+                    </div>
+                    <div class="product-card-container">
+                        <div class="product-card-information">
+                            <img src="" alt="imagen usuario">
+                            <div>
+                                <h4>Nombre Apellido</h4>
+                                <p>nombre.apellido</p>
+                                <p>nombre.apellido@email.com</p>
+                            </div>
+                        </div>
+                        <div class="product-card-actions">
+                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
+                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                        </div>
+                    </div>
+                    <div class="product-card-container">
+                        <div class="product-card-information">
+                            <img src="" alt="imagen usuario">
+                            <div>
+                                <h4>Nombre Apellido</h4>
+                                <p>nombre.apellido</p>
+                                <p>nombre.apellido@email.com</p>
+                            </div>
+                        </div>
+                        <div class="product-card-actions">
+                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
+                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                        </div>
+                    </div>
+                    <div class="product-card-container">
+                        <div class="product-card-information">
+                            <img src="" alt="imagen usuario">
+                            <div>
+                                <h4>Nombre Apellido</h4>
+                                <p>nombre.apellido</p>
+                                <p>nombre.apellido@email.com</p>
+                            </div>
+                        </div>
+                        <div class="product-card-actions">
+                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
+                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                        </div>
+                    </div>
+                    <div class="product-card-container">
+                        <div class="product-card-information">
+                            <img src="" alt="imagen usuario">
+                            <div>
+                                <h4>Nombre Apellido</h4>
+                                <p>nombre.apellido</p>
+                                <p>nombre.apellido@email.com</p>
+                            </div>
+                        </div>
+                        <div class="product-card-actions">
+                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
+                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>

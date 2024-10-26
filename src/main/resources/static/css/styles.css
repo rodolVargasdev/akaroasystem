@@ -191,7 +191,7 @@ body{
 .product-form-container{
     display: flex;
     width: 1036px;
-    padding: 12px 0px;
+    padding: 12px 0;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -400,7 +400,6 @@ body{
 }
 .product-card-information{
     display: flex;
-    align-items: center;
     gap: 24px;
     align-self: stretch;
 }
@@ -436,8 +435,10 @@ body{
     border-radius: 8px;
     background: #FBFBFB;
 }
-.product-card-actions, atributo-actions{
+.product-card-actions{
     display: flex;
+    width: 100%;
+    padding: 0 12px;
     height: 24px;
     justify-content: flex-end;
     align-items: center;
@@ -455,7 +456,6 @@ body{
     align-items: flex-start;
     gap: 20px;
 }
-
 .atributos-container h1 {
     align-self: stretch;
     color: #FFF;
@@ -465,8 +465,8 @@ body{
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    margin-top: 50px;
 }
-
 .atributos-selection-container{
     display: flex;
     flex-direction: column;
@@ -503,15 +503,13 @@ body{
     border: 1px solid #FBFBFB !important;
     border-radius: 8px 8px 0 0;
 }
-
 .atributos-selection-main-content{
-    height: 550px;
     padding: 40px;
     flex-direction: column;
     align-items: flex-start;
     gap: 32px;
     align-self: stretch;
-    border-radius: 0px 8px 8px 8px;
+    border-radius: 0 8px 8px 8px;
     background: #FBFBFB;
     display: none;
 }
@@ -533,7 +531,7 @@ body{
     border-radius: 8px;
     background: linear-gradient(94deg, #DCDCDC 0%, #E4E4E4 100%);
 }
-.atributo-input-container p{
+.atributo-input-container-title{
     color: #696969;
     /* Light Paragraph */
     font-family: sans-serif;
@@ -542,7 +540,16 @@ body{
     font-weight: 300;
     line-height: normal;
 }
-
+.atributo-actions{
+    display: flex;
+    gap: 4px;
+}
+.atributo-actions div:hover{
+    cursor: pointer;
+}
+.product-card-actions div i:hover{
+    cursor: pointer;
+}
 #button-att,#button-att2 {
     display: flex;
     padding: 8px 32px;
@@ -551,4 +558,577 @@ body{
     gap: 10px;
     border-radius: 8px;
     background: #FBFBFB;
+}
+
+/* Configuración usuario */
+.user-main-container{
+    display: flex;
+    align-items: flex-start;
+    gap: 64px;
+}
+.user-form-container{
+    display: flex;
+    width: 731px;
+    padding: 32px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+.user-editinfo-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+.user-editinfo-container h1{
+    color: #FFF;
+    /* Subtitle */
+    font-family: sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.user-editinfo-container h3{
+    color: #FFF;
+    /* Subtitle 2 */
+    font-family: sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.user-personalinfo-form-container{
+    display: flex;
+    align-items: flex-end;
+    align-content: flex-end;
+    gap: 12px;
+    align-self: stretch;
+    flex-wrap: wrap;
+}
+.user-personalinfo-form-container div label{
+    color: #FFF;
+    /* Subtitle 3 */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.personalinfo-tel-container,.personalinfo-residencia-container,.personalinfo-sexo-container,.personalinfo-edad-container,.personalinfo-dui-container,.personalinfo-tipousuario-container,.personalinfo-usuario-container,.personalinfo-email-container,.personalinfo-aditionalinfo-container,.personalinfo-button-container{
+    display: flex;
+    height: 66px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    color: #FBFBFB;
+    /* Paragraph */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background: transparent;
+}
+.personalinfo-tel-container{
+    width: 252px;
+}
+.personalinfo-residencia-container{
+    width: 466px;
+}
+.personalinfo-sexo-container{
+    width: 160px;
+}
+.personalinfo-edad-container{
+    width: 144px;
+}
+.personalinfo-dui-container{
+    width: 174px;
+}
+.personalinfo-tipousuario-container{
+    display: flex;
+    height: 66px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+}
+.personalinfo-usuario-container{
+    width: 228px;
+}
+.personalinfo-email-container{
+    width: 491px;
+}
+.personalinfo-aditionalinfo-container{
+    width: 731px;
+}
+
+.personalinfo-button-container{
+    display: flex;
+    padding: 9px 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+}
+.personalinfo-button-container button{
+    display: flex;
+    height: 43px;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 32px;
+    align-self: stretch;
+    color: #201E43;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 8px;
+    background: #FBFBFB;
+}
+#personalinfo-tel,#personalinfo-residencia,#personalinfo-sexo,#personalinfo-edad,#personalinfo-dui,#personalinfo-tipousuario,#personalinfo-usuario,#personalinfo-email,#personalinfo-aditionalinfo{
+    display: flex;
+    padding: 12px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid #FBFBFB;
+    opacity: 0.75;
+    background: transparent;
+    color: #FFF;
+}
+select option{
+    color: #201E43;
+}
+
+.user-passwordreset-container{
+    display: flex;
+    padding: 32px 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: #FFF;
+}
+.user-passwordreset-container-background{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    align-self: stretch;
+}
+.user-passwordreset-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+}
+.user-passwordreset-form-container h3{
+    color: #201E43;
+    /* Subtitle 3 */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.user-passwordreset-form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+#currentpassword{
+    display: flex;
+    width: 339px;
+    height: 43px;
+    padding: 12px;
+    align-items: center;
+    gap: 10px;
+}
+.user-passwordreset-form div{
+    display: flex;
+    width: 685px;
+    align-items: flex-start;
+    gap: 8px;
+}
+.user-passwordreset-form input{
+    display: flex;
+    width: 339px;
+    height: 43px;
+    padding: 12px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    border: 1px solid #201E43;
+    opacity: 0.75;
+}
+.user-passwordreset-form div input{
+    display: flex;
+    height: 43px;
+    padding: 12px;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    border-radius: 8px;
+    border: 1px solid #201E43;
+    opacity: 0.75;
+    color: #201E43;
+    /* Paragraph */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.user-passwordreset-container-background button{
+    display: flex;
+    width: 197px;
+    height: 38px;
+    padding: 12px 0;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: #201E43;
+    color: #FBFBFB;
+    /* Paragraph */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.user-information-container-background{
+    display: flex;
+    width: 306px;
+    height: 997px;
+    padding: 32px 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background:#FBFBFB;
+}
+.user-information-container{
+    display: flex;
+    padding: 32px 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+.user-personalinformation-container{
+    display: flex;
+    height: 377px;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+}
+.user-personalinformation-picture{
+    display: flex;
+    width: 129px;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+.user-personalinformation-picture img{
+    height: 129px;
+    background: dimgrey;
+    align-self: stretch;
+    border-radius: 100px;
+    //background: url(<path-to-image>) lightgray -25.175px -9.038px / 139.17% 114.103% no-repeat;
+}
+.user-personalinformation-picture button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 8px;
+    border-radius: 8px;
+    background: #201E43;
+    color: #FBFBFB;
+    /* Paragraph 2 */
+    font-family: sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.user-personalinformation-picture h3{
+    color: #000;
+    text-align: center;
+    /* Subtitle 3 */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.user-personalinformation-data{
+    display: flex;
+    padding: 9px 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+}
+.personalinformation-data{
+    display: flex;
+    padding: 12px 16px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    border-top: 1px solid #696969;
+}
+.personalinformation-data h3 {
+    color: #000;
+    text-align: center;
+    /* Subtitle 3 */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.personalinformation-data p{
+    color: #000;
+    text-align: center;
+    /* Paragraph */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.user-generalinformation-container{
+    display: flex;
+    padding: 0 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: stretch;
+}
+.generalinformation-title{
+    display: flex;
+    padding: 12px 8px;
+    align-items: center;
+    gap: 28px;
+    align-self: stretch;
+}
+.generalinformation-title h3{
+    width: 100%;
+    color: #000;
+    text-align: center;
+    /* Subtitle 3 */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.generalinformation-data,.generalinformation-data-vertical{
+    display: flex;
+    padding: 12px 16px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+    border-top: 1px solid #696969;
+}
+.generalinformation-data h3{
+    color: #000;
+    text-align: center;
+    /* Paragraph */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.generalinformation-data p{
+    color: #000;
+    text-align: center;
+    /* Light Paragraph */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+.generalinformation-data-vertical{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+.generalinformation-data-vertical h3{
+    color: #000;
+    text-align: center;
+    /* Paragraph */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.generalinformation-data-vertical p{
+    color: #000;
+    /* Light Paragraph */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+/* Registro de usuario */
+
+.registro-main-container{
+    display: flex;
+    width: 937px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+}
+.registro-title-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+.registro-title-container h1{
+    color: #FFF;
+    /* Subtitle */
+    font-family: sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.registro-form-background{
+    display: flex;
+    padding: 16px 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 8px;
+    background: #FBFBFB;
+}
+.registro-main-container{
+    display: flex;
+    padding: 16px 32px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    align-self: stretch;
+}
+.registro-title-container h3{
+    color: #201E43;
+    /* Subtitle 2 */
+    font-family: sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.registro-form-container{
+    display: flex;
+    align-items: flex-end;
+    align-content: flex-end;
+    gap: 12px;
+    align-self: stretch;
+    flex-wrap: wrap;
+}
+.registro-form-nombres,registro-form-tipousuario,registro-form-email,registro-form-usuario,registro-form-password{
+    display: flex;
+    width: 258px;
+    height: 66px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+}
+.registro-form-label{
+    color: #201E43;
+    /* Subtitle 3 */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.registro-form-container div input, .registro-form-container div select{
+    display: flex;
+    width: 100%;
+    padding: 12px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 8px;
+    border: 1px solid #201E43;
+    opacity: 0.75;
+    color: #201E43;
+    /* Paragraph */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.registro-form-container div select option{
+    background: #FFFFFF;
+}
+.registro-form-tipousuario{
+    width: 223px;
+}
+.registro-form-email{
+    width: 300px;
+}
+.registro-form-usuario{
+    width: 258px;
+}
+.registro-form-password{
+    width: 243px;
+}
+.registro-form-button{
+    display: flex;
+    width: 182px;
+    height: 43px;
+    padding: 8px 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+}
+.registro-form-button button {
+    display: flex;
+    height: 43px;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    padding: 8px 0;
+    flex: 1 0 0;
+    color: #FBFBFB;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 8px;
+    background: #201E43;
 }

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"  href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Configuración de usuarios</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: headerFragment (title='Administrador')"></div>
+    <main class="main-productos-container" style="padding-left: 350px">
+        <div class="user-main-container">
+            <div class="user-form-container">
+                <div class="user-editinfo-container">
+                    <h1>Configuración de usuario</h1>
+                    <h3>Editar datos personales</h3>
+                    <form action="" class="user-personalinfo-form-container">
+                        <div class="personalinfo-tel-container">
+                            <label for="personalinfo-tel">Teléfono</label>
+                            <input type="tel" placeholder="Ingrese teléfono" name="personalinfo-tel" id="personalinfo-tel">
+                        </div>
+                        <div class="personalinfo-residencia-container">
+                            <label for="personalinfo-residencia">Residencia</label>
+                            <input type="text" placeholder="Ingrese residencia" name="personalinfo-residencia" id="personalinfo-residencia">
+                        </div>
+                        <div class="personalinfo-sexo-container">
+                            <label for="personalinfo-sexo">Sexo</label>
+                            <select name="personalinfo-sexo" id="personalinfo-sexo">
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="personalinfo-edad-container">
+                            <label for="personalinfo-edad">Edad</label>
+                            <input type="number" placeholder="Ingrese edad" name="personalinfo-edad" id="personalinfo-edad">
+                        </div>
+                        <div class="personalinfo-dui-container">
+                            <label for="personalinfo-dui">Documento identidad</label>
+                            <input type="number" placeholder="Ingrese DUI" name="personalinfo-dui" id="personalinfo-dui">
+                        </div>
+                        <div class="personalinfo-tipousuario-container">
+                            <label for="personalinfo-tipousuario">Tipo de usuario</label>
+                            <select name="personalinfo-tipousuario" id="personalinfo-tipousuario">
+                                <option value="Administrador">Administrador</option>
+                                <option value="Vendedor">Vendedor</option>
+                                <option value="Gerente">Gerente</option>
+                            </select>
+                        </div>
+                        <div class="personalinfo-usuario-container">
+                            <label for="personalinfo-usuario">Usuario</label>
+                            <input type="text" placeholder="Ingrese nuevo usuario" name="personalinfo-usuario" id="personalinfo-usuario">
+                        </div>
+                        <div class="personalinfo-email-container">
+                            <label for="personalinfo-email">Correo electrónico</label>
+                            <input type="email" placeholder="Ingrese nuevo correo electrónico" name="personalinfo-email" id="personalinfo-email">
+                        </div>
+                        <div class="personalinfo-aditionalinfo-container">
+                            <label for="personalinfo-aditionalinfo">Información adicional</label>
+                            <input type="text" placeholder="Ingrese información adicional" name="personalinfo-aditionalinfo" id="personalinfo-aditionalinfo">
+                        </div>
+                        <div class="personalinfo-button-container">
+                            <button type="submit">Modificar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="user-passwordreset-container">
+                    <div class="user-passwordreset-container-background">
+                        <div class="user-passwordreset-form-container">
+                            <h3>Cambiar contraseña</h3>
+                            <form action="" class="user-passwordreset-form">
+                                <input type="password" placeholder="Ingrese contraseña actual" name="" id="currentpassword">
+                                <div>
+                                    <input type="password" placeholder="Ingrese nueva contraseña" name="" >
+                                    <input type="password" placeholder="Repetir nueva contraseña" name="" >
+                                </div>
+                            </form>
+                        </div>
+                        <button type="submit">Cambiar contraseña</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="user-information-container-background">
+                <div class="user-information-container">
+                    <div class="user-personalinformation-container">
+                        <div class="user-personalinformation-picture">
+                            <img src="" alt="">
+                            <button>Cambiar foto de perfil</button>
+                            <h3>Fabio Cerros</h3>
+                        </div>
+                        <div class="user-personalinformation-data">
+                            <div class="personalinformation-data">
+                                <h3>Usuario</h3>
+                                <p>fabio.cerritos</p>
+                            </div>
+                            <div class="personalinformation-data">
+                                <h3>Tipo de usuario</h3>
+                                <p>Administrador</p>
+                            </div>
+                            <div class="personalinformation-data">
+                                <h3>DUI</h3>
+                                <p>xxxxxxxx-x</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="user-generalinformation-container">
+                        <div class="generalinformation-title">
+                            <h3>Datos personales</h3>
+                        </div>
+                        <div class="generalinformation-data">
+                            <h3>Email</h3>
+                            <p>jane@mail.com</p>
+                        </div>
+                        <div class="generalinformation-data">
+                            <h3>Teléfono</h3>
+                            <p>11223344</p>
+                        </div>
+                        <div class="generalinformation-data">
+                            <h3>Edad</h3>
+                            <p>21</p>
+                        </div>
+                        <div class="generalinformation-data-vertical">
+                            <h3>Residencia</h3>
+                            <p>Santa Elena, San Salvador</p>
+                        </div>
+                        <div class="generalinformation-data-vertical">
+                            <h3>Información adicional</h3>
+                            <p>Desarrollador full stack de spring con Java</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>
