@@ -9,16 +9,29 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUsuario;
-
     private String nombreUsuario;
+    @Column(unique=true)
     private String email;
     private String password;
+    private String nombreCompleto;
 
     @ManyToOne
     @JoinColumn(name = "idRol")
     private Rol idRol;
 
+    @Transient
+    private String confirmPassword;
+
     // Getters and Setters
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
     public Integer getIdUsuario() {
         return idUsuario;
     }
@@ -57,5 +70,13 @@ public class Usuario {
 
     public void setIdRol(Rol role) {
         this.idRol = role;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
