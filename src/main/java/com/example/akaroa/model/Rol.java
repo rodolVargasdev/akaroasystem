@@ -9,7 +9,7 @@ public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRol;
-
+    @Column(unique=true)
     private String nombreRole;
 
     // Getters and Setters
