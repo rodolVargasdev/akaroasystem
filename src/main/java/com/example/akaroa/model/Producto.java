@@ -2,6 +2,8 @@ package com.example.akaroa.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="productos")
 public class Producto {
@@ -18,19 +20,19 @@ public class Producto {
 
     private String imagenUrl;
 
-    @ManyToOne
-    @JoinColumn(name = "idLote")
-    private Lote idLote;
+//    @OneToMany
+//    @JoinColumn(name = "idLote")
+//    private List<Lote> idLote;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idPresentacion")
     private Presentacion idPresentacion;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idUnidadMedida")
     private UnidadMedida idUnidadMedida;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "idCategoria")
     private Categoria idCategoria;
 
@@ -75,13 +77,7 @@ public class Producto {
         this.imagenUrl = imagenUrl;
     }
 
-    public Lote getIdLote() {
-        return idLote;
-    }
 
-    public void setIdLote(Lote lote) {
-        this.idLote = lote;
-    }
 
     public Presentacion getIdPresentacion() {
         return idPresentacion;

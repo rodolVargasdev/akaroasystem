@@ -369,28 +369,31 @@ body{
     line-height: normal;
 }
 .product-products-container{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 64px;
     padding: 40px;
     justify-content: space-between;
     align-items: flex-start;
     align-content: flex-start;
     row-gap: 32px;
     align-self: stretch;
-    flex-wrap: wrap;
     border-radius: 8px;
     background: #FBFBFB;
 }
+
 .product-card-container{
     display: flex;
-    width: 463px;
     flex-direction: column;
-    height: 240px;
     padding: 21px 22px;
-    align-items: flex-start;
     gap: 8px;
     border-radius: 8px;
-    background: linear-gradient(94deg, #DCDCDC 0%, #E4E4E4 100%);
+    border: 1px solid rgb(200, 200, 200); /* Color de borde más suave */
+    background: #FFFFFF; /* Fondo blanco para mayor claridad */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+
 }
+
 .product-card-container2{
     display: flex;
     flex-direction: column;
@@ -400,7 +403,8 @@ body{
 }
 .product-card-information{
     display: flex;
-    gap: 24px;
+    flex-direction: column;
+    gap: 16px; /* Ajustar el espacio entre elementos */
     align-self: stretch;
 }
 .product-text-info{
@@ -411,44 +415,104 @@ body{
     flex: 1 0 0;
     align-self: stretch;
 }
-.product-card-information div h4{
-    color: #000;
-    /* Subtitle 2 */
-    font-family: sans-serif;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+#imagenProducto{
+    width: 405px !important;
 }
-.product-card-information div p{
-    color: #000;
+.product-card-information div h4{
+    color: #333; /* Color más oscuro para mejor contraste */
+    font-family: 'Roboto', sans-serif; /* Consistencia en la tipografía */
+    font-size: 20px; /* Aumentar el tamaño para mayor impacto */
+    font-weight: 700;
+    line-height: 1.2; /* Mejorar la legibilidad */
+}
+.product-card-information div span{
+    color: #555;
     /* Light Paragraph 2 */
-    font-family: sans-serif;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
 }
 .product-card-information img{
-    width: 166px;
-    height: 166px;
+    width: 100%;
+    max-height: 150px;
     border-radius: 8px;
+    object-fit: cover;
     background: #FBFBFB;
 }
-.product-card-actions{
+.product-card-actions {
     display: flex;
-    width: 100%;
-    padding: 0 12px;
-    height: 24px;
+    gap: 12px;
     justify-content: flex-end;
     align-items: center;
-}
-.product-card-actions div{
-    width: 24px;
-    height: 24px;
+    color: white;
+    border-radius: 12px;
 }
 
-/* Gestionar Atributos */
+.product-card-actions div {
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    padding: 8px;
+    border-radius: 8px;
+    background: #454281;
+    gap: 8px; /* Espaciado entre ícono y texto */
+    color: #FFF;
+    font-size: 14px;
+    transition: width 0.3s ease, background-color 0.3s ease; /* Transiciones suaves */
+    width: 40px; /* Tamaño inicial ajustado al ícono */
+    height: 40px; /* Tamaño fijo para mantener el diseño */
+    overflow: hidden; /* Oculta el texto cuando no está visible */
+    white-space: nowrap; /* Evita que el texto se divida */
+    position: relative; /* Para controlar el posicionamiento interno */
+}
+
+.product-card-actions div:hover {
+    transition: width 0.3s;
+    cursor: pointer;
+    background: #6864cf;
+    width: 110px;
+    justify-content: flex-start;
+}
+
+.product-card-actions div span {
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: opacity 0.5s ease, transform 0.3s ease;
+    transform: translateX(-10px);
+}
+
+.product-card-actions div:hover span {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.product-card-actions div i {
+    font-size: 18px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-right: 7px;
+}
+
+.product-action-delete{
+    transition: background 0.5s;
+    background: #a64848 !important;
+    border: 0.5px solid #FFF !important;
+}
+.product-action-delete:hover {
+    transition: background 0.5s;
+    background: #c66464 !important;
+
+}
+
+    /* Gestionar Atributos */
 .atributos-container{
     display: flex;
     width: 1036px;
@@ -547,8 +611,9 @@ body{
 .atributo-actions div:hover{
     cursor: pointer;
 }
-.product-card-actions div i:hover{
-    cursor: pointer;
+
+.product-action-edit:hover{
+
 }
 #button-att,#button-att2 {
     display: flex;

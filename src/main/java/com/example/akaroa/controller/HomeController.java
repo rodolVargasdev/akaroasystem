@@ -27,15 +27,15 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/lotes")
-    public String lotes(Model model) {
-        return "lotes";
-    }
+    /*@GetMapping("/lot")
+    public String listarLotes(Model model) {
+        return "listarLotes";
+    }*/
 
-    @GetMapping("/productos")
+    /*@GetMapping("/prod")
     public String productos(Model model) {
         return "productos";
-    }
+    }*/
 
     @GetMapping("/proveedores")
     public String proveedores(Model model) {

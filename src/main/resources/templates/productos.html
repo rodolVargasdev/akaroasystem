@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet"  href="/css/styles.css">
@@ -8,57 +8,70 @@
     <title>Gestionar Productos</title>
 </head>
 <body>
-    <div th:replace="fragments/header :: headerFragment (title='Administrador')"></div>
+    <div th:replace="~{fragments/header :: headerFragment (title='Administrador')}"></div>
     <main class="main-productos-container" style="padding-left: 350px">
         <div class="product-form-container">
+
             <h1>Gestionar Productos</h1>
+            <div th:if="${mensajeExito}" class="alert alert-success" role="alert">
+                <p th:text="${mensajeExito}"></p>
+            </div>
+            <div th:if="${mensajeError}" class="alert alert-danger" role="alert">
+                <p th:text="${mensajeError}"></p>
+            </div>
             <h3>Ingresar nuevo producto</h3>
-            <form action="">
+            <form th:action="@{/productos}" method="post" th:object="${producto}">
                 <div class="product-input-container">
                     <label for="nombreProducto">Nombre producto</label>
-                    <input type="text" placeholder="Ingrese el nombre del producto" name="nombreProducto" id="nombreProducto" >
+                    <input type="text" placeholder="Ingrese el nombre del producto" name="nombreProducto" id="nombreProducto" th:field="*{nombreProducto}">
                 </div>
                 <div class="product-input-container">
                     <label for="precioProducto">Precio producto</label>
-
-                    <input type="text" placeholder="Ingrese el precio en dólares" name="precioProducto" id="precioProducto" >
+                    <input type="text" placeholder="Ingrese el precio en dólares" name="precioProducto" id="precioProducto" th:field="*{precio}">
                 </div>
-                <div class="product-input-container2">
+                <div class="product-input-container">
                     <label for="descripcionProducto">Descripción del producto</label>
-                    <input type="text" placeholder="Ingrese descripción del producto" name="descripcionProducto" id="descripcionProducto" >
+                    <input type="text" placeholder="Ingrese descripción del producto" name="descripcionProducto" id="descripcionProducto" th:field="*{descripcion}">
+                </div>
+                <div class="product-input-container">
+                    <label for="categoriaProducto">Categoría del producto</label>
+                    <select name="categoriaProducto" id="categoriaProducto" th:field="*{idCategoria}">
+                        <option th:each="categoria : ${categorias}"
+                                th:value="${categoria.idCategoria}"
+                                th:text="${categoria.descripcion}">
+                        </option>
+                    </select>
                 </div>
                 <div class="product-input-container">
                     <label for="presentacionProducto">Presentación del producto</label>
-                    <select name="presentation" id="presentacionProducto">
-                        <option value="Presentacion 1">Presentacion 1</option>
-                        <option value="Presentacion 2">Presentacion 2</option>
-                        <option value="Presentacion 3">Presentacion 3</option>
+                    <select name="presentacionProducto" id="presentacionProducto" th:field="*{idPresentacion}">
+                        <option th:each="presentacion : ${presentaciones}"
+                                th:value="${presentacion.idPresentacion}"
+                                th:text="${presentacion.descripcion}">
+                        </option>
                     </select>
-<!--                    <input type="text" placeholder="Seleccione presentación del producto" name="presentacionProducto" id="presentacionProducto" value="descripcionProducto">-->
                 </div>
                 <div class="product-input-container">
                     <label for="unidadMedidaProducto">Unidad de medida del producto</label>
-                    <select name="unidadMedidaProducto" id="unidadMedidaProducto">
-                        <option value="Unidad Medida 1">Unidad Medida 1</option>
-                        <option value="Unidad Medida 2">Unidad Medida 2</option>
-                        <option value="Unidad Medida 3">Unidad Medida 3</option>
+                    <select name="unidadMedidaProducto" id="unidadMedidaProducto" th:field="*{idUnidadMedida}">
+                        <option th:each="unidadmedida : ${unidadesmedidas}"
+                                th:value="${unidadmedida.idUnidadMedida}"
+                                th:text="${unidadmedida.descripcion}">
+                        </option>
                     </select>
-<!--                    <input type="text" placeholder="Seleccione unidad de medida" name="unidadMedidaProducto" id="unidadMedidaProducto" value="unidadMedidaProducto">-->
                 </div>
-                <div class="product-input-container">
-                    <label for="categoriaProducto">Categoría</label>
-                    <select name="categoriaProducto" id="categoriaProducto">
-                        <option value="Categoria 1">Categoria 1</option>
-                        <option value="Categoria 2">Categoria 2</option>
-                        <option value="Categoria 3">Categoria 3</option>
+                <!--<div class="product-input-container">
+                    <label for="loteProducto">Código del lote</label>
+                    <select name="loteProducto" id="loteProducto">
+                        <option value="Lote" th:each="lote : ${listarLotes}" th:text="${lote.getIdLote()}">Cod. Lote</option>
                     </select>
-<!--                    <input type="text" placeholder="Seleccionar categoría" name="categoriaProducto" id="categoriaProducto" value="categoriaProducto">-->
-                </div>
+                </div>-->
                 <div class="product-input-container">
                     <label for="imagenProducto">Imagen del producto</label>
-                    <input type="file" placeholder="Seleccionar imagen" name="imagenProducto" id="imagenProducto" >
+                    <input type="url" placeholder="Seleccionar imagen" name="imagenProducto" id="imagenProducto" th:field="*{imagenUrl}">
                 </div>
-                <button type="submit">Ingresar Producto</button>
+                <br>
+                    <button type="submit">Ingresar Producto</button>
             </form>
         </div>
 
@@ -71,73 +84,162 @@
             </div>
             <div class="product-products-container">
 
-                <div class="product-card-container">
+                <div class="product-card-container" th:each="producto, iterStat : ${listarProductos}">
                     <div class="product-card-information">
-                        <img src="" alt="imagen producto">
+                        <img th:src="${producto.imagenUrl != null ? producto.imagenUrl : '/ruta/default/imagen.png'}" alt="Imagen del producto">
                         <div>
-                            <h4>Título</h4>
-                            <p>Descripción del producto</p>
-                            <p>$Precio</p>
-                            <p>Presentación</p>
-                            <p>Descripción del producto</p>
+                            <h4 th:text="${producto.getNombreProducto()}">Título</h4>
+                            <hr>
+                            <span th:text="'Descripción: ' + ${producto.getDescripcion()}">Descripción del producto</span><br>
+                            <span th:text="'Precio: ' + ${producto.getPrecio()}">$Precio</span><br>
+                            <span th:text="'Categoría: ' + ${producto.getIdCategoria().getDescripcion()}">Categoría</span><br>
+                            <span th:if="${iterStat.index >= 0 && iterStat.index < calcularStock.size()}"
+                            th:text="'Existencias: ' +${calcularStock[iterStat.index]}"></span><br>
+                            <span th:if="${iterStat.index < 0 || iterStat.index >= calcularStock.size()}">
+                                Existencias: 0
+                            </span>
+
+                            <span th:text="'Presentación: '+ ${producto.getIdPresentacion().getDescripcion()} + ' ' + ${producto.getIdUnidadMedida().getDescripcion()}">Presentación: </span><br>
+
                         </div>
                     </div>
+                    <br>
                     <div class="product-card-actions">
-                        <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                        <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                    </div>
-                </div>
-                <div class="product-card-container">
-                    <div class="product-card-information">
-                        <img src="" alt="imagen producto">
-                        <div>
-                            <h4>Título</h4>
-                            <p>Descripción del producto</p>
-                            <p>$Precio</p>
-                            <p>Presentación</p>
-                            <p>Descripción del producto</p>
+
+<!--                    Botones de edición y eliminación-->
+                        <div class="product-action-edit" data-bs-toggle="modal" data-bs-target="#exampleModal" th:data-id="${producto.idProducto}">
+                            <span>Editar</span>
+                            <i class="bi bi-pencil-square"></i>
                         </div>
-                    </div>
-                    <div class="product-card-actions">
-                        <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                        <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                    </div>
-                </div>
-                <div class="product-card-container">
-                    <div class="product-card-information">
-                        <img src="" alt="imagen producto">
-                        <div>
-                            <h4>Título</h4>
-                            <p>Descripción del producto</p>
-                            <p>$Precio</p>
-                            <p>Presentación</p>
-                            <p>Descripción del producto</p>
+                        <div class="product-action-delete" data-bs-toggle="modal" data-bs-target="#exampleModal2" th:data-id="${producto.idProducto}">
+                            <span>Eliminar</span>
+                            <i class="bi bi-trash-fill"></i>
                         </div>
+
+
                     </div>
-                    <div class="product-card-actions">
-                        <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                        <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+
+                   </div>
+            </div>
+        </div>
+
+        <!-- Modal para edición de producto -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </div>
-                <div class="product-card-container">
-                    <div class="product-card-information">
-                        <img src="" alt="imagen producto">
-                        <div>
-                            <h4>Título</h4>
-                            <p>Descripción del producto</p>
-                            <p>$Precio</p>
-                            <p>Presentación</p>
-                            <p>Descripción del producto</p>
-                        </div>
+                    <div class="modal-body">
+                        <form id="editProductForm" method="post">
+                            <input type="hidden" id="editIdProducto" name="idProducto">
+                            <div class="mb-3">
+                                <label for="editNombreProducto" class="form-label">Nombre del Producto</label>
+                                <input type="text" class="form-control" id="editNombreProducto" name="nombreProducto" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editPrecioProducto" class="form-label">Precio del Producto</label>
+                                <input type="text" class="form-control" id="editPrecioProducto" name="precio" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editDescripcionProducto" class="form-label">Descripción del Producto</label>
+                                <textarea class="form-control" id="editDescripcionProducto" name="descripcion" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editCategoriaProducto" class="form-label">Categoría del Producto</label>
+                                <select class="form-select" id="editCategoriaProducto" name="idCategoria" required>
+                                    <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.descripcion}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editPresentacionProducto" class="form-label">Presentación del Producto</label>
+                                <select class="form-select" id="editPresentacionProducto" name="idPresentacion" required>
+                                    <option th:each="presentacion : ${presentaciones}" th:value="${presentacion.idPresentacion}" th:text="${presentacion.descripcion}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editUnidadMedidaProducto" class="form-label">Unidad de Medida</label>
+                                <select class="form-select" id="editUnidadMedidaProducto" name="idUnidadMedida" required>
+                                    <option th:each="unidadmedida : ${unidadesmedidas}" th:value="${unidadmedida.idUnidadMedida}" th:text="${unidadmedida.descripcion}"></option>
+                                </select>
+                            </div>
+<!--                            <div class="mb-3">-->
+<!--                                <label for="editImagenProducto" class="form-label">Imagen del Producto</label>-->
+<!--                                <input type="file" class="form-control" id="editImagenProducto" name="imagenProducto">-->
+<!--                            </div>-->
+
+                            <div class="mb-3">
+                                <label for="editImagenProducto" class="form-label">Imagen del Producto</label>
+                                <input type="url" class="form-control" id="editImagenProducto" name="imagenUrl">
+                            </div>
+
+                        </form>
+
                     </div>
-                    <div class="product-card-actions">
-                        <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                        <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" form="editProductForm" class="btn btn-primary">Guardar Cambios</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Modal para confirmación de eliminación de producto -->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteProductModalLabel">Eliminar Producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <form id="deleteProductForm" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-danger">
+                                <span>Eliminar</span>
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </main>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.product-action-delete');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-id');
+                const form = document.querySelector('#deleteProductForm');
+                form.setAttribute('action', `/productos/eliminar/${productId}`);
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const editButtons = document.querySelectorAll('.product-action-edit');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click',  function () {
+                const productId = this.getAttribute('data-id');
+
+                // Configura la acción del formulario
+                const form = document.querySelector('#editProductForm');
+                form.setAttribute('action', `/productos/editar/${productId}`);
+            });
+        });
+    });
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
