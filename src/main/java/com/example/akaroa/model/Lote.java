@@ -29,7 +29,7 @@
 
         @ManyToOne
         @JoinColumn(name = "idProducto")
-        private Producto producto;
+        private Producto idProducto;
 
 
         // Getters and Setters
@@ -68,11 +68,11 @@
         }
 
         public Producto getIdProducto() {
-            return producto;
+            return idProducto;
         }
 
-        public void setProducto(Producto producto) {
-            this.producto = producto;
+        public void setIdProducto(Producto producto) {
+            this.idProducto = producto;
         }
 
 

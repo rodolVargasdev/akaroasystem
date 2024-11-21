@@ -15,8 +15,17 @@
             <h3>Ingresar nuevo lote</h3>
             <form th:action="@{/lotes}" method="post" th:object="${lote}" >
                 <div class="product-input-container">
+                    <label for="productoLote">Producto interno</label>
+                    <select name="productoLote" id="productoLote" th:field="*{idProducto}" required>
+                        <option th:each="producto : ${productos}"
+                                th:value="${producto.idProducto}"
+                                th:text="${producto.getNombreProducto()}">
+                        </option>
+                    </select>
+                </div>
+                <div class="product-input-container">
                     <label for="proveedorLote">Proveedor del lote</label>
-                    <select name="proveedorLote" id="proveedorLote" th:field="*{idProveedor}">
+                    <select name="proveedorLote" id="proveedorLote" th:field="*{idProveedor}" required>
                         <option th:each="proveedor : ${proveedores}"
                                 th:value="${proveedor.idProveedor}"
                                 th:text="${proveedor.getNombreProveedor()}">
@@ -25,7 +34,7 @@
                     <!--                    <input type="text" placeholder="Seleccione presentación del producto" name="presentacionProducto" id="presentacionProducto" value="descripcionProducto">-->
                 </div>
                 <div class="product-input-container">
-                    <label for="vencimientoLote">Fecha vencimiento del lote (si aplica)</label>
+                    <label for="vencimientoLote">Fecha vencimiento</label>
                     <input type="date" placeholder="Ingrese fecha" name="vencimientoLote" id="vencimientoLote" value="vencimientoLote" th:field="*{fechaVencimiento}">
                 </div>
                 <div class="product-input-container">
@@ -56,8 +65,8 @@
                         <div>
                             <h4 th:text="'Lote: ' + ${lote.getIdLote()}">Lote: 0</h4>
                             <hr>
-                            <span th:text="'Producto incluído: ' + ${productos.get(iterStat.index).getNombreProducto()}">Producto incluído</span><br>
-                            <span th:text="'Proveedor: ' + ${lote.getIdLote()}">Nombre proveedor</span><br>
+                            <span th:text="'Producto incluído: ' + ${lote.idProducto.getNombreProducto()}">Producto incluído</span><br>
+                            <span th:text="'Proveedor: ' + ${lote.idProveedor.getNombreProveedor()}">Nombre proveedor</span><br>
                             <span th:text="'Cantidad producto: ' + ${lote.getCantidadProducto()}">Cantidad producto</span><br>
                             <span th:text="'Fecha recepción: ' + ${lote.getFechaRecepcion()}">Fecha de recepción</span><br>
                             <span th:text="'Fecha de vencimiento: ' + ${lote.getFechaVencimiento()}">Fecha de vencimiento</span><br>
@@ -97,7 +106,9 @@
                             <div class="mb-3">
                                 <label for="editProducto" class="form-label">Producto interno</label>
                                 <select class="form-select" id="editProducto" name="idProducto">
-                                    <option th:each="producto : ${productos}" th:value="${producto.idProducto}" th:text="${producto.getNombreProducto()}"></option>
+                                    <option th:each="producto : ${productos}"
+                                            th:value="${producto.idProducto}"
+                                            th:text="${producto.getNombreProducto()}"></option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -172,7 +183,7 @@
             fetch(`/lotes/${idLote}`)
             .then(response => response.json())
             .then(lote => {
-            // Configurar datos en el moda
+            // Configurar datos en el modal
 
             document.querySelector('#editIdLote').value = lote.idLote;
             document.querySelector('#editProducto').value = lote.idProducto.idProducto;

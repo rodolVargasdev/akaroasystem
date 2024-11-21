@@ -38,6 +38,8 @@ public class LoteController {
         return "lotes";
     }
 
+
+
     @GetMapping("/lotes/{idLote}")
     @ResponseBody
     public Lote obtenerLote(@PathVariable Integer idLote) {
@@ -45,6 +47,20 @@ public class LoteController {
             return loteRepository.findById(idLote).get();
         }
         return null;
+    }
+
+    @PostMapping("/lotes")
+    @Transactional
+    public String procesarFormularioLotes(@ModelAttribute Lote lote, Model model, RedirectAttributes redirectAttributes) {
+
+
+        System.out.println(lote.getIdProducto());
+
+        loteService.save(lote);
+        model.addAttribute("agregadoExitoso", "Lote agregado exitosamente con identificador: #"+ lote.getIdLote());
+
+        return "redirect:/lotes";
+
     }
 
     @PostMapping("/lotes/editar/{idLote}")
@@ -59,6 +75,7 @@ public class LoteController {
             loteActualizado.setFechaRecepcion(lote.getFechaRecepcion());
             loteActualizado.setFechaVencimiento(lote.getFechaVencimiento());
             loteActualizado.setIdProveedor(lote.getIdProveedor());
+            loteActualizado.setIdProducto(lote.getIdProducto());
             loteService.save(loteActualizado);
             redirectAttributes.addFlashAttribute("mensaje", "Lote actualizado correctamente.");
         } else {

@@ -13,30 +13,18 @@
     <div class="product-form-container">
         <h1>Gestionar Proveedores</h1>
         <h3>Ingresar nuevo proveedor</h3>
-        <form action="">
+        <form th:action="@{/proveedores}" th:object="${proveedor}" method="post">
             <div class="product-input-container">
                 <label for="nombreProveedor">Nombre proveedor</label>
-                <input type="text" placeholder="Ingrese el nombre del proveedor" name="nombreProveedor" id="nombreProveedor">
+                <input type="text" placeholder="Ingrese el nombre del proveedor" name="nombreProveedor" id="nombreProveedor" th:field="*{nombreProveedor}">
             </div>
             <div class="product-input-container">
                 <label for="telProveedor">Teléfono contacto del proveedor</label>
-                <input type="tel" placeholder="Ingrese teléfono" name="telProveedor" id="telProveedor">
+                <input type="number" placeholder="Ingrese teléfono" name="telProveedor" id="telProveedor" th:field="*{telefono}">
             </div>
             <div class="product-input-container">
-                <label for="nitProveedor">Documento NIT del proveedor</label>
-                <input type="number" placeholder="Ingrese NIT sin guiones" name="nitProveedor" id="nitProveedor">
-            </div>
-            <div class="product-input-container">
-                <label for="correoProveedor">Correo electrónico del proveedor</label>
-                <input type="number" placeholder="Ingrese correo electrónico" name="correoProveedor" id="correoProveedor">
-            </div>
-            <div class="product-input-container">
-                <label for="direccionProveedor">Ubicación del proveedor</label>
-                <input type="text" placeholder="Ingrese correo dirección de empresa" name="direccionProveedor" id="direccionProveedor">
-            </div>
-            <div class="product-input-container">
-                <label for="logoProveedor">Logo proveedor</label>
-                <input type="file" placeholder="Seleccionar imagen" name="logoProveedor" id="logoProveedor" >
+                <label for="direccionProveedor">Ubicación del proveedor en cuestión</label>
+                <input type="text" placeholder="Ingrese dirección física" name="direccionProveedor" id="direccionProveedor" th:field="*{direccion}">
             </div>
             <div>
                 <button type="submit">Ingresar Proveedor</button>
@@ -53,89 +41,127 @@
             <button>Buscar</button>
         </div>
         <div class="product-products-container">
-            <div class="product-card-container">
-                <div class="product-card-information">
-                    <img src="" alt="logo proveedor">
+
+            <div class="product-card-container" th:each="proveedor, iterStat : ${listarProveedores}" >
+                <div class="product-card-information" >
                     <div>
-                        <h4>Proveedor</h4>
-                        <p>Teléfono</p>
-                        <p>Correo electrónico</p>
-                        <p>NIT</p>
-                        <p>Dirección</p>
+                        <h4 th:text="'Proveedor: ' + ${proveedor.getIdProveedor()}">Proveedor: 0</h4>
+                        <hr>
+                        <span th:text="'Nombre proveedor: ' + ${proveedor.getNombreProveedor()}">Nombre proveedor: </span><br>
+                        <span th:text="'Contacto: ' + ${proveedor.getTelefono()}">Teléfono: </span><br>
+                        <span th:text="'Direccón: ' + ${proveedor.getDireccion()}">Dirección: </span><br>
                     </div>
                 </div>
+                <br>
                 <div class="product-card-actions">
-                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                </div>
-            </div>
-            <div class="product-card-container">
-                <div class="product-card-information">
-                    <img src="" alt="logo proveedor">
-                    <div>
-                        <h4>Proveedor</h4>
-                        <p>Teléfono</p>
-                        <p>Correo electrónico</p>
-                        <p>NIT</p>
-                        <p>Dirección</p>
+
+                    <!--                    Botones de edición y eliminación-->
+                    <div class="product-action-edit" data-bs-toggle="modal" data-bs-target="#exampleModal" th:data-id="${proveedor.getIdProveedor()}">
+                        <span>Editar</span>
+                        <i class="bi bi-pencil-square"></i>
                     </div>
-                </div>
-                <div class="product-card-actions">
-                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                </div>
-            </div>
-            <div class="product-card-container">
-                <div class="product-card-information">
-                    <img src="" alt="logo proveedor">
-                    <div>
-                        <h4>Proveedor</h4>
-                        <p>Teléfono</p>
-                        <p>Correo electrónico</p>
-                        <p>NIT</p>
-                        <p>Dirección</p>
+                    <div class="product-action-delete" data-bs-toggle="modal" data-bs-target="#exampleModal2" th:data-id="${proveedor.getIdProveedor()}">
+                        <span>Eliminar</span>
+                        <i class="bi bi-trash-fill"></i>
                     </div>
-                </div>
-                <div class="product-card-actions">
-                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                </div>
-            </div>
-            <div class="product-card-container">
-                <div class="product-card-information">
-                    <img src="" alt="logo proveedor">
-                    <div>
-                        <h4>Proveedor</h4>
-                        <p>Teléfono</p>
-                        <p>Correo electrónico</p>
-                        <p>NIT</p>
-                        <p>Dirección</p>
-                    </div>
-                </div>
-                <div class="product-card-actions">
-                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                </div>
-            </div>
-            <div class="product-card-container">
-                <div class="product-card-information">
-                    <img src="" alt="logo proveedor">
-                    <div>
-                        <h4>Proveedor</h4>
-                        <p>Teléfono</p>
-                        <p>Correo electrónico</p>
-                        <p>NIT</p>
-                        <p>Dirección</p>
-                    </div>
-                </div>
-                <div class="product-card-actions">
-                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal para edición de lotes -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Editar Lote</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProveedorForm" method="post">
+                        <input type="hidden" id="editIdProveedor" name="idLote">
+                        <div class="mb-3">
+                            <label for="editNombreProveedor" class="form-label">Nombre proveedor</label>
+                            <input type="text" class="form-control" id="editNombreProveedor" th:value="${proveedor.nombreProveedor}" name="nombreProveedor">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTelProveedor" class="form-label">Teléfono</label>
+                            <input type="number" class="form-control" id="editTelProveedor" name="telefono">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDireccionProveedor" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="editDireccionProveedor" name="direccion">
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="editProveedorForm" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para confirmación de eliminación de producto -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteProductModalLabel">Eliminar proveedor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar este proveedor? Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form id="deleteProveedorForm" method="post">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </main>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Manejar el botón de eliminación
+        const deleteButtons = document.querySelectorAll('.product-action-delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idProveedor = this.getAttribute('data-id');
+                const form = document.querySelector('#deleteProveedorForm');
+                form.setAttribute('action', `/proveedores/eliminar/${idProveedor}`);
+            });
+        });
+
+        // Manejar el botón de edición
+        const editButtons = document.querySelectorAll('.product-action-edit');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idProveedor = this.getAttribute('data-id');
+                fetch(`/proveedores/${idProveedor}`)
+                    .then(response => response.json())
+                    .then(proveedor => {
+                        // Configurar datos en el modal
+
+
+                        document.querySelector('#editIdProveedor').value = proveedor.idProveedor;
+                        document.querySelector('#editNombreProveedor').value = proveedor.nombreProveedor;
+                        document.querySelector('#editTelProveedor').value = proveedor.telefono;
+                        document.querySelector('#editDireccionProveedor').value = proveedor.direccion;
+
+                        // Configurar la acción del formulario
+                        const form = document.querySelector('#editProveedorForm');
+                        form.setAttribute('action', `/proveedores/editar/${idProveedor}`);
+                    });
+            });
+        });
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>

@@ -36,7 +36,7 @@ public class LoteService {
     }
 
     public List<Lote> findByProducto(Producto producto) {
-        return loteRepository.findByProducto(producto);
+        return loteRepository.findByIdProducto(producto);
     }
 
     public void actualizarLote(Lote lote) {

@@ -12,11 +12,6 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/atributos")
-    public String atributos(Model model) {
-        return "atributos";
-    }
-
     @GetMapping("/ventas")
     public String ventas(Model model) {
         return "ventas";
@@ -25,21 +20,6 @@ public class HomeController {
     @GetMapping("/login")
     public String login(Model model) {
         return "login";
-    }
-
-    /*@GetMapping("/lot")
-    public String listarLotes(Model model) {
-        return "listarLotes";
-    }*/
-
-    /*@GetMapping("/prod")
-    public String productos(Model model) {
-        return "productos";
-    }*/
-
-    @GetMapping("/proveedores")
-    public String proveedores(Model model) {
-        return "proveedores";
     }
 
     @GetMapping("/registrousuario")

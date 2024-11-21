@@ -227,15 +227,25 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-        const editButtons = document.querySelectorAll('.product-action-edit');
 
+        const editButtons = document.querySelectorAll('.product-action-edit');
         editButtons.forEach(button => {
             button.addEventListener('click',  function () {
                 const productId = this.getAttribute('data-id');
+                fetch(`productos/${productId}`)
+                    .then(response => response.json())
+                    .then(product => {
 
-                // Configura la acción del formulario
-                const form = document.querySelector('#editProductForm');
-                form.setAttribute('action', `/productos/editar/${productId}`);
+                        // Configura la acción del formulario
+                        document.querySelector('#editNombreProducto').value = product.nombreProducto;
+                        document.querySelector('#editPrecioProducto').value = product.precio;
+                        document.querySelector('#editDescripcionProducto').value = product.descripcion;
+                        document.querySelector('#editImagenProducto').value = product.imagenUrl;
+
+                        const form = document.querySelector('#editProductForm');
+                        form.setAttribute('action', `/productos/editar/${productId}`);
+
+                    })
             });
         });
     });
