@@ -227,7 +227,7 @@ body{
     align-self: stretch;
     flex-wrap: wrap;
 }
-.product-form-container form button{
+.product-form-container form button,.input-general{
     display: flex;
     padding: 8px 32px;
     justify-content: center;
@@ -576,9 +576,6 @@ body{
     border-radius: 0 8px 8px 8px;
     background: #FBFBFB;
     display: none;
-}
-.showContent{
-    display: flex;
 }
 .selected-tab{
     background: #201E43;
@@ -1197,3 +1194,11 @@ select option{
     border-radius: 8px;
     background: #201E43;
 }
+.hiddeContent{
+    display: none;
+}
+.showContent{
+    display: flex !important;
+}
+
+
