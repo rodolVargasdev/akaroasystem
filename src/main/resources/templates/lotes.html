@@ -12,6 +12,12 @@
     <main class="main-productos-container" style="padding-left: 350px">
         <div class="product-form-container">
             <h1>Gestionar Lotes</h1>
+            <div th:if="${mensaje}" class="alert alert-success" role="alert">
+                <span th:text="${mensaje}"></span>
+            </div>
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                <span th:text="${error}"></span>
+            </div>
             <h3>Ingresar nuevo lote</h3>
             <form th:action="@{/lotes}" method="post" th:object="${lote}" >
                 <div class="product-input-container">

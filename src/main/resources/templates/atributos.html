@@ -13,6 +13,12 @@
     <main class="main-productos-container" style="padding-left: 350px">
         <div class="atributos-container">
             <h1>Gestión Atributos</h1>
+            <div th:if="${mensaje}" class="alert alert-success" role="alert">
+                <span th:text="${mensaje}"></span>
+            </div>
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                <span th:text="${error}"></span>
+            </div>
             <div class="atributos-selection-container">
 
                 <div class="atributos-navbar-container">
@@ -28,11 +34,11 @@
                         </div>
                         <div class="product-card-actions">
                             <!--                    Botones de edición y eliminación-->
-                            <div class="presentacion-action-edit" data-bs-toggle="modal" data-bs-target="#editPresentacionModal" th:data-id="${presentacion.getIdPresentacion()}">
+                            <div class="presentacion-action-edit product-action-edit" data-bs-toggle="modal" data-bs-target="#editPresentacionModal" th:data-id="${presentacion.getIdPresentacion()}">
                                 <span>Editar</span>
                                 <i class="bi bi-pencil-square"></i>
                             </div>
-                            <div class="presentacion-action-delete" data-bs-toggle="modal" data-bs-target="#deletePresentacionModal" th:data-id="${presentacion.getIdPresentacion()}">
+                            <div class="presentacion-action-delete product-action-delete" data-bs-toggle="modal" data-bs-target="#deletePresentacionModal" th:data-id="${presentacion.getIdPresentacion()}">
                                 <span>Eliminar</span>
                                 <i class="bi bi-trash-fill"></i>
                             </div>
@@ -44,15 +50,15 @@
                     <div class="atributo-input-container"
                          th:each="unidadMedida, iterstat : ${listarUnidadesMedida}">
                         <div class="atributo-input-container-title" th:text="${unidadMedida.getDescripcion()}">
-                            Presentacion 1
+                           Unidad de Medida
                         </div>
                         <div class="product-card-actions">
                             <!--                    Botones de edición y eliminación-->
-                            <div class="unidad-action-edit" data-bs-toggle="modal" data-bs-target="#editUnidadModal" th:data-id="${unidadMedida.getIdUnidadMedida()}">
+                            <div class="unidad-action-edit product-action-edit" data-bs-toggle="modal" data-bs-target="#editUnidadModal" th:data-id="${unidadMedida.getIdUnidadMedida()}">
                                 <span>Editar</span>
                                 <i class="bi bi-pencil-square"></i>
                             </div>
-                            <div class="unidad-action-delete" data-bs-toggle="modal" data-bs-target="#deleteUnidadModal" th:data-id="${unidadMedida.getIdUnidadMedida()}">
+                            <div class="unidad-action-delete product-action-delete" data-bs-toggle="modal" data-bs-target="#deleteUnidadModal" th:data-id="${unidadMedida.getIdUnidadMedida()}">
                                 <span>Eliminar</span>
                                 <i class="bi bi-trash-fill"></i>
                             </div>
@@ -67,11 +73,11 @@
                         </div>
                         <div class="product-card-actions">
                             <!--                    Botones de edición y eliminación-->
-                            <div class="categoria-action-edit" data-bs-toggle="modal" data-bs-target="#editCategoriaModal" th:data-id="${categoria.getIdCategoria()}">
+                            <div class="categoria-action-edit product-action-edit" data-bs-toggle="modal" data-bs-target="#editCategoriaModal" th:data-id="${categoria.getIdCategoria()}">
                                 <span>Editar</span>
                                 <i class="bi bi-pencil-square"></i>
                             </div>
-                            <div class="categoria-action-delete" data-bs-toggle="modal" data-bs-target="#deleteCategoriaModal" th:data-id="${categoria.getIdCategoria()}">
+                            <div class="categoria-action-delete product-action-delete" data-bs-toggle="modal" data-bs-target="#deleteCategoriaModal" th:data-id="${categoria.getIdCategoria()}">
                                 <span>Eliminar</span>
                                 <i class="bi bi-trash-fill"></i>
                             </div>
@@ -84,37 +90,38 @@
         <br>
         <br>
         <div class="hiddeContent" id="showAddUnidadMedida">
-            <form action="" class="form-att">
+            <form th:action="@{/atributos/unidadesmedida}" method="post" th:object="${unidadMedida}" class="form-att">
                 <div class="product-input-container">
-            <h3 style="color: #fff">Ingresar datos</h3><br>
-                    <label for="nuevaUnidad">Crear nueva unidad de medida
-                    </label>
-                    <input type="text" placeholder="Ingrese el dato correspondiente" name="nuevaUnidad" id="nuevaUnidad">
+                <h3 style="color: #fff">Ingresar datos</h3><br>
+                    <label for="nuevaUnidad">Crear nueva unidad de medida</label>
+                    <input th:field="*{descripcion}" type="text" placeholder="Ingrese el dato correspondiente" name="nuevaUnidad" id="nuevaUnidad">
                     <button class="input-general" type="submit" id="button-att2">Ingresar</button>
                 </div>
             </form>
         </div>
         <div class="hiddeContent showContent" id="showAddPresentacion">
-            <form action="" class="form-att">
+            <form th:action="@{/atributos/presentaciones}" method="post" th:object="${presentacion}" class="form-att">
                 <div class="product-input-container">
-            <h3 style="color: #fff">Ingresar datos</h3><br>
+                <h3 style="color: #fff">Ingresar datos</h3><br>
                     <label for="nuevaPresentacion">Crear nueva presentacion</label>
-                    <input type="text" placeholder="Ingrese el dato correspondiente" name="nuevaUnidad" id="nuevaPresentacion">
+                    <input th:field="*{descripcion}" type="text" placeholder="Ingrese el dato correspondiente" name="nuevaPresentacion" id="nuevaPresentacion">
                     <button class="input-general"  type="submit" id="button-att3">Ingresar</button>
                 </div>
             </form>
         </div>
         <div class="hiddeContent" id="showAddCategoria">
-            <form action="" class="form-att">
+            <form th:action="@{/atributos/categorias}" method="post" th:object="${categoria}" class="form-att">
                 <div class="product-input-container">
-            <h3 style="color: #fff">Ingresar datos</h3><br>
+                <h3 style="color: #fff">Ingresar datos</h3><br>
                     <label for="nuevaCategoria">Crear nueva categoría</label>
-                    <input  type="text" placeholder="Ingrese el dato correspondiente" name="nuevaUnidad" id="nuevaCategoria">
+                    <input th:field="*{descripcion}" type="text" placeholder="Ingrese el dato correspondiente" name="nuevaCategoria" id="nuevaCategoria">
                     <button class="input-general"  type="submit" id="button-att4">Ingresar</button>
                 </div>
             </form>
         </div>
     </main>
+
+
     <!-- Modal para edición de categoria -->
     <div class="modal fade" id="editCategoriaModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -125,18 +132,17 @@
                 </div>
                 <div class="modal-body">
                     <form id="editCategoriaForm" method="post">
-                        <input type="hidden" id="editIdLote" name="idLote">
-
+                        <input type="hidden" id="editIdLote" name="idCategoria">
                         <div class="mb-3">
-                            <label for="editFechaVencimiento" class="form-label">Nombre atributo</label>
-                            <input type="text" class="form-control" id="editFechaVencimiento" name="descripcion">
+                            <label for="editCategoria" class="form-label">Nombre atributo</label>
+                            <input type="text" class="form-control" id="editCategoria" name="descripcion">
                         </div>
                     </form>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" form="editLoteForm" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="submit" form="editCategoriaForm" class="btn btn-primary">Guardar Cambios</button>
                 </div>
             </div>
         </div>
@@ -175,15 +181,15 @@
                         <input type="hidden" id="editIdLote41" name="idLote">
 
                         <div class="mb-3">
-                            <label for="editFechaVencimiento" class="form-label">Nombre atributo</label>
-                            <input type="text" class="form-control" id="editFechaVencimiento41" name="descripcion">
+                            <label for="editPresentacion" class="form-label">Nombre atributo</label>
+                            <input type="text" class="form-control" id="editPresentacion" name="descripcion">
                         </div>
                     </form>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" form="editLoteForm" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="submit" form="editPresentacionForm" class="btn btn-primary">Guardar Cambios</button>
                 </div>
             </div>
         </div>
@@ -222,8 +228,8 @@
                         <input type="hidden" id="editIdLote3" name="idLote">
 
                         <div class="mb-3">
-                            <label for="editFechaVencimiento" class="form-label">Nombre atributo</label>
-                            <input type="text" class="form-control" id="editFechaVencimiento3" name="descripcion">
+                            <label for="editUnidadMedida" class="form-label">Nombre atributo</label>
+                            <input type="text" class="form-control" id="editUnidadMedida" name="descripcion">
                         </div>
                     </form>
 
@@ -322,9 +328,9 @@ tab3.addEventListener('click', () => {
         const deleteButtons = document.querySelectorAll('.presentacion-action-delete');
         deleteButtons.forEach(button => {
             button.addEventListener('click', function () {
-                const idLote = this.getAttribute('data-id');
+                const idPresentacion = this.getAttribute('data-id');
                 const form = document.querySelector('#deletePresentacionForm');
-                form.setAttribute('action', `/atributos/presentaciones/eliminar${idLote}`);
+                form.setAttribute('action', `/atributos/presentaciones/eliminar/${idPresentacion}`);
             });
         });
 
@@ -332,17 +338,17 @@ tab3.addEventListener('click', () => {
         const editButtons = document.querySelectorAll('.presentacion-action-edit');
         editButtons.forEach(button => {
             button.addEventListener('click', function () {
-                const idLote = this.getAttribute('data-id');
-                fetch(`/atributos/presentaciones/editar/${idLote}`)
+                const idPresentacion = this.getAttribute('data-id');
+                fetch(`/atributos/presentaciones/${idPresentacion}`)
                     .then(response => response.json())
-                    .then(lote => {
+                    .then(presentacion => {
                         // Configurar datos en el modal
 
-                       //document.querySelector('#editFechaVencimiento').value = lote.fechaVencimiento;
+                       document.querySelector('#editPresentacion').value = presentacion.descripcion;
 
                         // Configurar la acción del formulario
                         const form = document.querySelector('#editPresentacionForm');
-                        form.setAttribute('action', `/atributos/presentaciones/editar/${idLote}`);
+                        form.setAttribute('action', `/atributos/presentaciones/editar/${idPresentacion}`);
                     });
             });
         });
@@ -352,9 +358,9 @@ tab3.addEventListener('click', () => {
         const deleteButtons = document.querySelectorAll('.categoria-action-delete');
         deleteButtons.forEach(button => {
             button.addEventListener('click', function () {
-                const idLote = this.getAttribute('data-id');
+                const idCategoria = this.getAttribute('data-id');
                 const form = document.querySelector('#deleteCategoriaForm');
-                form.setAttribute('action', `/atributos/categorias/eliminar${idLote}`);
+                form.setAttribute('action', `/atributos/categorias/eliminar/${idCategoria}`);
             });
         });
 
@@ -362,17 +368,17 @@ tab3.addEventListener('click', () => {
         const editButtons = document.querySelectorAll('.categoria-action-edit');
         editButtons.forEach(button => {
             button.addEventListener('click', function () {
-                const idLote = this.getAttribute('data-id');
-                fetch(`/atributos/categorias/editar/${idLote}`)
+                const idCategoria = this.getAttribute('data-id');
+                fetch(`/atributos/categorias/${idCategoria}`)
                     .then(response => response.json())
-                    .then(lote => {
+                    .then(categoria => {
                         // Configurar datos en el modal
 
-                       //document.querySelector('#editFechaVencimiento').value = lote.fechaVencimiento;
+                        document.querySelector('#editCategoria').value = categoria.descripcion;
 
                         // Configurar la acción del formulario
                         const form = document.querySelector('#editCategoriaForm');
-                        form.setAttribute('action', `/atributos/categorias/editar/${idLote}`);
+                        form.setAttribute('action', `/atributos/categorias/editar/${idCategoria}`);
                     });
             });
         });
@@ -382,9 +388,9 @@ tab3.addEventListener('click', () => {
         const deleteButtons = document.querySelectorAll('.unidad-action-delete');
         deleteButtons.forEach(button => {
             button.addEventListener('click', function () {
-                const idLote = this.getAttribute('data-id');
+                const idUnidadMedida = this.getAttribute('data-id');
                 const form = document.querySelector('#deleteUnidadForm');
-                form.setAttribute('action', `/atributos/unidadesmedida/eliminar/${idLote}`);
+                form.setAttribute('action', `/atributos/unidadesmedida/eliminar/${idUnidadMedida}`);
             });
         });
 
@@ -392,17 +398,17 @@ tab3.addEventListener('click', () => {
         const editButtons = document.querySelectorAll('.unidad-action-edit');
         editButtons.forEach(button => {
             button.addEventListener('click', function () {
-                const idLote = this.getAttribute('data-id');
-                fetch(`/atributos/unidadesmedida/editar/${idLote}`)
+                const idUnidadMedida = this.getAttribute('data-id');
+                fetch(`/atributos/unidadesmedida/${idUnidadMedida}`)
                     .then(response => response.json())
-                    .then(lote => {
+                    .then(unidadesmedida => {
                         // Configurar datos en el modal
 
-                       //document.querySelector('#editFechaVencimiento').value = lote.fechaVencimiento;
+                       document.querySelector('#editUnidadMedida').value = unidadesmedida.descripcion;
 
                         // Configurar la acción del formulario
                         const form = document.querySelector('#editUnidadForm');
-                        form.setAttribute('action', `/atributos/unidadesmedida/editar/${idLote}`);
+                        form.setAttribute('action', `/atributos/unidadesmedida/editar/${idUnidadMedida}`);
                     });
             });
         });

@@ -1,9 +1,11 @@
 package com.example.akaroa.controller;
 
 import com.example.akaroa.model.Lote;
+import com.example.akaroa.model.Producto;
 import com.example.akaroa.model.Proveedor;
 import com.example.akaroa.repository.ProveedorRepository;
 import com.example.akaroa.service.LoteService;
+import com.example.akaroa.service.ProductoService;
 import com.example.akaroa.service.ProveedorService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,10 @@ public class ProveedorController {
     private ProveedorService proveedorService;
     @Autowired
     private ProveedorRepository proveedorRepository;
+    @Autowired
+    private ProductoService productoService;
+    @Autowired
+    private LoteService loteService;
 
     @GetMapping("/proveedores")
     public String getAllProveedores(Model model) {
@@ -79,6 +85,17 @@ public class ProveedorController {
     @Transactional
     public String eliminarProveedor(@PathVariable Integer idProveedor, RedirectAttributes redirectAttributes) {
         Optional<Proveedor> proveedorExistente = proveedorService.findById(idProveedor);
+
+        List<Lote> lotes = loteService.findAll();
+
+        for(Lote lote: lotes) {
+            if(lote.getIdProveedor().getIdProveedor().equals(idProveedor)) {
+                redirectAttributes.addFlashAttribute("error", "El proveedor no puede ser eliminado debido a que está asociado a uno o más lotes");
+                return "redirect:/proveedores";
+            }
+        }
+
+
         if(proveedorExistente.isPresent()) {
             proveedorService.deleteById(idProveedor);
             redirectAttributes.addFlashAttribute("mensaje", "Proveedor eliminado con exito");

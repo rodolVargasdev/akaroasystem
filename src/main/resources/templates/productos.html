@@ -14,10 +14,10 @@
 
             <h1>Gestionar Productos</h1>
             <div th:if="${mensajeExito}" class="alert alert-success" role="alert">
-                <p th:text="${mensajeExito}"></p>
+                <span th:text="${mensajeExito}"></span>
             </div>
             <div th:if="${mensajeError}" class="alert alert-danger" role="alert">
-                <p th:text="${mensajeError}"></p>
+                <span th:text="${mensajeError}"></span>
             </div>
             <h3>Ingresar nuevo producto</h3>
             <form th:action="@{/productos}" method="post" th:object="${producto}">
