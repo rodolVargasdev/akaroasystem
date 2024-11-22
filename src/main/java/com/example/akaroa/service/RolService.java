@@ -18,8 +18,13 @@ public class RolService {
         return rolRepository.findAll();
     }
 
-    public Optional<Rol> findById(Integer id) {
-        return rolRepository.findById(id);
+//    public Optional<Rol> findById(Integer id) {
+//        return rolRepository.findById(id);
+//    }
+
+    public Rol obtenerRolPorId(Integer idRol) {
+        Optional<Rol> rol = rolRepository.findById(idRol);
+        return rol.orElse(null);
     }
 
     public Rol save(Rol rol) {
