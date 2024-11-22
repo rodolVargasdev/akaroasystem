@@ -29,4 +29,13 @@ public class ProductoService {
     public void deleteById(Integer id) {
         productoRepository.deleteById(id);
     }
+
+    public void delete(Producto producto) {
+        productoRepository.delete(producto);
+    }
+
+    public void actualizarProducto(Producto producto) {
+        productoRepository.save(producto);
+    }
+
 }

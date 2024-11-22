@@ -1,6 +1,7 @@
 package com.example.akaroa.service;
 
 import com.example.akaroa.model.Lote;
+import com.example.akaroa.model.Producto;
 import com.example.akaroa.repository.LoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +30,21 @@ public class LoteService {
     public void deleteById(Integer id) {
         loteRepository.deleteById(id);
     }
+
+    public void delete(Lote lote) {
+        loteRepository.delete(lote);
+    }
+
+    public List<Lote> findByProducto(Producto producto) {
+        return loteRepository.findByIdProducto(producto);
+    }
+
+    public void actualizarLote(Lote lote) {
+        if (loteRepository.existsById(lote.getIdLote())) {
+            loteRepository.save(lote);
+        } else {
+            throw new IllegalArgumentException("El lote no existe: " + lote.getIdLote());
+        }
+    }
+
 }

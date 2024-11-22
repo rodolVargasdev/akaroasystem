@@ -1,137 +1,214 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet"  href="/css/styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <title>Gestionar Lotes</title>
-</head>
-<body>
-<div th:replace="fragments/header :: headerFragment (title='Administrador')"></div>
-<main class="main-productos-container" style="padding-left: 350px">
-    <div class="product-form-container">
-        <h1>Gestionar Lotes</h1>
-        <h3>Ingresar nuevo lote</h3>
-        <form action="">
-            <div class="product-input-container">
-                <label for="proveedorLote">Proveedor del lote</label>
-                <select name="proveedor" id="proveedorLote">
-                    <option value="Proveedor 1">Proveedor 1</option>
-                    <option value="Proveedor 2">Proveedor 2</option>
-                    <option value="Proveedor 3">Proveedor 3</option>
-                </select>
-                <!--                    <input type="text" placeholder="Seleccione presentación del producto" name="presentacionProducto" id="presentacionProducto" value="descripcionProducto">-->
+    <!DOCTYPE html>
+    <html lang="en" thymeleaf>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet"  href="/css/styles.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <title>Gestionar Lotes</title>
+    </head>
+    <body>
+    <div th:replace="fragments/header :: headerFragment (title='Administrador')"></div>
+    <main class="main-productos-container" style="padding-left: 350px">
+        <div class="product-form-container">
+            <h1>Gestionar Lotes</h1>
+            <div th:if="${mensaje}" class="alert alert-success" role="alert">
+                <span th:text="${mensaje}"></span>
             </div>
-            <div class="product-input-container">
-                <label for="vencimientoLote">Fecha vencimiento del lote (si aplica)</label>
-                <input type="date" placeholder="Ingrese fecha" name="vencimientoLote" id="vencimientoLote" value="vencimientoLote">
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                <span th:text="${error}"></span>
             </div>
-            <div class="product-input-container">
-                <label for="recepcionLote">Fecha de recepcion del lote</label>
-                <input type="date" placeholder="Ingrese fecha" name="recepcionLote" id="recepcionLote" value="recepcionLote">
-            </div>
-            <div class="product-input-container">
-                <label for="cantidadLote">Cantidad de producto</label>
-                <input type="text" placeholder="Ingrese cantidad" name="cantidad" id="cantidadLote" value="">
-            </div>
+            <h3>Ingresar nuevo lote</h3>
+            <form th:action="@{/lotes}" method="post" th:object="${lote}" >
+                <div class="product-input-container">
+                    <label for="productoLote">Producto interno</label>
+                    <select name="productoLote" id="productoLote" th:field="*{idProducto}" required>
+                        <option th:each="producto : ${productos}"
+                                th:value="${producto.idProducto}"
+                                th:text="${producto.getNombreProducto()}">
+                        </option>
+                    </select>
+                </div>
+                <div class="product-input-container">
+                    <label for="proveedorLote">Proveedor del lote</label>
+                    <select name="proveedorLote" id="proveedorLote" th:field="*{idProveedor}" required>
+                        <option th:each="proveedor : ${proveedores}"
+                                th:value="${proveedor.idProveedor}"
+                                th:text="${proveedor.getNombreProveedor()}">
+                        </option>
+                    </select>
+                    <!--                    <input type="text" placeholder="Seleccione presentación del producto" name="presentacionProducto" id="presentacionProducto" value="descripcionProducto">-->
+                </div>
+                <div class="product-input-container">
+                    <label for="vencimientoLote">Fecha vencimiento</label>
+                    <input type="date" placeholder="Ingrese fecha" name="vencimientoLote" id="vencimientoLote" value="vencimientoLote" th:field="*{fechaVencimiento}">
+                </div>
+                <div class="product-input-container">
+                    <label for="recepcionLote">Fecha de recepcion del lote</label>
+                    <input type="date" placeholder="Ingrese fecha" name="recepcionLote" id="recepcionLote" value="recepcionLote" th:field="*{fechaRecepcion}">
+                </div>
+                <div class="product-input-container">
+                    <label for="cantidadLote">Cantidad de producto</label>
+                    <input type="text" placeholder="Ingrese cantidad" name="cantidad" id="cantidadLote" value="cantidadLote" th:field="*{cantidadProducto}">
+                </div>
 
-            <button type="submit">Ingresar Producto</button>
-        </form>
-    </div>
-
-    <br>
-
-    <div class="product-searchProduct-container">
-        <h3>Buscar lote</h3>
-        <div class="product-searcher-container">
-            <input type="search" placeholder="Ingrese" name="searchProduct" id="search-product">
-            <button>Buscar</button>
+                <button type="submit">Ingresar Lote</button>
+            </form>
         </div>
-        <div class="product-products-container">
-            <div class="product-card-container">
-                <div class="product-card-information">
-                    <img src="" alt="imagen lote">
-                    <div>
-                        <h4>Lote</h4>
-                        <p>Proveedor del lote</p>
-                        <p>Fecha de recepción</p>
-                        <p>Fecha de vencimiento</p>
-                        <p>Cantidad</p>
-                    </div>
-                </div>
-                <div class="product-card-actions">
-                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                </div>
+
+        <br>
+
+        <div class="product-searchProduct-container">
+            <h3>Buscar lote</h3>
+            <div class="product-searcher-container">
+                <input type="search" placeholder="Ingrese" name="searchProduct" id="search-product">
+                <button>Buscar</button>
             </div>
-            <div class="product-card-container">
-                <div class="product-card-information">
-                    <img src="" alt="imagen lote">
-                    <div>
-                        <h4>Lote</h4>
-                        <p>Proveedor del lote</p>
-                        <p>Fecha de recepción</p>
-                        <p>Fecha de vencimiento</p>
-                        <p>Cantidad</p>
+            <div class="product-products-container">
+
+                <div class="product-card-container" th:each="lote, iterStat : ${listarLotes}" >
+                    <div class="product-card-information" >
+                        <div>
+                            <h4 th:text="'Lote: ' + ${lote.getIdLote()}">Lote: 0</h4>
+                            <hr>
+                            <span th:text="'Producto incluído: ' + ${lote.idProducto.getNombreProducto()}">Producto incluído</span><br>
+                            <span th:text="'Proveedor: ' + ${lote.idProveedor.getNombreProveedor()}">Nombre proveedor</span><br>
+                            <span th:text="'Cantidad producto: ' + ${lote.getCantidadProducto()}">Cantidad producto</span><br>
+                            <span th:text="'Fecha recepción: ' + ${lote.getFechaRecepcion()}">Fecha de recepción</span><br>
+                            <span th:text="'Fecha de vencimiento: ' + ${lote.getFechaVencimiento()}">Fecha de vencimiento</span><br>
+                        </div>
                     </div>
-                </div>
-                <div class="product-card-actions">
-                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                </div>
-            </div>
-            <div class="product-card-container">
-                <div class="product-card-information">
-                    <img src="" alt="imagen lote">
-                    <div>
-                        <h4>Lote</h4>
-                        <p>Proveedor del lote</p>
-                        <p>Fecha de recepción</p>
-                        <p>Fecha de vencimiento</p>
-                        <p>Cantidad</p>
+                    <br>
+                    <div class="product-card-actions">
+
+                        <!--                    Botones de edición y eliminación-->
+                        <div class="product-action-edit" data-bs-toggle="modal" data-bs-target="#exampleModal" th:data-id="${lote.idLote}">
+                            <span>Editar</span>
+                            <i class="bi bi-pencil-square"></i>
+                        </div>
+                        <div class="product-action-delete" data-bs-toggle="modal" data-bs-target="#exampleModal2" th:data-id="${lote.idLote}">
+                            <span>Eliminar</span>
+                            <i class="bi bi-trash-fill"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="product-card-actions">
-                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                </div>
-            </div>
-            <div class="product-card-container">
-                <div class="product-card-information">
-                    <img src="" alt="imagen lote">
-                    <div>
-                        <h4>Lote</h4>
-                        <p>Proveedor del lote</p>
-                        <p>Fecha de recepción</p>
-                        <p>Fecha de vencimiento</p>
-                        <p>Cantidad</p>
-                    </div>
-                </div>
-                <div class="product-card-actions">
-                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                </div>
-            </div>
-            <div class="product-card-container">
-                <div class="product-card-information">
-                    <img src="" alt="imagen lote">
-                    <div>
-                        <h4>Lote</h4>
-                        <p>Proveedor del lote</p>
-                        <p>Fecha de recepción</p>
-                        <p>Fecha de vencimiento</p>
-                        <p>Cantidad</p>
-                    </div>
-                </div>
-                <div class="product-card-actions">
-                    <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                    <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+
                 </div>
             </div>
         </div>
-    </div>
-</main>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</html>
+
+        <!-- Modal para edición de lotes -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editLoteForm" method="post">
+                            <input type="hidden" id="editIdLote" name="idLote">
+                            <div class="mb-3">
+                                <label for="editProducto" class="form-label">Producto interno</label>
+                                <select class="form-select" id="editProducto" name="idProducto">
+                                    <option th:each="producto : ${productos}"
+                                            th:value="${producto.idProducto}"
+                                            th:text="${producto.getNombreProducto()}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editCategoriaProducto" class="form-label">Proveedor</label>
+                                <select class="form-select" id="editCategoriaProducto" name="idProveedor">
+                                    <option th:each="proveedor : ${proveedores}" th:value="${proveedor.idProveedor}" th:text="${proveedor.getNombreProveedor()}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editCantidadProducto" class="form-label">Cantidad producto</label>
+                                <input type="number" class="form-control" id="editCantidadProducto" name="cantidadProducto">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editFechaRecepcion" class="form-label">Fecha Recepción</label>
+                                <input type="date" class="form-control" id="editFechaRecepcion" name="fechaRecepcion">
+                            </div>
+                            <div class="mb-3">
+                                <label for="editFechaVencimiento" class="form-label">Fecha Vencimiento</label>
+                                <input type="date" class="form-control" id="editFechaVencimiento" name="fechaVencimiento">
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" form="editLoteForm" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para confirmación de eliminación de producto -->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteProductModalLabel">Eliminar Producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <form id="deleteLoteForm" method="post">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            // Manejar el botón de eliminación
+            const deleteButtons = document.querySelectorAll('.product-action-delete');
+            deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+            const idLote = this.getAttribute('data-id');
+            const form = document.querySelector('#deleteLoteForm');
+            form.setAttribute('action', `/lotes/eliminar/${idLote}`);
+        });
+        });
+
+            // Manejar el botón de edición
+            const editButtons = document.querySelectorAll('.product-action-edit');
+            editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+            const idLote = this.getAttribute('data-id');
+            fetch(`/lotes/${idLote}`)
+            .then(response => response.json())
+            .then(lote => {
+            // Configurar datos en el modal
+
+            document.querySelector('#editIdLote').value = lote.idLote;
+            document.querySelector('#editProducto').value = lote.idProducto.idProducto;
+            document.querySelector('#editCantidadProducto').value = lote.cantidadProducto;
+            document.querySelector('#editCategoriaProducto').value = lote.idProveedor.idProveedor;
+            document.querySelector('#editFechaRecepcion').value = lote.fechaRecepcion;
+            document.querySelector('#editFechaVencimiento').value = lote.fechaVencimiento;
+
+            // Configurar la acción del formulario
+            const form = document.querySelector('#editLoteForm');
+            form.setAttribute('action', `/lotes/editar/${idLote}`);
+        });
+        });
+        });
+        });
+    </script>
+    <script>
+
+    </script>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    </html>

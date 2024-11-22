@@ -6,12 +6,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Gestionar atributos</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
 </head>
 <body>
     <div th:replace="fragments/header :: headerFragment (title='Administrador')"></div>
     <main class="main-productos-container" style="padding-left: 350px">
         <div class="atributos-container">
             <h1>Gestión Atributos</h1>
+            <div th:if="${mensaje}" class="alert alert-success" role="alert">
+                <span th:text="${mensaje}"></span>
+            </div>
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                <span th:text="${error}"></span>
+            </div>
             <div class="atributos-selection-container">
 
                 <div class="atributos-navbar-container">
@@ -21,120 +28,244 @@
                 </div>
 
                 <div class="atributos-selection-main-content showContent" id="presentacion-att">
-                    <div class="atributo-input-container">
-                        <div class="atributo-input-container-title">
+                    <div class="atributo-input-container" th:each="presentacion, iterstat : ${listarPresentaciones}">
+                        <div class="atributo-input-container-title" th:text="${presentacion.getDescripcion()}">
                             Presentacion 1
                         </div>
-                            <div class="atributo-actions">
-                                <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                                <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                        <div class="product-card-actions">
+                            <!--                    Botones de edición y eliminación-->
+                            <div class="presentacion-action-edit product-action-edit" data-bs-toggle="modal" data-bs-target="#editPresentacionModal" th:data-id="${presentacion.getIdPresentacion()}">
+                                <span>Editar</span>
+                                <i class="bi bi-pencil-square"></i>
+                            </div>
+                            <div class="presentacion-action-delete product-action-delete" data-bs-toggle="modal" data-bs-target="#deletePresentacionModal" th:data-id="${presentacion.getIdPresentacion()}">
+                                <span>Eliminar</span>
+                                <i class="bi bi-trash-fill"></i>
                             </div>
                         </div>
-                    <div class="atributo-input-container">
-                        <div class="atributo-input-container-title">
-                            Presentacion 2
-                        </div>
-                        <div class="atributo-actions">
-                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
-                    </div>
-                    <div class="atributo-input-container">
-                        <div class="atributo-input-container-title">
-                            Presentacion 3
-                        </div>
-                        <div class="atributo-actions">
-                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
-                    </div>
-                    <div class="atributo-input-container">
-                        <div class="atributo-input-container-title">
-                            Presentacion 4
-                        </div>
-                        <div class="atributo-actions">
-                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
                     </div>
                 </div>
+
                 <div class="atributos-selection-main-content" id="unidadmedida-att">
-                    <div class="atributo-input-container">
-                        <div class="atributo-input-container-title">
-                            Unidad de Medida 1
+                    <div class="atributo-input-container"
+                         th:each="unidadMedida, iterstat : ${listarUnidadesMedida}">
+                        <div class="atributo-input-container-title" th:text="${unidadMedida.getDescripcion()}">
+                           Unidad de Medida
                         </div>
-                        <div class="atributo-actions">
-                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
-                    </div>
-                    <div class="atributo-input-container">
-                        <div class="atributo-input-container-title">
-                            Unidad de Medida 2
-                        </div>
-                        <div class="atributo-actions">
-                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
-                    </div>
-                    <div class="atributo-input-container">
-                        <div class="atributo-input-container-title">
-                            Unidad de Medida 3
-                        </div>
-                        <div class="atributo-actions">
-                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                        <div class="product-card-actions">
+                            <!--                    Botones de edición y eliminación-->
+                            <div class="unidad-action-edit product-action-edit" data-bs-toggle="modal" data-bs-target="#editUnidadModal" th:data-id="${unidadMedida.getIdUnidadMedida()}">
+                                <span>Editar</span>
+                                <i class="bi bi-pencil-square"></i>
+                            </div>
+                            <div class="unidad-action-delete product-action-delete" data-bs-toggle="modal" data-bs-target="#deleteUnidadModal" th:data-id="${unidadMedida.getIdUnidadMedida()}">
+                                <span>Eliminar</span>
+                                <i class="bi bi-trash-fill"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="atributos-selection-main-content" id="categoria-att">
-                    <div class="atributo-input-container">
-                        <div class="atributo-input-container-title">
-                            Categoría 1
+                    <div class="atributo-input-container" th:each="categoria, iterstat : ${listarCategorias}">
+                        <div class="atributo-input-container-title" th:text="${categoria.getDescripcion()}">
+                            Presentacion 1
                         </div>
-                        <div class="atributo-actions">
-                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
-                    </div>
-                    <div class="atributo-input-container">
-                        <div class="atributo-input-container-title">
-                            Categoría 2
-                        </div>
-                        <div class="atributo-actions">
-                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
-                    </div>
-                    <div class="atributo-input-container">
-                        <div class="atributo-input-container-title">
-                            Categoría 3
-                        </div>
-                        <div class="atributo-actions">
-                            <div class="product-action-edit" ><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
+                        <div class="product-card-actions">
+                            <!--                    Botones de edición y eliminación-->
+                            <div class="categoria-action-edit product-action-edit" data-bs-toggle="modal" data-bs-target="#editCategoriaModal" th:data-id="${categoria.getIdCategoria()}">
+                                <span>Editar</span>
+                                <i class="bi bi-pencil-square"></i>
+                            </div>
+                            <div class="categoria-action-delete product-action-delete" data-bs-toggle="modal" data-bs-target="#deleteCategoriaModal" th:data-id="${categoria.getIdCategoria()}">
+                                <span>Eliminar</span>
+                                <i class="bi bi-trash-fill"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <br>
-        <h3>Ingresar datos</h3>
-        <form action="" class="form-att">
-            <div class="product-input-container">
-                <label for="nuevaUnidad">Crear nueva selección</label>
-                <input type="text" placeholder="Ingrese el dato correspondiente" name="nuevaUnidad" id="nuevaUnidad">
-                <button type="submit" id="button-att2">Ingresar</button>
-            </div>
-            <div class="product-input-container">
-                <label for="nuevoAtributo">Crear nuevo atributo</label>
-                <input type="text" placeholder="Ingrese el precio en dólares" name="nuevoAtributo" id="nuevoAtributo">
-                <button type="submit" id="button-att">Crear</button>
-            </div>
-        </form>
+        <br>
+        <br>
+        <div class="hiddeContent" id="showAddUnidadMedida">
+            <form th:action="@{/atributos/unidadesmedida}" method="post" th:object="${unidadMedida}" class="form-att">
+                <div class="product-input-container">
+                <h3 style="color: #fff">Ingresar datos</h3><br>
+                    <label for="nuevaUnidad">Crear nueva unidad de medida</label>
+                    <input th:field="*{descripcion}" type="text" placeholder="Ingrese el dato correspondiente" name="nuevaUnidad" id="nuevaUnidad">
+                    <button class="input-general" type="submit" id="button-att2">Ingresar</button>
+                </div>
+            </form>
+        </div>
+        <div class="hiddeContent showContent" id="showAddPresentacion">
+            <form th:action="@{/atributos/presentaciones}" method="post" th:object="${presentacion}" class="form-att">
+                <div class="product-input-container">
+                <h3 style="color: #fff">Ingresar datos</h3><br>
+                    <label for="nuevaPresentacion">Crear nueva presentacion</label>
+                    <input th:field="*{descripcion}" type="text" placeholder="Ingrese el dato correspondiente" name="nuevaPresentacion" id="nuevaPresentacion">
+                    <button class="input-general"  type="submit" id="button-att3">Ingresar</button>
+                </div>
+            </form>
+        </div>
+        <div class="hiddeContent" id="showAddCategoria">
+            <form th:action="@{/atributos/categorias}" method="post" th:object="${categoria}" class="form-att">
+                <div class="product-input-container">
+                <h3 style="color: #fff">Ingresar datos</h3><br>
+                    <label for="nuevaCategoria">Crear nueva categoría</label>
+                    <input th:field="*{descripcion}" type="text" placeholder="Ingrese el dato correspondiente" name="nuevaCategoria" id="nuevaCategoria">
+                    <button class="input-general"  type="submit" id="button-att4">Ingresar</button>
+                </div>
+            </form>
+        </div>
     </main>
+
+
+    <!-- Modal para edición de categoria -->
+    <div class="modal fade" id="editCategoriaModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel">Editar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editCategoriaForm" method="post">
+                        <input type="hidden" id="editIdLote" name="idCategoria">
+                        <div class="mb-3">
+                            <label for="editCategoria" class="form-label">Nombre atributo</label>
+                            <input type="text" class="form-control" id="editCategoria" name="descripcion">
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="editCategoriaForm" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para confirmación de eliminación de categorias -->
+    <div class="modal fade" id="deleteCategoriaModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteProductModalLabel">Eliminar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form id="deleteCategoriaForm" method="post">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para edición de presentacion -->
+    <div class="modal fade" id="editPresentacionModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel41">Editar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPresentacionForm" method="post">
+                        <input type="hidden" id="editIdLote41" name="idLote">
+
+                        <div class="mb-3">
+                            <label for="editPresentacion" class="form-label">Nombre atributo</label>
+                            <input type="text" class="form-control" id="editPresentacion" name="descripcion">
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="editPresentacionForm" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para confirmación de eliminación de presentacion -->
+    <div class="modal fade" id="deletePresentacionModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteProductModalLabel21">Eliminar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form id="deletePresentacionForm" method="post">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para edición de unidad de medida -->
+    <div class="modal fade" id="editUnidadModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProductModalLabel3">Editar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editUnidadForm" method="post">
+                        <input type="hidden" id="editIdLote3" name="idLote">
+
+                        <div class="mb-3">
+                            <label for="editUnidadMedida" class="form-label">Nombre atributo</label>
+                            <input type="text" class="form-control" id="editUnidadMedida" name="descripcion">
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="editUnidadForm" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para confirmación de eliminación de unidad de medida -->
+    <div class="modal fade" id="deleteUnidadModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteProductModalLabel4">Eliminar Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form id="deleteUnidadForm" method="post">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
+<script>
+
+</script>
 <script>
 
 const tab1 = document.getElementById('presentacion-tab');
@@ -145,31 +276,143 @@ const att1 = document.getElementById('presentacion-att')
 const att2 = document.getElementById('unidadmedida-att')
 const att3 = document.getElementById('categoria-att')
 
+const add1 = document.getElementById('showAddPresentacion');
+const add2 = document.getElementById('showAddUnidadMedida');
+const add3 = document.getElementById('showAddCategoria');
+
 tab1.addEventListener('click', () => {
     tab1.classList.add('selected-tab')
     tab2.classList.remove('selected-tab')
     tab3.classList.remove('selected-tab')
+
     att1.classList.add('showContent')
     att2.classList.remove('showContent')
     att3.classList.remove('showContent')
+
+    add1.classList.add('showContent')
+    add2.classList.remove('showContent')
+    add3.classList.remove('showContent')
+
 });
 tab2.addEventListener('click', () => {
     tab1.classList.remove('selected-tab')
     tab2.classList.add('selected-tab')
     tab3.classList.remove('selected-tab')
+
     att1.classList.remove('showContent')
     att2.classList.add('showContent')
     att3.classList.remove('showContent')
+
+    add1.classList.remove('showContent')
+    add2.classList.add('showContent')
+    add3.classList.remove('showContent')
+
 });
 tab3.addEventListener('click', () => {
     tab1.classList.remove('selected-tab')
     tab2.classList.remove('selected-tab')
     tab3.classList.add('selected-tab')
+
     att1.classList.remove('showContent')
     att2.classList.remove('showContent')
     att3.classList.add('showContent')
-});
 
+    add1.classList.remove('showContent')
+    add2.classList.remove('showContent')
+    add3.classList.add('showContent')
+});
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Manejar el botón de eliminación
+        const deleteButtons = document.querySelectorAll('.presentacion-action-delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idPresentacion = this.getAttribute('data-id');
+                const form = document.querySelector('#deletePresentacionForm');
+                form.setAttribute('action', `/atributos/presentaciones/eliminar/${idPresentacion}`);
+            });
+        });
+
+        // Manejar el botón de edición
+        const editButtons = document.querySelectorAll('.presentacion-action-edit');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idPresentacion = this.getAttribute('data-id');
+                fetch(`/atributos/presentaciones/${idPresentacion}`)
+                    .then(response => response.json())
+                    .then(presentacion => {
+                        // Configurar datos en el modal
+
+                       document.querySelector('#editPresentacion').value = presentacion.descripcion;
+
+                        // Configurar la acción del formulario
+                        const form = document.querySelector('#editPresentacionForm');
+                        form.setAttribute('action', `/atributos/presentaciones/editar/${idPresentacion}`);
+                    });
+            });
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        // Manejar el botón de eliminación
+        const deleteButtons = document.querySelectorAll('.categoria-action-delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idCategoria = this.getAttribute('data-id');
+                const form = document.querySelector('#deleteCategoriaForm');
+                form.setAttribute('action', `/atributos/categorias/eliminar/${idCategoria}`);
+            });
+        });
+
+        // Manejar el botón de edición
+        const editButtons = document.querySelectorAll('.categoria-action-edit');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idCategoria = this.getAttribute('data-id');
+                fetch(`/atributos/categorias/${idCategoria}`)
+                    .then(response => response.json())
+                    .then(categoria => {
+                        // Configurar datos en el modal
+
+                        document.querySelector('#editCategoria').value = categoria.descripcion;
+
+                        // Configurar la acción del formulario
+                        const form = document.querySelector('#editCategoriaForm');
+                        form.setAttribute('action', `/atributos/categorias/editar/${idCategoria}`);
+                    });
+            });
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        // Manejar el botón de eliminación
+        const deleteButtons = document.querySelectorAll('.unidad-action-delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idUnidadMedida = this.getAttribute('data-id');
+                const form = document.querySelector('#deleteUnidadForm');
+                form.setAttribute('action', `/atributos/unidadesmedida/eliminar/${idUnidadMedida}`);
+            });
+        });
+
+        // Manejar el botón de edición
+        const editButtons = document.querySelectorAll('.unidad-action-edit');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idUnidadMedida = this.getAttribute('data-id');
+                fetch(`/atributos/unidadesmedida/${idUnidadMedida}`)
+                    .then(response => response.json())
+                    .then(unidadesmedida => {
+                        // Configurar datos en el modal
+
+                       document.querySelector('#editUnidadMedida').value = unidadesmedida.descripcion;
+
+                        // Configurar la acción del formulario
+                        const form = document.querySelector('#editUnidadForm');
+                        form.setAttribute('action', `/atributos/unidadesmedida/editar/${idUnidadMedida}`);
+                    });
+            });
+        });
+    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
