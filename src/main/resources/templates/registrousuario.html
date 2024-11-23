@@ -13,14 +13,14 @@
 <main class="main-productos-container" style="padding-left: 350px">
     <div class="registro-main-container">
         <div class="registro-title-container">
-            <h1>Registro de usuarios</h1>
+            <h1>Gestionar usuarios</h1>
         </div>
         <div class="registro-form-background">
             <div class="registro-main-container">
                 <div class="registro-title-container">
                     <h3>Registrar nuevo usuario</h3>
                 </div>
-                <form action="#" th:action="@{/registrousuario}" th:object="${usuario}" method="post">
+                <form action="#" th:action="@{/registrousuario/guardar}" th:object="${usuario}" method="post">
                     <div class="registro-form-container">
                         <div class="registro-form-nombres">
                             <label for="registro-nombres" class="registro-form-label">Nombre y apellido</label>
@@ -34,9 +34,6 @@
                                 <option value="" disabled selected>Seleccione un tipo de usuario</option>
                                 <option th:each="rol : ${roles}" th:value="${rol.idRol}"
                                         th:text="${rol.nombreRole}"></option>
-                                <!--                                <option value="ADMIN">Administrador</option>-->
-                                <!--                                <option value="SELLER">Vendedor</option>-->
-                                <!--                                <option value="MANAGER">Gerente</option>-->
                             </select>
                         </div>
                         <div class="registro-form-email">
@@ -83,97 +80,110 @@
                     <div class="registro-title-container">
                         <h3>Buscar usuarios</h3>
                         <div class="producto-searcher-container">
-                            <input type="text" placeholder="Busqueda por nombre o correo"></input>
+                            <input type="search" placeholder="Busqueda por nombre o correo">
                         </div>
                     </div>
                 </div>
-                <!--                <form action="#" th:action="@{/usuarios}" method="get">-->
-                <!--                <div class="product-searcher-container">-->
-                <!--                    <input type="text" th:value="${searchTerm}" placeholder="Busqueda por nombre o correo" name="searchTerm"-->
-                <!--                           id="search-product">-->
-                <!--                    <button type="submit">Buscar</button>-->
-                <!--                </div>-->
-                <!--                </form>-->
                 <div class="product-products-container">
-                    <div th:each="usuario : ${usuarios}" class="product-card-container">
-                        <!--                        <div class="product-card-container">-->
+                    <div th:each="usuario, iterStat: ${listarUsuarios}" class="product-card-container">
                         <div class="product-card-information">
-                            <img src="" alt="imagen usuario">
+                            <!--                            <img src="" alt="imagen usuario">-->
                             <div>
                                 <h4 th:text="${usuario.nombreCompleto}"></h4>
-                                <p th:text="${usuario.email}"></p>
-                                <!--                                    <h4>Nombre Apellido</h4>-->
-                                <!--                                    <p>nombre.apellido</p>-->
-                                <!--                                    <p>nombre.apellido@email.com</p>-->
+                                <hr>
+                                <span th:text="'Usuario: ' + ${usuario.nombreUsuario}"></span>
+                                <br>
+                                <span th:text="'Email: ' + ${usuario.email}"></span>
+                                <br>
+                                <span th:text="'Rol: ' + ${usuario.idRol.nombreRole}"></span>
                             </div>
                         </div>
+                        <br>
                         <div class="product-card-actions">
-                            <div class="product-action-edit"><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
-                        <!--                        </div>-->
-                    </div>
-
-                    <!--
-                    <div class="product-card-container">
-                        <div class="product-card-information">
-                            <img src="" alt="imagen usuario">
-                            <div>
-                                <h4>Nombre Apellido</h4>
-                                <p>nombre.apellido</p>
-                                <p>nombre.apellido@email.com</p>
+                            <div class="product-action-edit" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                 th:data-id="${usuario.getIdUsuario()}">
+                                <span>Editar</span>
+                                <i class="bi bi-pencil-square"></i>
+                            </div>
+                            <div class="product-action-delete" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                                 th:data-id="${usuario.getIdUsuario()}">
+                                <span>Eliminar</span>
+                                <i class="bi bi-trash-fill"></i>
                             </div>
                         </div>
-                        <div class="product-card-actions">
-                            <div class="product-action-edit"><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
                     </div>
-                    <div class="product-card-container">
-                        <div class="product-card-information">
-                            <img src="" alt="imagen usuario">
-                            <div>
-                                <h4>Nombre Apellido</h4>
-                                <p>nombre.apellido</p>
-                                <p>nombre.apellido@email.com</p>
-                            </div>
-                        </div>
-                        <div class="product-card-actions">
-                            <div class="product-action-edit"><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
-                    </div>
-                    <div class="product-card-container">
-                        <div class="product-card-information">
-                            <img src="" alt="imagen usuario">
-                            <div>
-                                <h4>Nombre Apellido</h4>
-                                <p>nombre.apellido</p>
-                                <p>nombre.apellido@email.com</p>
-                            </div>
-                        </div>
-                        <div class="product-card-actions">
-                            <div class="product-action-edit"><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
-                    </div>
-                    <div class="product-card-container">
-                        <div class="product-card-information">
-                            <img src="" alt="imagen usuario">
-                            <div>
-                                <h4>Nombre Apellido</h4>
-                                <p>nombre.apellido</p>
-                                <p>nombre.apellido@email.com</p>
-                            </div>
-                        </div>
-                        <div class="product-card-actions">
-                            <div class="product-action-edit"><i class="bi bi-pencil-square"></i></div>
-                            <div class="product-action-delete"><i class="bi bi-trash-fill"></i></div>
-                        </div>
-                    </div>
-                    -->
                 </div>
             </div>
+
+            <!-- Modal para edición de Usuario -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="editUserModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editUserModalLabel">Editar Usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editUserForm" method="post">
+                                <input type="hidden" id="editIdUsuario" name="idUsuario">
+                                <div class="mb-3">
+                                    <label for="editNombreUsuario" class="form-label">Nombre usuario</label>
+                                    <input type="text" class="form-control" id="editNombreUsuario"
+                                           th:value="${usuario.nombreUsuario}" name="nombreUsuario">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editEmailUsuario" class="form-label">Email</label>
+                                    <input type="text" class="form-control" id="editEmailUsuario" name="email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editPasswordUsuario" class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" id="editPasswordUsuario"
+                                           name="password">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editRolUsuario" class="form-label">Rol</label>
+<!--                                    <input type="text" class="form-control" id="editRolUsuario" name="idRol">-->
+                                    <select class="form-select" name="idRol" id="editRolUsuario">
+                                        <option value="" disabled selected>Seleccionar Rol</option>
+                                        <option value="1">Administrador</option>
+                                        <option value="2">Gerente</option>
+                                        <option value="3">Vendedor</option>
+                                    </select>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" form="editUserForm" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para confirmación de eliminación de Usuario -->
+            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="deleteUserModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteUserModalLabel">Eliminar proveedor</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Estás seguro de que deseas eliminar este Usuario? Esta acción no se puede deshacer.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <form id="deleteUserForm" method="post">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </main>
@@ -191,6 +201,41 @@
         return true; //permite el envio del form cuando las contasenas son iguales
 
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Manejar el botón de eliminación
+        const deleteButtons = document.querySelectorAll('.product-action-delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idUsuario = this.getAttribute('data-id');
+                const form = document.querySelector('#deleteUserForm');
+                form.setAttribute('action', `/registrousuario/eliminar/${idUsuario}`);
+            });
+        });
+
+        // Manejar el botón de edición
+        const editButtons = document.querySelectorAll('.product-action-edit');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idUsuario = this.getAttribute('data-id');
+                fetch(`/registrousuario/${idUsuario}`)
+                    .then(response => response.json())
+                    .then(usuario => {
+                        // Configurar datos en el modal
+                        document.querySelector('#editIdUsuario').value = usuario.idUsuario;
+                        document.querySelector('#editNombreUsuario').value = usuario.nombreUsuario;
+                        document.querySelector('#editEmailUsuario').value = usuario.email;
+                        document.querySelector('#editPasswordUsuario').value = '';
+                        document.querySelector('#editRolUsuario').value = usuario.idRol.idRol;
+                        // document.querySelector('#editPasswordUsuario').value = usuario.password;
+
+                        // Configurar la acción del formulario
+                        const form = document.querySelector('#editUserForm');
+                        form.setAttribute('action', `/registrousuario/editar/${idUsuario}`);
+                    });
+            });
+        });
+    });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

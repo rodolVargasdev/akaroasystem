@@ -22,11 +22,6 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/registrousuario")
-    public String register(Model model) {
-        return "registrousuario";
-    }
-
     @GetMapping("/reportes")
     public String reportes(Model model) {
         return "reportes";
