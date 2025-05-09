@@ -157,7 +157,7 @@ public class ProductoController {
             List<Producto> productos = productoService.findAll();
             List<Integer> cantidadesTotales = new ArrayList<>();
             List<Lote> lotes = loteService.findAll();
-
+ 
             for (Producto producto : productos) {
                 int cantidadTotal = 0;
                 for (Lote lote : lotes) {
