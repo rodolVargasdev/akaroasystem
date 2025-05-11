@@ -7,9 +7,11 @@ import com.example.akaroa.repository.ProveedorRepository;
 import com.example.akaroa.repository.UsuarioRepository;
 import com.example.akaroa.service.*;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -67,11 +69,20 @@ public class ProductoController {
         return null;
     }
 
-
-
     @PostMapping("/productos")
     @Transactional
-    public String procesarFormulario(@ModelAttribute Producto producto, Model model) {
+    public String procesarFormulario(@Valid @ModelAttribute Producto producto, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            // Recarga los datos necesarios para el formulario
+            model.addAttribute("listarProductos", productoService.findAll());
+            model.addAttribute("presentaciones", presentacionService.findAll());
+            model.addAttribute("unidadesmedidas", unidadMedidaService.findAll());
+            model.addAttribute("categorias", categoriaService.findAll());
+            model.addAttribute("producto", producto);
+            model.addAttribute("calcularStock", calcularTotalProductos());
+            return "productos";
+        }
+
         if (producto.getIdCategoria() != null) {
             producto.setIdCategoria(categoriaService.findById(producto.getIdCategoria().getIdCategoria()).orElse(null));
         }
@@ -83,8 +94,7 @@ public class ProductoController {
         }
 
         productoService.save(producto);
-        model.addAttribute("agregadoExitoso", "Producto agregado exitosamente"+ producto.getNombreProducto());
-
+        model.addAttribute("agregadoExitoso", "Producto agregado exitosamente: " + producto.getNombreProducto());
         return "redirect:/productos";
     }
 
@@ -99,7 +109,6 @@ public class ProductoController {
         }
         return "redirect:/productos";
     }
-
 
     @PostMapping("/productos/eliminar/{id}")
     @Transactional
@@ -133,7 +142,6 @@ public class ProductoController {
 
         List<Integer> idLote = new ArrayList<>();
         for(Lote lote : lotes){
-
             idLote.add(lote.getIdProducto().getIdProducto());
         }
 
@@ -153,23 +161,21 @@ public class ProductoController {
         return cantidadTotal;
     }
 
-        public List<Integer> calcularTotalProductos() {
-            List<Producto> productos = productoService.findAll();
-            List<Integer> cantidadesTotales = new ArrayList<>();
-            List<Lote> lotes = loteService.findAll();
- 
-            for (Producto producto : productos) {
-                int cantidadTotal = 0;
-                for (Lote lote : lotes) {
-                    if (Objects.equals(lote.getIdProducto().getIdProducto(), producto.getIdProducto())) {
-                        cantidadTotal += lote.getCantidadProducto();
-                    }
-                }
-                cantidadesTotales.add(cantidadTotal);
-            }
+    public List<Integer> calcularTotalProductos() {
+        List<Producto> productos = productoService.findAll();
+        List<Integer> cantidadesTotales = new ArrayList<>();
+        List<Lote> lotes = loteService.findAll();
 
-            return cantidadesTotales;
+        for (Producto producto : productos) {
+            int cantidadTotal = 0;
+            for (Lote lote : lotes) {
+                if (Objects.equals(lote.getIdProducto().getIdProducto(), producto.getIdProducto())) {
+                    cantidadTotal += lote.getCantidadProducto();
+                }
+            }
+            cantidadesTotales.add(cantidadTotal);
         }
 
-
+        return cantidadesTotales;
+    }
 }

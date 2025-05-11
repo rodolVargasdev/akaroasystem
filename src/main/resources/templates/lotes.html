@@ -23,6 +23,7 @@
                 <div class="product-input-container">
                     <label for="productoLote">Producto interno</label>
                     <select name="productoLote" id="productoLote" th:field="*{idProducto}" required>
+                        <option value="" selected>Seleccione un producto</option>
                         <option th:each="producto : ${productos}"
                                 th:value="${producto.idProducto}"
                                 th:text="${producto.getNombreProducto()}">
@@ -32,6 +33,7 @@
                 <div class="product-input-container">
                     <label for="proveedorLote">Proveedor del lote</label>
                     <select name="proveedorLote" id="proveedorLote" th:field="*{idProveedor}" required>
+                        <option value="" selected>Seleccione un proveedor</option>
                         <option th:each="proveedor : ${proveedores}"
                                 th:value="${proveedor.idProveedor}"
                                 th:text="${proveedor.getNombreProveedor()}">
@@ -45,11 +47,11 @@
                 </div>
                 <div class="product-input-container">
                     <label for="recepcionLote">Fecha de recepcion del lote</label>
-                    <input type="date" placeholder="Ingrese fecha" name="recepcionLote" id="recepcionLote" value="recepcionLote" th:field="*{fechaRecepcion}">
+                    <input type="date" placeholder="Ingrese fecha" name="recepcionLote" id="recepcionLote" value="recepcionLote" th:field="*{fechaRecepcion}" required>
                 </div>
                 <div class="product-input-container">
                     <label for="cantidadLote">Cantidad de producto</label>
-                    <input type="text" placeholder="Ingrese cantidad" name="cantidad" id="cantidadLote" value="cantidadLote" th:field="*{cantidadProducto}">
+                    <input type="text" placeholder="Ingrese cantidad" name="cantidad" id="cantidadLote" value="cantidadLote" th:field="*{cantidadProducto}" required>
                 </div>
 
                 <button type="submit">Ingresar Lote</button>

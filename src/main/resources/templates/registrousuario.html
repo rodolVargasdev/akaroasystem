@@ -31,9 +31,9 @@
                         <div class="registro-form-tipousuario">
                             <label for="registro-tipousuario" class="registro-form-label">Tipo de usuario</label>
                             <select th:field="*{idRol.idRol}" id="registro-tipousuario" required>
-                                <option value="" disabled selected>Seleccione un tipo de usuario</option>
+                                <option value="" selected>Seleccione un tipo de usuario</option>
                                 <option th:each="rol : ${roles}" th:value="${rol.idRol}"
-                                        th:text="${rol.nombreRole}"></option>
+                                        th:text="${rol.nombreRole == 'ADMIN' ? 'Administrador' : (rol.nombreRole == 'MANAGER' ? 'Gerente' : (rol.nombreRole == 'SELLER' ? 'Vendedor' : rol.nombreRole))}"></option>
                             </select>
                         </div>
                         <div class="registro-form-email">
@@ -95,7 +95,10 @@
                                 <br>
                                 <span th:text="'Email: ' + ${usuario.email}"></span>
                                 <br>
-                                <span th:text="'Rol: ' + ${usuario.idRol.nombreRole}"></span>
+                                <span th:text="'Rol: ' +
+                                (${usuario.idRol.nombreRole == 'ADMIN' ? 'Administrador' :
+                                (usuario.idRol.nombreRole == 'MANAGER' ? 'Gerente' :
+                                (usuario.idRol.nombreRole == 'SELLER' ? 'Vendedor' : usuario.idRol.nombreRole))})"></span>
                             </div>
                         </div>
                         <br>
@@ -143,7 +146,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="editRolUsuario" class="form-label">Rol</label>
-<!--                                    <input type="text" class="form-control" id="editRolUsuario" name="idRol">-->
+                                    <!--                                    <input type="text" class="form-control" id="editRolUsuario" name="idRol">-->
                                     <select class="form-select" name="idRol" id="editRolUsuario">
                                         <option value="" disabled selected>Seleccionar Rol</option>
                                         <option value="1">Administrador</option>

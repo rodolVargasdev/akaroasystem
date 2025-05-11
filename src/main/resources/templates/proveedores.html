@@ -22,15 +22,15 @@
         <form th:action="@{/proveedores}" th:object="${proveedor}" method="post">
             <div class="product-input-container">
                 <label for="nombreProveedor">Nombre proveedor</label>
-                <input type="text" placeholder="Ingrese el nombre del proveedor" name="nombreProveedor" id="nombreProveedor" th:field="*{nombreProveedor}">
+                <input type="text" placeholder="Ingrese el nombre del proveedor" name="nombreProveedor" id="nombreProveedor" th:field="*{nombreProveedor}" required>
             </div>
             <div class="product-input-container">
                 <label for="telProveedor">Teléfono contacto del proveedor</label>
-                <input type="number" placeholder="Ingrese teléfono" name="telProveedor" id="telProveedor" th:field="*{telefono}">
+                <input type="number" placeholder="Ingrese teléfono" name="telProveedor" id="telProveedor" th:field="*{telefono}" required>
             </div>
             <div class="product-input-container">
                 <label for="direccionProveedor">Ubicación del proveedor en cuestión</label>
-                <input type="text" placeholder="Ingrese dirección física" name="direccionProveedor" id="direccionProveedor" th:field="*{direccion}">
+                <input type="text" placeholder="Ingrese dirección física" name="direccionProveedor" id="direccionProveedor" th:field="*{direccion}" required>
             </div>
             <div>
                 <button type="submit">Ingresar Proveedor</button>

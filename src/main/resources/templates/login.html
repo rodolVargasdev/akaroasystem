@@ -13,8 +13,11 @@
     <div class="login-main-container">
         <div class="login-title-container">
             <h1>SISTEMA AKAROA</h1>
-            <div class="login-logo"></div>
+            <img th:src="@{/img/logo_akaroa_removebg.png}" alt="Sistema Akaroa Logo"
+                 style="width: 150px; height: auto;"/>
         </div>
+<!--        <div class="login-logo">-->
+<!--        </div>-->
         <div class="login-form-container">
             <h2>Inicio de sesión</h2>
             <form action="/login" th:action="@{/login}" method="post">
@@ -25,7 +28,6 @@
                     <div th:if="${logout}" class="alert alert-success">
                         <p th:text="${logout}"></p>
                     </div>
-                    <!--                    <input type="email" name="email" id="email-input" placeholder="Usuario">-->
                     <input type="text" name="username" id="email-input" placeholder="Correo electrónico" required
                     pattern="^[\\w.-]+@akaroa\.com$"
                     title="Introduce un email valido, por ejemplo: usuario@akaroa.com">

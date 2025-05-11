@@ -21,13 +21,19 @@
             </div>
             <h3>Ingresar nuevo producto</h3>
             <form th:action="@{/productos}" method="post" th:object="${producto}">
+                <!-- Muestra diferentes mensajes de error -->
+<!--                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">-->
+<!--                    <ul>-->
+<!--                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
                 <div class="product-input-container">
                     <label for="nombreProducto">Nombre producto</label>
-                    <input type="text" placeholder="Ingrese el nombre del producto" name="nombreProducto" id="nombreProducto" th:field="*{nombreProducto}">
+                    <input type="text" placeholder="Ingrese el nombre del producto" name="nombreProducto" id="nombreProducto" th:field="*{nombreProducto}" required>
                 </div>
                 <div class="product-input-container">
                     <label for="precioProducto">Precio producto</label>
-                    <input type="text" placeholder="Ingrese el precio en dólares" name="precioProducto" id="precioProducto" th:field="*{precio}">
+                    <input type="text" placeholder="Ingrese el precio en dólares" name="precioProducto" id="precioProducto" th:field="*{precio}" required min="0.01" step="0.01">
                 </div>
                 <div class="product-input-container">
                     <label for="descripcionProducto">Descripción del producto</label>
@@ -35,7 +41,8 @@
                 </div>
                 <div class="product-input-container">
                     <label for="categoriaProducto">Categoría del producto</label>
-                    <select name="categoriaProducto" id="categoriaProducto" th:field="*{idCategoria}">
+                    <select name="categoriaProducto" id="categoriaProducto" th:field="*{idCategoria}" required>
+                        <option value="" selected>Seleccione una categoría</option>
                         <option th:each="categoria : ${categorias}"
                                 th:value="${categoria.idCategoria}"
                                 th:text="${categoria.descripcion}">
@@ -44,7 +51,8 @@
                 </div>
                 <div class="product-input-container">
                     <label for="presentacionProducto">Presentación del producto</label>
-                    <select name="presentacionProducto" id="presentacionProducto" th:field="*{idPresentacion}">
+                    <select name="presentacionProducto" id="presentacionProducto" th:field="*{idPresentacion}" required>
+                        <option value="" selected>Seleccione una presentación</option>
                         <option th:each="presentacion : ${presentaciones}"
                                 th:value="${presentacion.idPresentacion}"
                                 th:text="${presentacion.descripcion}">
@@ -53,7 +61,8 @@
                 </div>
                 <div class="product-input-container">
                     <label for="unidadMedidaProducto">Unidad de medida del producto</label>
-                    <select name="unidadMedidaProducto" id="unidadMedidaProducto" th:field="*{idUnidadMedida}">
+                    <select name="unidadMedidaProducto" id="unidadMedidaProducto" th:field="*{idUnidadMedida}" required>
+                        <option value="" selected>Seleccione una unidad de medida</option>
                         <option th:each="unidadmedida : ${unidadesmedidas}"
                                 th:value="${unidadmedida.idUnidadMedida}"
                                 th:text="${unidadmedida.descripcion}">
