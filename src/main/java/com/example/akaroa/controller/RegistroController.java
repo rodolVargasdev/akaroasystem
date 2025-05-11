@@ -1,7 +1,7 @@
 package com.example.akaroa.controller;
 
-import com.example.akaroa.model.Usuario;
 import com.example.akaroa.model.Rol;
+import com.example.akaroa.model.Usuario;
 import com.example.akaroa.repository.UsuarioRepository;
 import com.example.akaroa.service.RolService;
 import com.example.akaroa.service.UsuarioService;
@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
-//import java.util.Optional;
 
 @Controller
 public class RegistroController {
@@ -31,48 +30,63 @@ public class RegistroController {
     public String mostrarFormRegistro(Model model) {
         model.addAttribute("usuario", new Usuario());
         List<Rol> roles = rolService.findAll();
-//        List<Usuario> usuarios = usuarioService.findAll();
         model.addAttribute("listarUsuarios", usuarioService.findAll());
         model.addAttribute("roles", roles);
-//        model.addAttribute("usuarios", usuarios);
 
         return "registrousuario";
     }
 
     @PostMapping("/registrousuario/guardar")
-    public String registrarUsuario(@ModelAttribute Usuario usuario, Model model) {
-
-        // Validacion de las contrasenas
+    public String registrarUsuario(@ModelAttribute Usuario usuario, RedirectAttributes redirectAttributes, Model model) {
+        // Validación de contraseñas
         if (!usuario.getPassword().equals(usuario.getConfirmPassword())) {
             model.addAttribute("error", "Las contraseñas deben ser iguales");
             model.addAttribute("roles", rolService.findAll());
+            model.addAttribute("listarUsuarios", usuarioService.findAll());
             return "registrousuario";
         }
 
-        // Verificacion de email en uso
-        if (usuarioService.existePorEmail(usuario.getEmail())) {
-            System.out.println(usuario.getEmail());
-            model.addAttribute("error", "El email ya esta en uso, Por favor ingresa un email diferente");
+        // validar direccion de email
+        String emailPattern = "^[A-Za-z0-9._%+-]+@akaroa\\.com$";
+        if (!usuario.getEmail().matches(emailPattern)) {
+            model.addAttribute("error", "El correo debe tener el formato nombreUsuario@akaroa.com");
             model.addAttribute("roles", rolService.findAll());
+            model.addAttribute("listarUsuarios", usuarioService.findAll());
+            return "registrousuario";
+        }
+
+        // Verificación de email en uso
+        if (usuarioService.existePorEmail(usuario.getEmail())) {
+            model.addAttribute("error", "El email ya está en uso, Por favor ingresa un email diferente");
+            model.addAttribute("roles", rolService.findAll());
+            model.addAttribute("listarUsuarios", usuarioService.findAll());
+            return "registrousuario";
+        }
+
+        // Verificacion de nombre de usuario en uso
+        if (usuarioService.existePorNombreUsuario(usuario.getNombreUsuario())) {
+            model.addAttribute("error", "Este nombre de usuario ya esta en uso, Por favor ingresa un nombre de usuario diferente");
+            model.addAttribute("roles", rolService.findAll());
+            model.addAttribute("listarUsuarios", usuarioService.findAll());
             return "registrousuario";
         }
 
         Integer idRol = usuario.getIdRol().getIdRol();
         Rol rol = rolService.obtenerRolPorId(idRol);
-//        System.out.println(usuario.getNombreUsuario());
 
-        if(rol==null) {
-            System.out.println("Rol no encontrado");
+        if (rol == null) {
+            model.addAttribute("error", "Rol no encontrado");
+            model.addAttribute("roles", rolService.findAll());
+            model.addAttribute("listarUsuarios", usuarioService.findAll());
+            return "registrousuario";
         }
 
         usuario.setIdRol(rol);
         usuarioService.save(usuario);
 
-        model.addAttribute("success", "Usuario registrado exitosamente");
-        model.addAttribute("roles", rolService.findAll());
-        model.addAttribute("listarUsuarios", usuarioService.findAll());
-
-        return "registrousuario";
+        // Usar RedirectAttributes para pasar el mensaje de éxito
+        redirectAttributes.addFlashAttribute("success", "Usuario registrado exitosamente");
+        return "redirect:/registrousuario";
     }
 
     @PostMapping("/registrousuario/eliminar/{idUsuario}")
@@ -111,14 +125,14 @@ public class RegistroController {
             actualizarUsuario.setEmail(usuario.getEmail());
 
             // Actualiza la contraseña si se ha proporcionado una nueva
-            if (usuario.getPassword() != null && !usuario.getPassword().isEmpty()){
+            if (usuario.getPassword() != null && !usuario.getPassword().isEmpty()) {
                 actualizarUsuario.setPassword(usuario.getPassword());
             }
 
             Integer idRol = usuario.getIdRol().getIdRol();
             Rol rol = rolService.obtenerRolPorId(idRol);
 
-            if(rol != null) {
+            if (rol != null) {
                 actualizarUsuario.setIdRol(rol);
             } else {
                 redirectAttributes.addFlashAttribute("error", "El rol no encontrado");

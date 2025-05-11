@@ -39,8 +39,9 @@
                         <div class="registro-form-email">
                             <label for="registro-email" class="registro-form-label">Correo electrónico</label>
                             <input type="email" placeholder="Ingrese correo electrónico" th:field="*{email}"
-                                   name="registro-email"
-                                   id="registro-email" required>
+                                   name="registro-email" id="registro-email" required
+                                   pattern="^[A-Za-z0-9._%+-]+@akaroa\.com$"
+                                   title="El correo debe tener el formato nombreUsuario@akaroa.com">
                         </div>
                         <div class="registro-form-usuario">
                             <label for="registro-usuario" class="registro-form-label">Usuario</label>
@@ -60,9 +61,6 @@
                                    name="registro-password2"
                                    id="registro-password2" required>
                         </div>
-                        <!--                        <div th:if="${error}" class="alert alert-danger ">-->
-                        <!--                            <p th:text="${error}"></p>-->
-                        <!--                        </div>-->
                         <div class="registro-form-button">
                             <button type="submit">Ingresar nuevo usuario</button>
                         </div>
@@ -146,7 +144,6 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="editRolUsuario" class="form-label">Rol</label>
-                                    <!--                                    <input type="text" class="form-control" id="editRolUsuario" name="idRol">-->
                                     <select class="form-select" name="idRol" id="editRolUsuario">
                                         <option value="" disabled selected>Seleccionar Rol</option>
                                         <option value="1">Administrador</option>

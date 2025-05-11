@@ -22,21 +22,9 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    // Metodo para buscar los usuarios
-//    public List<Usuario> buscar(String searchTerm) {
-//        if (searchTerm == null || searchTerm.isEmpty()) {
-//            return usuarioRepository.findAll(); // retorna todos los usuarios si no hay termino de busqueda
-//        }
-//        return usuarioRepository.findByNombreCompletoContainingIgnoreCaseOrEmailContainingIgnoreCase(searchTerm, searchTerm);
-//    }
-
     public Optional<Usuario> findById(Integer id) {
         return usuarioRepository.findById(id);
     }
-
-//    public Usuario save(Usuario usuario) {
-//        return usuarioRepository.save(usuario);
-//    }
 
     // Metodo para guardar o registrar un nuevo usuario
     public Usuario save(Usuario usuario) {
@@ -47,6 +35,11 @@ public class UsuarioService {
     // Metodo de email en uso
     public boolean existePorEmail(String email) {
         return usuarioRepository.findByEmail(email).isPresent();
+    }
+
+    // Metodo de nombre de usuario en uso
+    public boolean existePorNombreUsuario(String nombreUsuario) {
+        return usuarioRepository.findByNombreUsuario(nombreUsuario).isPresent();
     }
 
     public void deleteById(Integer id) {
