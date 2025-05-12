@@ -48,7 +48,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String validateEmail(@RequestParam("username") String email,
+    public String validateEmail(@RequestParam("email") String email,
                                 RedirectAttributes redirectAttributes) {
         if (!isValidEmail(email)) {
             redirectAttributes.addAttribute("invalidEmail", true);

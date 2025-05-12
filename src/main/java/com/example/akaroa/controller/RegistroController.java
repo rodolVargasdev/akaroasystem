@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,44 +39,44 @@ public class RegistroController {
 
     @PostMapping("/registrousuario/guardar")
     public String registrarUsuario(@ModelAttribute Usuario usuario, RedirectAttributes redirectAttributes, Model model) {
-        // Validación de contraseñas
-        if (!usuario.getPassword().equals(usuario.getConfirmPassword())) {
-            model.addAttribute("error", "Las contraseñas deben ser iguales");
-            model.addAttribute("roles", rolService.findAll());
-            model.addAttribute("listarUsuarios", usuarioService.findAll());
-            return "registrousuario";
-        }
+        // Lista para acumular errores
+        List<String> errores = new ArrayList<>();
 
         // validar direccion de email
         String emailPattern = "^[A-Za-z0-9._%+-]+@akaroa\\.com$";
         if (!usuario.getEmail().matches(emailPattern)) {
-            model.addAttribute("error", "El correo debe tener el formato nombreUsuario@akaroa.com");
-            model.addAttribute("roles", rolService.findAll());
-            model.addAttribute("listarUsuarios", usuarioService.findAll());
-            return "registrousuario";
+            errores.add("El correo debe tener el formato nombreUsuario@akaroa.com");
         }
 
         // Verificación de email en uso
         if (usuarioService.existePorEmail(usuario.getEmail())) {
-            model.addAttribute("error", "El email ya está en uso, Por favor ingresa un email diferente");
-            model.addAttribute("roles", rolService.findAll());
-            model.addAttribute("listarUsuarios", usuarioService.findAll());
-            return "registrousuario";
+            errores.add("El email ya está en uso, Por favor ingresa un email diferente");
         }
 
         // Verificacion de nombre de usuario en uso
         if (usuarioService.existePorNombreUsuario(usuario.getNombreUsuario())) {
-            model.addAttribute("error", "Este nombre de usuario ya esta en uso, Por favor ingresa un nombre de usuario diferente");
-            model.addAttribute("roles", rolService.findAll());
-            model.addAttribute("listarUsuarios", usuarioService.findAll());
-            return "registrousuario";
+            errores.add("Este nombre de usuario ya esta en uso, Por favor ingresa un nombre de usuario diferente");
+        }
+
+        // Validación de contraseñas
+        if (!usuario.getPassword().equals(usuario.getConfirmPassword())) {
+            errores.add("Las contraseñas deben ser iguales");
         }
 
         Integer idRol = usuario.getIdRol().getIdRol();
         Rol rol = rolService.obtenerRolPorId(idRol);
 
         if (rol == null) {
-            model.addAttribute("error", "Rol no encontrado");
+            errores.add("Rol no encontrado");
+        }
+
+        if (!errores.isEmpty()) {
+            if (errores.size() == 1) {
+                errores.add(0, "Por favor, corrige el siguiente error antes de registrar el usuario:");
+            } else {
+                errores.add(0, "Por favor, resuelve los siguientes errores antes de registrar el usuario:");
+            }
+            model.addAttribute("errores", errores);
             model.addAttribute("roles", rolService.findAll());
             model.addAttribute("listarUsuarios", usuarioService.findAll());
             return "registrousuario";

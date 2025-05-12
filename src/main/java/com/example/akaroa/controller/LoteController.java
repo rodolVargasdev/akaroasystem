@@ -56,8 +56,8 @@ public class LoteController {
         System.out.println(lote.getIdProducto());
 
         loteService.save(lote);
-        model.addAttribute("agregadoExitoso", "Lote agregado exitosamente con identificador: #"+ lote.getIdLote());
-
+//        model.addAttribute("agregadoExitoso", "Lote agregado exitosamente con identificador: #"+ lote.getIdLote());
+        redirectAttributes.addFlashAttribute("mensaje", "Lote agregado exitosamente con identificador: #"+ lote.getIdLote());
         return "redirect:/lotes";
 
     }

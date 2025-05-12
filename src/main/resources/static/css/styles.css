@@ -55,33 +55,28 @@ body{
 }
 
 /* Login css */
-
 .login-main{
     display: flex;
-    width: 100%;
-    height: 100vh;
-    padding: 12% 35%;
-    font-family: sans-serif;
-    flex-direction: column;
-    align-items: flex-start;
-    //gap: 10px;
-    flex: 1 0 0;
-    align-self: stretch;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
     background: #201E43;
 }
 .login-main-container{
     display: flex;
     flex-direction: column;
-    font-family: sans-serif;
     align-items: center;
-    gap: 60px;
-    background: #201E43;
+    gap: 30px; /* Espacio reducido */
+    width: 100%;
+    max-width: 450px;
 }
 .login-title-container{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 20px; /* Control explícito del espacio */
 }
 .login-main-container h1{
     color: #FFF;
@@ -100,7 +95,8 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 .login-form-container h2{
     color: #FEFDFD;
@@ -180,7 +176,119 @@ body{
     color: #FFFFFF;
     letter-spacing: 1px;
 }
+/* ==================== */
+/* ALERTAS Y MENSAJES - VERSIÓN MEJORADA */
+/* ==================== */
 
+/* Estilos base para alertas */
+.alert {
+    padding: 12px 16px;
+    margin: 0 auto 20px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 401px; /* Mismo ancho que los inputs */
+    width: 100%;
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: fadeInAlert 0.3s ease forwards;
+    position: relative;
+}
+
+@keyframes fadeInAlert {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Contenedor interno para mejor alineación */
+.alert-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Alertas de éxito */
+.alert-success, .alert.alert-success {
+    background-color: #d1fae5;
+    border-color: #a7f3d0;
+    color: #065f46;
+}
+
+/* Alertas de error */
+.alert-danger, .alert.alert-danger {
+    background-color: #fee2e2;
+    border-color: #fecaca;
+    color: #b91c1c;
+}
+
+/* Iconos de Bootstrap Icons */
+.alert i.bi {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* Mensaje de texto */
+.alert p, .alert span {
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* Estilo específico para el login */
+.login-form-container .alert {
+    margin-bottom: 15px;
+}
+
+/* Mensaje de error para email */
+#email-error {
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin: 4px auto 0;
+    padding: 6px 12px;
+    background-color: rgba(239, 68, 68, 0.1);
+    border-left: 3px solid #ef4444;
+    border-radius: 0 4px 4px 0;
+    display: none;
+    width: 100%;
+    max-width: 401px;
+    text-align: center;
+    animation: shakeError 0.5s ease;
+}
+
+@keyframes shakeError {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+/* Estilo para el nav activo */
+.nav-link.active-nav {
+    background-color: #e0e1e6;
+    color: #0d6efd !important;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Opcional: Estilo para el ícono del nav activo */
+.nav-link.active-nav i {
+    color: #0d6efd;
+}
+
+/* Hover para navs no activos */
+.nav-link:not(.active-nav):hover {
+    background-color: #f0f0f0;
+    color: #0d6efd !important;
+    border-radius: 5px;
+}
 /* Gestionar Productos CSS */
 
 .main-productos-container{
@@ -197,6 +305,28 @@ body{
     align-items: flex-start;
     background: #201E43;
     gap: 20px;
+}
+.product-form-container .alert-danger {
+    background-color: #ffebee; /* Rojo más claro */
+    border-color: #ef9a9a;
+    color: #c62828; /* Rojo más oscuro */
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: 0 2px 4px rgba(198, 40, 40, 0.1);
+}
+.product-form-container .alert-success {
+    background-color: #e8f5e9; /* Verde más claro */
+    border-color: #a5d6a7;
+    color: #2e7d32; /* Verde más oscuro */
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: 0 2px 4px rgba(198, 40, 40, 0.1);
 }
 .product-form-container h1{
     align-self: stretch;
@@ -1116,6 +1246,63 @@ select option{
     border-radius: 8px;
     background: #FBFBFB;
 }
+/* Estilos específicos para registroform.html */
+.registro-form-background .alert-danger {
+    background-color: #ffebee; /* Rojo más claro */
+    border-color: #ef9a9a;
+    color: #c62828; /* Rojo más oscuro */
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: 0 2px 4px rgba(198, 40, 40, 0.1);
+}
+
+.registro-form-background .alert-success {
+    background-color: #e8f5e9; /* Verde más claro */
+    border-color: #a5d6a7;
+    color: #2e7d32; /* Verde más oscuro */
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: 0 2px 4px rgba(46, 125, 50, 0.1);
+}
+
+.registro-form-background .alert ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.registro-form-background .alert li {
+    list-style-type: disc;
+}
+/* Estilos específicos para atributos.html */
+.atributos-container .alert-danger {
+    background-color: #ffebee; /* Rojo más claro */
+    border-color: #ef9a9a;
+    color: #c62828; /* Rojo más oscuro */
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: 0 2px 4px rgba(198, 40, 40, 0.1);
+}
+
+.atributos-container .alert-success {
+    background-color: #e8f5e9; /* Verde más claro */
+    border-color: #a5d6a7;
+    color: #2e7d32; /* Verde más oscuro */
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: 0 2px 4px rgba(46, 125, 50, 0.1);
+}
 .registro-main-container{
     display: flex;
     padding: 16px 32px;
@@ -1225,6 +1412,10 @@ select option{
 }
 .showContent{
     display: flex !important;
+}
+
+.alert-danger ul, .alert-danger li {
+    text-align: left;
 }
 
 

@@ -56,8 +56,8 @@ public class ProveedorController {
         System.out.println(proveedor.getIdProveedor());
 
         proveedorService.save(proveedor);
-        model.addAttribute("agregadoExitoso", "Proveedor agregado exitosamente con identificador: " + proveedor.getIdProveedor());
-
+//        model.addAttribute("agregadoExitoso", "Proveedor agregado exitosamente con identificador: " + proveedor.getIdProveedor());
+        redirectAttributes.addFlashAttribute("mensaje", "Proveedor agregado exitosamente con identificador: " + proveedor.getIdProveedor());
         return "redirect:/proveedores";
     }
 

@@ -69,8 +69,10 @@
                 <div th:if="${success}" class="alert alert-success">
                     <p th:text="${success}"></p>
                 </div>
-                <div th:if="${error}" class="alert alert-danger">
-                    <p th:text="${error}"></p>
+                <div th:if="${errores}" class="alert alert-danger">
+                    <ul>
+                        <li th:each="err : ${errores}" th:text="${err}"></li>
+                    </ul>
                 </div>
             </div>
             <div class="product-searchProduct-container">
@@ -128,6 +130,11 @@
                         <div class="modal-body">
                             <form id="editUserForm" method="post">
                                 <input type="hidden" id="editIdUsuario" name="idUsuario">
+<!--                                <div class="mb-3">-->
+<!--                                    <label for="editNombreCompleto" class="form-label">Nombre completo</label>-->
+<!--                                    <input type="text" class="form-control" id="editNombreCompleto"-->
+<!--                                           th:value="${usuario.nombreCompleto}" name="nombreUsuario">-->
+<!--                                </div>-->
                                 <div class="mb-3">
                                     <label for="editNombreUsuario" class="form-label">Nombre usuario</label>
                                     <input type="text" class="form-control" id="editNombreUsuario"

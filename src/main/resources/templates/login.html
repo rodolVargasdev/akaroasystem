@@ -16,31 +16,67 @@
             <img th:src="@{/img/logo_akaroa_removebg.png}" alt="Sistema Akaroa Logo"
                  style="width: 150px; height: auto;"/>
         </div>
-<!--        <div class="login-logo">-->
-<!--        </div>-->
         <div class="login-form-container">
             <h2>Inicio de sesión</h2>
             <form action="/login" th:action="@{/login}" method="post">
                 <div class="login-form-input-container">
                     <div th:if="${error}" class="alert alert-danger">
-                        <p th:text="${error}"></p>
+                        <div class="alert-content">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <p th:text="${error}"></p>
+                        </div>
                     </div>
                     <div th:if="${logout}" class="alert alert-success">
-                        <p th:text="${logout}"></p>
+                        <div class="alert-content">
+                            <i class="bi bi-check-circle-fill"></i>
+                            <p th:text="${logout}"></p>
+                        </div>
                     </div>
-                    <input type="text" name="username" id="email-input" placeholder="Correo electrónico" required
-                    pattern="^[\\w.-]+@akaroa\.com$"
-                    title="Introduce un email valido, por ejemplo: usuario@akaroa.com">
+                    <input type="text" name="email" id="email-input"
+                           placeholder="Correo electrónico" required
+                           pattern="^[\w.-]+@akaroa\.com$"
+                           title="Introduce un email valido, por ejemplo: usuario@akaroa.com">
+                    <div id="email-error"></div>
+                    <label for="password-input"></label>
                     <input type="password" name="password" id="password-input" placeholder="Contraseña" required>
                 </div>
                 <div class="login-form-button-container">
-<!--                    <a href="/productos">Recuperar contraseña (IR AL HOME)</a>-->
                     <button th:action="@{/login}" type="submit" id="submit-button">Ingresar</button>
                 </div>
             </form>
         </div>
     </div>
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const emailInput = document.getElementById('email-input');
+        const errorDiv = document.getElementById('email-error');
+        const submitButton = document.getElementById('submit-button');
+        const emailPattern = /^[\w.-]+@akaroa\.com$/;
+
+        function validateEmail() {
+            const value = emailInput.value;
+            if (value && !emailPattern.test(value)) {
+                errorDiv.textContent = 'Introduce un email válido, por ejemplo: usuario@akaroa.com';
+                errorDiv.style.display = 'block';
+                emailInput.classList.add('error');
+                submitButton.disabled = true;
+            } else {
+                errorDiv.textContent = '';
+                errorDiv.style.display = 'none';
+                emailInput.classList.remove('error');
+                submitButton.disabled = false;
+            }
+        }
+
+        emailInput.addEventListener('blur', validateEmail);
+        emailInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                validateEmail();
+            }
+        });
+    });
+</script>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

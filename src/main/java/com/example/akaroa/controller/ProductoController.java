@@ -71,7 +71,7 @@ public class ProductoController {
 
     @PostMapping("/productos")
     @Transactional
-    public String procesarFormulario(@Valid @ModelAttribute Producto producto, BindingResult result, Model model) {
+    public String procesarFormulario(@Valid @ModelAttribute Producto producto, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             // Recarga los datos necesarios para el formulario
             model.addAttribute("listarProductos", productoService.findAll());
@@ -94,7 +94,8 @@ public class ProductoController {
         }
 
         productoService.save(producto);
-        model.addAttribute("agregadoExitoso", "Producto agregado exitosamente: " + producto.getNombreProducto());
+//        model.addAttribute("agregadoExitoso", "Producto agregado exitosamente: " + producto.getNombreProducto());
+        redirectAttributes.addFlashAttribute("mensajeExito", "Producto agregado exitosamente: " + producto.getNombreProducto());
         return "redirect:/productos";
     }
 
@@ -112,7 +113,7 @@ public class ProductoController {
 
     @PostMapping("/productos/eliminar/{id}")
     @Transactional
-    public String eliminarProducto(@PathVariable("id") Integer id, Model model) {
+    public String eliminarProducto(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
         Optional<Producto> productoOpt = productoService.findById(id);
 
         System.out.println(id);
@@ -127,10 +128,10 @@ public class ProductoController {
             for (Lote lote : lotes) {
                 loteService.delete(lote); // Asegúrate de tener un metodo delete en LoteService
             }
-
             // Ahora eliminar el producto
             productoService.delete(producto);
-            model.addAttribute("mensajeExito", "Producto y listarLotes eliminados correctamente.");
+//            model.addAttribute("mensajeExito", "Producto y listarLotes eliminados correctamente.");
+            redirectAttributes.addFlashAttribute("mensajeExito", "Producto eliminado correctamente.");
         } else {
             model.addAttribute("mensajeError", "Producto no encontrado.");
         }
@@ -175,7 +176,6 @@ public class ProductoController {
             }
             cantidadesTotales.add(cantidadTotal);
         }
-
         return cantidadesTotales;
     }
 }

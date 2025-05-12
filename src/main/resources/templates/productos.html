@@ -8,10 +8,9 @@
     <title>Gestionar Productos</title>
 </head>
 <body>
-    <div th:replace="~{fragments/header :: headerFragment (title='Administrador')}"></div>
+    <div th:replace="~{fragments/header :: headerFragment(title='Administrador')}"></div>
     <main class="main-productos-container" style="padding-left: 350px">
         <div class="product-form-container">
-
             <h1>Gestionar Productos</h1>
             <div th:if="${mensajeExito}" class="alert alert-success" role="alert">
                 <span th:text="${mensajeExito}"></span>
@@ -21,12 +20,6 @@
             </div>
             <h3>Ingresar nuevo producto</h3>
             <form th:action="@{/productos}" method="post" th:object="${producto}">
-                <!-- Muestra diferentes mensajes de error -->
-<!--                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">-->
-<!--                    <ul>-->
-<!--                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>-->
-<!--                    </ul>-->
-<!--                </div>-->
                 <div class="product-input-container">
                     <label for="nombreProducto">Nombre producto</label>
                     <input type="text" placeholder="Ingrese el nombre del producto" name="nombreProducto" id="nombreProducto" th:field="*{nombreProducto}" required>
@@ -114,7 +107,6 @@
                     </div>
                     <br>
                     <div class="product-card-actions">
-
 <!--                    Botones de edición y eliminación-->
                         <div class="product-action-edit" data-bs-toggle="modal" data-bs-target="#exampleModal" th:data-id="${producto.idProducto}">
                             <span>Editar</span>
@@ -124,10 +116,7 @@
                             <span>Eliminar</span>
                             <i class="bi bi-trash-fill"></i>
                         </div>
-
-
                     </div>
-
                    </div>
             </div>
         </div>
@@ -153,7 +142,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="editDescripcionProducto" class="form-label">Descripción del Producto</label>
-                                <textarea class="form-control" id="editDescripcionProducto" name="descripcion" required></textarea>
+                                <textarea class="form-control" id="editDescripcionProducto" name="descripcion"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="editCategoriaProducto" class="form-label">Categoría del Producto</label>

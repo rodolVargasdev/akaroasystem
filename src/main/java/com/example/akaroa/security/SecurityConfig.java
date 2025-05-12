@@ -59,6 +59,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login") // Pagina de login de @Akaroa
                         .loginProcessingUrl("/login") // URL para el procesamiento de inicio de sesion
+                        .usernameParameter("email")
                         // ruta por defecto despues del login exitoso
                         .defaultSuccessUrl("/productos", true)
                         .failureUrl("/login?error") // redireccion en caso de un error en el login

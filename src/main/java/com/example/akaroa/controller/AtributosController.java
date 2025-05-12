@@ -129,7 +129,7 @@ public class AtributosController {
         System.out.println(presentacion);
 
         presentacionService.save(presentacion);
-        redirectAttributes.addFlashAttribute("mensaje", "Categoria creada con exito");
+        redirectAttributes.addFlashAttribute("mensaje", "Presentacion creada con exito");
         return "redirect:/atributos";
     }
 
