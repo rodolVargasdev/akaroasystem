@@ -79,10 +79,24 @@
                 <div class="registro-main-container">
                     <div class="registro-title-container">
                         <h3>Buscar usuarios</h3>
-                        <div class="producto-searcher-container">
-                            <input type="search" placeholder="Busqueda por nombre o correo">
+                        <div class="usuario-searcher-container">
+                            <form th:action="@{/registrousuario}" method="GET" id="searchUserForm">
+                                <input type="search" placeholder="Buscar por nombre o correo"
+                                       name="busqueda" id="search-usuario"
+                                       th:value="${terminoBusqueda}">
+                                <button type="submit">Buscar</button>
+                                <!-- Botón para limpiar la búsqueda -->
+                                <a th:if="${terminoBusqueda != null && !terminoBusqueda.isEmpty()}"
+                                   href="/registrousuario" class="btn btn-secondary ms-2">
+                                    Limpiar
+                                </a>
+                            </form>
                         </div>
                     </div>
+                </div>
+                <div th:if="${listarUsuarios != null && listarUsuarios.isEmpty()}"
+                     class="alert alert-info mt-3">
+                    No se encontraron usuarios con el término "<span th:text="${terminoBusqueda}"></span>"
                 </div>
                 <div class="product-products-container">
                     <div th:each="usuario, iterStat: ${listarUsuarios}" class="product-card-container">
@@ -208,6 +222,28 @@
         return true; //permite el envio del form cuando las contasenas son iguales
 
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Función para manejar el envío del formulario de búsqueda
+        document.getElementById('searchForm').addEventListener('submit', function (e) {
+            const searchInput = document.getElementById('search-product');
+            if (searchInput.value.trim() === '') {
+                e.preventDefault(); // Evitar envío si está vacío
+                window.location.href = '/registrousuario'; // Redirigir a la vista completa
+            }
+        });
+
+        // Opcional: Buscar al escribir (con retardo para no hacer muchas peticiones)
+        let searchTimeout;
+        document.getElementById('search-product').addEventListener('input', function () {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                if (this.value.trim() !== '') {
+                    document.getElementById('searchForm').submit();
+                }
+            }, 500);
+        });
+    })
 
     document.addEventListener('DOMContentLoaded', function () {
         // Manejar el botón de eliminación

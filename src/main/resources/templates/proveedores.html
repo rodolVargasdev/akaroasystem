@@ -43,8 +43,21 @@
         <br>
         <h3>Buscar Proveedor</h3>
         <div class="product-searcher-container">
-            <input type="search" placeholder="Ingrese nombre proveedor" name="searchProduct" id="search-product">
-            <button>Buscar</button>
+            <form th:action="@{/proveedores}" method="GET" id="searchForm">
+                <input type="search" placeholder="Buscar por nombre de proveedor"
+                       name="nombreProveedor" id="search-product"
+                       th:value="${terminoBusqueda}">
+                <button type="submit">Buscar</button>
+                <!-- Botón para limpiar la búsqueda -->
+                <a th:if="${terminoBusqueda != null && !terminoBusqueda.isEmpty()}"
+                   href="/proveedores" class="btn btn-secondary ms-2">
+                    Limpiar
+                </a>
+            </form>
+        </div>
+        <div th:if="${listarProveedores != null && listarProveedores.isEmpty()}"
+             class="alert alert-info mt-3">
+            No se encontraron proveedores con el nombre "<span th:text="${terminoBusqueda}"></span>"
         </div>
         <div class="product-products-container">
 
@@ -135,6 +148,26 @@
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Función para manejar el envío del formulario de búsqueda
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            const searchInput = document.getElementById('search-product');
+            if (searchInput.value.trim() === '') {
+                e.preventDefault(); // Evitar envío si está vacío
+                window.location.href = '/productos'; // Redirigir a la vista completa
+            }
+        });
+
+        // Opcional: Buscar al escribir (con retardo para no hacer muchas peticiones)
+        let searchTimeout;
+        document.getElementById('search-product').addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                if (this.value.trim() !== '') {
+                    document.getElementById('searchForm').submit();
+                }
+            }, 500);
+        });
+
         // Manejar el botón de eliminación
         const deleteButtons = document.querySelectorAll('.product-action-delete');
         deleteButtons.forEach(button => {

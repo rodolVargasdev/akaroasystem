@@ -32,10 +32,19 @@ public class ProveedorController {
     private LoteService loteService;
 
     @GetMapping("/proveedores")
-    public String getAllProveedores(Model model) {
+    public String getAllProveedores(@RequestParam(required = false) String nombreProveedor,Model model) {
 
-        model.addAttribute("listarProveedores", proveedorService.findAll());
+        List<Proveedor> proveedores;
+
+        if (nombreProveedor != null && !nombreProveedor.isEmpty()) {
+            proveedores = proveedorRepository.findByNombreProveedorContainingIgnoreCase(nombreProveedor);
+        } else {
+            proveedores = proveedorService.findAll();
+        }
+
+        model.addAttribute("listarProveedores", proveedores);
         model.addAttribute("proveedor", new Proveedor());
+        model.addAttribute("terminoBusqueda", nombreProveedor); // Para mantener el término en el input
 
        return "proveedores";
     }

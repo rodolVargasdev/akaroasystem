@@ -472,8 +472,72 @@ input[type=number] {
 .product-searcher-container{
     display: flex;
     align-items: center;
-    gap: 20px;
-    align-self: stretch;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+#searchForm {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+}
+#search-product {
+    flex-grow: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #FBFBFB;
+    background: transparent;
+    opacity: 0.75;
+    color: #FBFBFB;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+#searchForm button[type="submit"] {
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: #FBFBFB;
+    color: #201E43;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+#searchForm button[type="submit"]:hover {
+    background-color: #534c98;
+    color: #FBFBFB;
+}
+
+/* Botón "Limpiar búsqueda" */
+#searchForm .btn-secondary {
+    padding: 12px 24px;
+    border-radius: 8px;
+    background: #6c757d;
+    color: #FBFBFB;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+#searchForm .btn-secondary:hover {
+    background-color: #5a6268;
+    color: #FBFBFB;
 }
 .product-searcher-container input{
     display: flex;
@@ -508,6 +572,9 @@ input[type=number] {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+.product-searcher-container button:hover {
+    background-color: #534c98;
 }
 .product-products-container{
     display: grid;
@@ -1419,3 +1486,89 @@ select option{
 }
 
 
+/* Estilos específicos para el buscador de usuarios */
+.usuario-searcher-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#searchUserForm {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+}
+
+#search-usuario {
+    flex-grow: 1;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid #6864cf; /* Borde más visible */
+    background: rgba(251, 251, 251, 0.1); /* Fondo semitransparente */
+    color: #5a6268; /* Texto blanco */
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+}
+
+#searchUserForm button[type="submit"] {
+    display: flex;
+    padding: 12px 24px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: #FBFBFB;
+    color: #201E43;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+#searchUserForm button[type="submit"]:hover {
+    background-color: #534c98;
+    color: #FBFBFB;
+}
+
+/* Botón "Limpiar búsqueda" */
+#searchUserForm .btn-secondary:hover {
+    background-color: #5a6268;
+    color: #FBFBFB;
+}
+
+#searchUserForm .btn-secondary {
+    padding: 12px 24px;
+    border-radius: 8px;
+    background: #6c757d;
+    color: #FBFBFB;
+    font-family: sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+/* Estilo para el placeholder del input */
+#search-usuario::placeholder {
+    color: #5a6268;
+    opacity: 0.8;
+}
+
+/* Estilo para el input cuando está enfocado */
+#search-usuario:focus {
+    outline: none;
+    border-color: #534c98;
+    background: rgba(251, 251, 251, 0.2);
+    box-shadow: 0 0 0 3px rgba(83, 76, 152, 0.3);
+}

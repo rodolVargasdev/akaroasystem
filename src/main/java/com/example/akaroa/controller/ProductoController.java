@@ -138,6 +138,34 @@ public class ProductoController {
         return "redirect:/productos"; // Redirige a la lista de productos
     }
 
+    // buscador de productos
+    @GetMapping("/productos/buscar")
+    @Transactional
+    public String buscarProductoPorNombre(@RequestParam(required = false) String nombreProducto, Model model) {
+        List<Producto> productos;
+
+        if (nombreProducto != null && !nombreProducto.isEmpty()) {
+            // Buscar productos que contengan el nombre (insensible a mayúsculas/minúsculas)
+            productos = productoRepository.findByNombreProductoContainingIgnoreCase(nombreProducto);
+        } else {
+            // Si no hay término de búsqueda, mostrar todos los productos
+            productos = productoService.findAll();
+        }
+
+        // Mantener todos los atributos necesarios para la vista
+        model.addAttribute("listarProductos", productos);
+        model.addAttribute("lotes", loteService.findAll());
+        model.addAttribute("lotesIdProduct", idProductoLote());
+        model.addAttribute("presentaciones", presentacionService.findAll());
+        model.addAttribute("unidadesmedidas", unidadMedidaService.findAll());
+        model.addAttribute("categorias", categoriaService.findAll());
+        model.addAttribute("producto", new Producto());
+        model.addAttribute("calcularStock", calcularTotalProductos());
+        model.addAttribute("terminoBusqueda", nombreProducto); // Para mantener el término en el input
+
+        return "productos";
+    }
+
     public List<Integer> idProductoLote(){
         List<Lote> lotes = loteService.findAll();
 

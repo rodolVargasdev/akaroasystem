@@ -28,11 +28,20 @@ public class RegistroController {
     private UsuarioRepository usuarioRepository;
 
     @GetMapping("/registrousuario")
-    public String mostrarFormRegistro(Model model) {
+    public String mostrarFormRegistro( @RequestParam(required = false) String busqueda, Model model) {
+        List<Usuario> usuarios;
+
+        if (busqueda != null && !busqueda.isEmpty()) {
+            // Buscar por nombre completo o email
+            usuarios = usuarioRepository.findByNombreCompletoContainingIgnoreCaseOrEmailContainingIgnoreCase(busqueda, busqueda);
+        } else {
+            usuarios = usuarioService.findAll();
+        }
+
+        model.addAttribute("listarUsuarios", usuarios);
         model.addAttribute("usuario", new Usuario());
-        List<Rol> roles = rolService.findAll();
-        model.addAttribute("listarUsuarios", usuarioService.findAll());
-        model.addAttribute("roles", roles);
+        model.addAttribute("roles", rolService.findAll());
+        model.addAttribute("terminoBusqueda", busqueda); // Para mantener el término en el input
 
         return "registrousuario";
     }

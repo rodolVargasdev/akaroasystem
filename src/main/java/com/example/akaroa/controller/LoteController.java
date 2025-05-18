@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -29,20 +30,30 @@ public class LoteController {
     private ProductoService productoService;
 
     @GetMapping("/lotes")
-    public String getAllLotes(Model model) {
-        model.addAttribute("listarLotes", loteService.findAll());
+    public String getAllLotes(@RequestParam(required = false) String nombreProducto, Model model) {
+
+        List<Lote> lotes;
+
+        if (nombreProducto != null && !nombreProducto.isEmpty()) {
+            lotes = loteService.findByNombreProductoContaining(nombreProducto);
+        } else {
+            lotes = loteService.findAll();
+        }
+
+        model.addAttribute("listarLotes", lotes);
         model.addAttribute("proveedores", proveedorService.findAll());
         model.addAttribute("productos", productoService.findAll());
         model.addAttribute("lote", new Lote());
+        model.addAttribute("terminoBusqueda", nombreProducto);
+
         return "lotes";
     }
-
 
 
     @GetMapping("/lotes/{idLote}")
     @ResponseBody
     public Lote obtenerLote(@PathVariable Integer idLote) {
-        if(loteRepository.findById(idLote).isPresent()) {
+        if (loteRepository.findById(idLote).isPresent()) {
             return loteRepository.findById(idLote).get();
         }
         return null;
@@ -57,7 +68,7 @@ public class LoteController {
 
         loteService.save(lote);
 //        model.addAttribute("agregadoExitoso", "Lote agregado exitosamente con identificador: #"+ lote.getIdLote());
-        redirectAttributes.addFlashAttribute("mensaje", "Lote agregado exitosamente con identificador: #"+ lote.getIdLote());
+        redirectAttributes.addFlashAttribute("mensaje", "Lote agregado exitosamente con identificador: #" + lote.getIdLote());
         return "redirect:/lotes";
 
     }

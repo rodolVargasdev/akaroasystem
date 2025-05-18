@@ -39,6 +39,10 @@ public class LoteService {
         return loteRepository.findByIdProducto(producto);
     }
 
+    public List<Lote> findByNombreProductoContaining(String nombreProducto) {
+        return loteRepository.findByNombreProductoContaining(nombreProducto);
+    }
+
     public void actualizarLote(Lote lote) {
         if (loteRepository.existsById(lote.getIdLote())) {
             loteRepository.save(lote);
