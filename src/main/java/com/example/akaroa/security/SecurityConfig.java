@@ -22,24 +22,36 @@ public class SecurityConfig {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(http -> {
-                    http.requestMatchers(HttpMethod.POST, "/productos/editar/**",
+                    http.requestMatchers(HttpMethod.GET,
+                                    "/registrarventa",
+                                    "/clientes")
+                            .hasAnyRole("ADMIN", "MANAGER", "SELLER");
+                    http.requestMatchers(HttpMethod.POST,
+                                    "/productos/editar/**",
                                     "/lotes/editar/**",
                                     "/atributos/categorias/editar/**",
                                     "/atributos/presentaciones/editar/**",
-                                    "/atributos/unidadesmedida/editar/**"
+                                    "/atributos/unidadesmedida/editar/**",
+                                    "/registrarventa",
+                                    "/clientes/registrar"
                             )
                             .hasAnyRole("ADMIN", "SELLER", "MANAGER");
 
-                    http.requestMatchers(HttpMethod.POST, "/productos/eliminar/**",
+                    http.requestMatchers(HttpMethod.POST,
+                                    "/productos/eliminar/**",
                                     "/lotes/eliminar/**",
                                     "/atributos/categorias/eliminar/**",
                                     "/atributos/presentaciones/eliminar/**",
                                     "/atributos/unidadesmedida/eliminar/**",
                                     "/proveedores/editar/**",
-                                    "/proveedores/eliminar/**")
+                                    "/proveedores/eliminar/**",
+                                    "clientes/editar/**",
+                                    "clientes/eliminar/**")
                             .hasAnyRole("ADMIN", "MANAGER");
-                    http.requestMatchers(HttpMethod.POST, "/registrousuario/eliminar/**",
-                                    "/registrousuario/editar/**", "/registrousuario/guardar")
+                    http.requestMatchers(HttpMethod.POST,
+                                    "/registrousuario/eliminar/**",
+                                    "/registrousuario/editar/**",
+                                    "/registrousuario/guardar")
                             .hasRole("ADMIN");
                 })
                 .authorizeHttpRequests((auth) -> auth
@@ -47,7 +59,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/login"
                                 , "/css/**", "/img/**", "/fonts/**", "/favicon.ico")
                         .permitAll()
-                        .requestMatchers("/productos", "/ventas")
+                        .requestMatchers("/productos", "/registrarventa")
                         .hasAnyRole("ADMIN", "MANAGER", "SELLER")
                         .requestMatchers("/lotes", "/proveedores", "/reportes")
                         .hasAnyRole("ADMIN", "MANAGER")

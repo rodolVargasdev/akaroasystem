@@ -13,21 +13,18 @@ public class Cliente {
     private String nombreCliente;
     private String telefono;
     private String direccion;
+    private String correo;
     private String historialCompras;
 
     // Getters and Setters
     public Integer getIdCliente() {
         return idCliente;
     }
-
     public void setIdCliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
 
-    public String getNombreCliente() {
-        return nombreCliente;
-    }
-
+    public String getNombreCliente() {return nombreCliente;}
     public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
     }
@@ -35,7 +32,6 @@ public class Cliente {
     public String getTelefono() {
         return telefono;
     }
-
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
@@ -43,15 +39,16 @@ public class Cliente {
     public String getDireccion() {
         return direccion;
     }
-
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
+    public String getCorreo() {return correo;}
+    public void setCorreo(String correo) {this.correo = correo;}
+
     public String getHistorialCompras() {
         return historialCompras;
     }
-
     public void setHistorialCompras(String historialCompras) {
         this.historialCompras = historialCompras;
     }

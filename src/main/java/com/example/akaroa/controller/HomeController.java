@@ -12,10 +12,10 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/ventas")
-    public String ventas(Model model) {
-        return "ventas";
-    }
+//    @GetMapping("/ventas")
+//    public String ventas(Model model) {
+//        return "registroventa";
+//    }
 
     @GetMapping("/logout")
     public String logout(Model model) {

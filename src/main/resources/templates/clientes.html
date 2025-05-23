@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Gestionar Clientes</title>
+</head>
+<body>
+<div th:insert="fragments/header :: headerFragment (title='Administrador')"></div>
+<main class="main-productos-container" style="padding-left: 350px">
+    <!-- formulario para ingresar nuevos clientes -->
+    <div class="product-form-container">
+        <h1>Gestionar Clientes</h1>
+        <h3>Ingresar nuevo cliente</h3>
+        <form th:action="@{/clientes/registrar}" th:object="${cliente}" method="post">
+            <div class="product-input-container">
+                <label for="nombreCliente">Nombre del cliente</label>
+                <input type="text" placeholder="Ingrese el nombre del cliente" name="nombreCliente"
+                       id="nombreCliente" th:field="*{nombreCliente}" required>
+            </div>
+            <div class="product-input-container">
+                <label for="telCliente">Teléfono de contacto del cliente</label>
+                <input type="tel" placeholder="Ingrese teléfono" name="telCliente"
+                       id="telCliente" th:field="*{telefono}" required
+                       maxlength="8" pattern="[0-9]{8}" inputmode="numeric">
+            </div>
+            <div class="product-input-container">
+                <label for="correoCliente">Correo electrónico del cliente</label>
+                <input type="email" placeholder="Ingrese correo electrónico del cliente"
+                       name="correoCliente"
+                       id="correoCliente"
+                       th:field="*{correo}"
+                       pattern="[a-zA-Z0-9._%+-]+@(gmail|outlook|hotmail|yahoo)\.com$"
+                       title="Por favor ingrese un correo válido de Gmail, Outlook, Hotmail o Yahoo"
+                       required>
+            </div>
+            <div class="product-input-container">
+                <label for="direccionCliente">Ubicación del cliente</label>
+                <input type="text" placeholder="Ingrese dirección física" name="direccionCliente"
+                       id="direccionCliente" th:field="*{direccion}" required>
+            </div>
+            <div>
+                <button type="submit">Ingresar cliente</button>
+            </div>
+        </form>
+        <div th:if="${mensaje}" class="alert alert-success" role="alert">
+            <span th:text="${mensaje}"></span>
+        </div>
+        <div th:if="${errores}" class="alert alert-danger">
+            <ul>
+                <li th:each="err, iterStat : ${errores}"
+                    th:text="${err}"
+                    th:classappend="${iterStat.index == 0} ? 'no-bullet' : ''">
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- listado de clientes y buscador -->
+    <div class="product-searchProduct-container">
+        <br>
+        <h3>Buscar Cliente</h3>
+        <div class="product-searcher-container">
+            <form th:action="@{/clientes}" method="GET" id="searchForm">
+                <input type="search" placeholder="Buscar por nombre de cliente"
+                       name="nombreCliente" id="search-product"
+                       th:value="${terminoBusqueda}">
+                <button type="submit">Buscar</button>
+                <!-- Botón para limpiar la búsqueda -->
+                <a th:if="${terminoBusqueda != null && !terminoBusqueda.isEmpty()}"
+                   href="/clientes" class="btn btn-secondary ms-2">
+                    Limpiar
+                </a>
+            </form>
+        </div>
+        <div th:if="${listarClientes != null && listarClientes.isEmpty()}"
+             class="alert alert-info mt-3">
+            No se encontraron clientes con el nombre "<span th:text="${terminoBusqueda}"></span>"
+        </div>
+        <div class="product-products-container">
+            <div class="product-card-container" th:each="cliente, iterStat : ${listarClientes}">
+                <div class="product-card-information">
+                    <div>
+                        <h4 th:text="'Cliente: ' + ${cliente.getIdCliente()}">Cliente: 0</h4>
+                        <hr>
+                        <span th:text="'Nombre cliente: ' + ${cliente.getNombreCliente()}">Nombre cliente: </span><br>
+                        <span th:text="'Teléfono: ' + ${cliente.getTelefono()}">Teléfono: </span><br>
+                        <span th:text="'Correo: ' + ${cliente.getCorreo()}">Correo: </span><br>
+                        <span th:text="'Direccón: ' + ${cliente.getDireccion()}">Dirección: </span><br>
+                    </div>
+                </div>
+                <br>
+                <div class="product-card-actions">
+
+                    <!--                    Botones de edición y eliminación-->
+                    <div class="product-action-edit" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                         th:data-id="${cliente.getIdCliente()}">
+                        <span>Editar</span>
+                        <i class="bi bi-pencil-square"></i>
+                    </div>
+                    <div class="product-action-delete" data-bs-toggle="modal" data-bs-target="#exampleModal2"
+                         th:data-id="${cliente.getIdCliente()}">
+                        <span>Eliminar</span>
+                        <i class="bi bi-trash-fill"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para edición de clientes -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="editClienteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editClienteModalLabel">Editar Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editClienteForm" method="post">
+                        <input type="hidden" id="editIdCliente" name="idCliente">
+                        <div class="mb-3">
+                            <label for="editNombreCliente" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="editNombreCliente"
+                                   th:value="${cliente.nombreCliente}" name="nombreCliente">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTelCliente" class="form-label">Teléfono</label>
+                            <input type="tel" class="form-control" id="editTelCliente" name="telefono"
+                                   maxlength="8" pattern="[0-9]{8}" inputmode="numeric" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCorreoCliente" class="form-label">Correo electrónico</label>
+                            <input type="text" class="form-control" id="editCorreoCliente" name="correo">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDireccionCliente" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="editDireccionCliente" name="direccion">
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" form="editClienteForm" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para confirmación de eliminación de cliente -->
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="deleteClienteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteClienteModalLabel">Eliminar cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar este cliente? Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form id="deleteClienteForm" method="post">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Función para manejar el envío del formulario de búsqueda
+        document.getElementById('searchForm').addEventListener('submit', function (e) {
+            const searchInput = document.getElementById('search-product');
+            if (searchInput.value.trim() === '') {
+                e.preventDefault(); // Evitar envío si está vacío
+                window.location.href = '/clientes'; // Redirigir a la vista completa
+            }
+        });
+
+        // Opcional: Buscar al escribir (con retardo para no hacer muchas peticiones)
+        let searchTimeout;
+        document.getElementById('search-product').addEventListener('input', function () {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                if (this.value.trim() !== '') {
+                    document.getElementById('searchForm').submit();
+                }
+            }, 500);
+        });
+
+        // Manejar el botón de eliminación
+        const deleteButtons = document.querySelectorAll('.product-action-delete');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idCliente = this.getAttribute('data-id');
+                const form = document.querySelector('#deleteClienteForm');
+                form.setAttribute('action', `/clientes/eliminar/${idCliente}`);
+            });
+        });
+
+        // Manejar el botón de edición
+        const editButtons = document.querySelectorAll('.product-action-edit');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const idCliente = this.getAttribute('data-id');
+                fetch(`/clientes/${idCliente}`)
+                    .then(response => response.json())
+                    .then(cliente => {
+                        // Configurar datos en el modal
+                        document.querySelector('#editIdCliente').value = cliente.idCliente;
+                        document.querySelector('#editNombreCliente').value = cliente.nombreCliente;
+                        document.querySelector('#editTelCliente').value = cliente.telefono;
+                        document.querySelector('#editCorreoCliente').value = cliente.correo;
+                        document.querySelector('#editDireccionCliente').value = cliente.direccion;
+
+                        // Configurar la acción del formulario
+                        const form = document.querySelector('#editClienteForm');
+                        form.setAttribute('action', `/clientes/editar/${idCliente}`);
+                    });
+            });
+        });
+
+        function restrictPhoneInput(inputElement, maxLength = 8) {
+            inputElement.addEventListener('input', function() {
+                // remueve caracteres que no son digitos
+                this.value = this.value.replace(/\D/g, '');
+                if (this.value.length > maxLength) {
+                    this.value = this.value.slice(0, maxLength);
+                }
+            });
+        }
+        const telProveedorInput = document.getElementById('telCliente');
+        const editTelProveedorInput = document.getElementById('editTelCliente');
+        if (telProveedorInput) {
+            restrictPhoneInput(telProveedorInput, 8);
+        }
+        if (editTelProveedorInput) {
+            restrictPhoneInput(editTelProveedorInput, 8);
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</html>
