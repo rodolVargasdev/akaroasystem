@@ -40,6 +40,7 @@ public class UsuarioDetailService implements UserDetailsService {
                 usuario.getPassword(),
                 usuario.getNombreCompleto(),
                 usuario.getIdRol().getNombreRole(),
+                usuario.getIdUsuario(),
                 Collections.singleton(new SimpleGrantedAuthority("ROLE_" + usuario.getIdRol().getNombreRole()))
         );
     }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.swing.text.html.Option;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,12 +61,17 @@ public class ProveedorController {
 
     @PostMapping("/proveedores")
     @Transactional
-    public String procesarFormularioProveedores(@ModelAttribute Proveedor proveedor, Model model, RedirectAttributes redirectAttributes) {
-
-        System.out.println(proveedor.getIdProveedor());
+    public String procesarFormularioProveedores(@ModelAttribute Proveedor proveedor, Model model,
+                                                RedirectAttributes redirectAttributes) {
+        // Validar nombre de cliente no repetido
+        if (proveedorRepository.existsByNombreProveedor(proveedor.getNombreProveedor())) {
+            model.addAttribute("error","Ya existe un proveedor registrado con este nombre");
+            model.addAttribute("listarProveedores", proveedorService.findAll());
+            model.addAttribute("proveedor", proveedor);
+            return "proveedores";
+        }
 
         proveedorService.save(proveedor);
-//        model.addAttribute("agregadoExitoso", "Proveedor agregado exitosamente con identificador: " + proveedor.getIdProveedor());
         redirectAttributes.addFlashAttribute("mensaje", "Proveedor agregado exitosamente con identificador: " + proveedor.getIdProveedor());
         return "redirect:/proveedores";
     }
@@ -85,7 +91,7 @@ public class ProveedorController {
             proveedorService.save(proveedorActualizar);
             redirectAttributes.addFlashAttribute("mensaje", "Proveedor actualizado con exito");
         } else {
-            redirectAttributes.addFlashAttribute("mensaje", "Proveedor no encontrado");
+            redirectAttributes.addFlashAttribute("error", "Proveedor no encontrado");
         }
         return  "redirect:/proveedores";
     }
@@ -109,7 +115,7 @@ public class ProveedorController {
             proveedorService.deleteById(idProveedor);
             redirectAttributes.addFlashAttribute("mensaje", "Proveedor eliminado con exito");
         } else {
-            redirectAttributes.addFlashAttribute("mensaje", "Proveedor no encontrado");
+            redirectAttributes.addFlashAttribute("error", "Proveedor no encontrado");
         }
 
         return "redirect:/proveedores";

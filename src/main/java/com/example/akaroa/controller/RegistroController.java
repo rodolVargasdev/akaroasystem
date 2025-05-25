@@ -54,7 +54,7 @@ public class RegistroController {
         // validar direccion de email
         String emailPattern = "^[A-Za-z0-9._%+-]+@akaroa\\.com$";
         if (!usuario.getEmail().matches(emailPattern)) {
-            errores.add("El correo debe tener el formato nombreUsuario@akaroa.com");
+            errores.add("El correo debe tener el formato nombreCompleto@akaroa.com");
         }
 
         // Verificación de email en uso

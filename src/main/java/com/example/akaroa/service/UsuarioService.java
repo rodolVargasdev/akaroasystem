@@ -22,6 +22,10 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
+    public Optional<Usuario> findByUsername(String username) {
+        return usuarioRepository.findByNombreUsuario(username);
+    }
+
     public Optional<Usuario> findById(Integer id) {
         return usuarioRepository.findById(id);
     }

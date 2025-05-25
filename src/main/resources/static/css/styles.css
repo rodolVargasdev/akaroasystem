@@ -1572,3 +1572,29 @@ select option{
     background: rgba(251, 251, 251, 0.2);
     box-shadow: 0 0 0 3px rgba(83, 76, 152, 0.3);
 }
+ .no-bullet {
+     list-style-type: none;
+ }
+/* estilos tabla venta form */
+.product-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+.product-table th, .product-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.product-table th {
+    background-color: #f2f2f2;
+}
+.total-section {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.quantity-input {
+    width: 60px;
+    text-align: center;
+}
