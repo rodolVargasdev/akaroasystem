@@ -712,6 +712,7 @@ input[type=number] {
     margin-right: 7px;
 }
 
+
 .product-action-delete{
     transition: background 0.5s;
     background: #a64848 !important;
@@ -720,6 +721,16 @@ input[type=number] {
 .product-action-delete:hover {
     transition: background 0.5s;
     background: #c66464 !important;
+
+}
+.product-action-view{
+    transition: background 0.5s;
+    background: #007bff !important;
+    border: 0.5px solid #FFF !important;
+}
+.product-action-view:hover {
+    transition: background 0.5s;
+    background: #0056b3 !important;
 
 }
 

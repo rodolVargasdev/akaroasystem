@@ -1,7 +1,10 @@
 package com.example.akaroa.model;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="ventas")
@@ -26,7 +29,6 @@ public class Venta {
     public Integer getIdVenta() {
         return idVenta;
     }
-
     public void setIdVenta(Integer idVenta) {
         this.idVenta = idVenta;
     }
@@ -34,15 +36,11 @@ public class Venta {
     public Date getFechaVenta() {
         return fechaVenta;
     }
-
     public void setFechaVenta(Date fechaVenta) {
         this.fechaVenta = fechaVenta;
     }
 
-    public Cliente getIdCliente() {
-        return idCliente;
-    }
-
+    public Cliente getIdCliente() {return idCliente;}
     public void setIdCliente(Cliente cliente) {
         this.idCliente = cliente;
     }
@@ -50,7 +48,6 @@ public class Venta {
     public Usuario getIdUsuario() {
         return idUsuario;
     }
-
     public void setIdUsuario(Usuario usuario) {
         this.idUsuario = usuario;
     }

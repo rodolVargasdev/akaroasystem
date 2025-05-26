@@ -18,8 +18,14 @@ public class VentaDetalleService {
         return ventaDetalleRepository.findAll();
     }
 
+    // recupera un unico detalle
     public Optional<VentaDetalle> findById(Integer id) {
         return ventaDetalleRepository.findById(id);
+    }
+
+    // recupera todos los detalles de una venta
+    public List<VentaDetalle> findByVenta(Integer idVenta) {
+        return ventaDetalleRepository.findByIdVenta_IdVenta(idVenta);
     }
 
     public VentaDetalle save(VentaDetalle ventaDetalle) {

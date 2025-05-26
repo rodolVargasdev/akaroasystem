@@ -3,7 +3,7 @@ package com.example.akaroa.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="ventas_detalles")
+@Table(name = "ventas_detalles")
 public class VentaDetalle {
 
     @Id
@@ -21,11 +21,14 @@ public class VentaDetalle {
     private Integer cantidad;
     private Double precioUnitario;
 
+    @ManyToOne
+    @JoinColumn(name = "idLote")
+    private Lote lote;
+
     // Getters and Setters
     public Integer getIdDetalle() {
         return idDetalle;
     }
-
     public void setIdDetalle(Integer idDetalle) {
         this.idDetalle = idDetalle;
     }
@@ -33,7 +36,6 @@ public class VentaDetalle {
     public Venta getIdVenta() {
         return idVenta;
     }
-
     public void setIdVenta(Venta venta) {
         this.idVenta = venta;
     }
@@ -41,7 +43,6 @@ public class VentaDetalle {
     public Producto getIdProducto() {
         return idProducto;
     }
-
     public void setIdProducto(Producto producto) {
         this.idProducto = producto;
     }
@@ -49,7 +50,6 @@ public class VentaDetalle {
     public Integer getCantidad() {
         return cantidad;
     }
-
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
@@ -57,8 +57,10 @@ public class VentaDetalle {
     public Double getPrecioUnitario() {
         return precioUnitario;
     }
-
     public void setPrecioUnitario(Double precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
+
+    public Lote getLote() {return lote;}
+    public void setLote(Lote lote) {this.lote = lote;}
 }

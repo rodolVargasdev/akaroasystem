@@ -20,10 +20,6 @@ public class Producto {
 
     private String imagenUrl;
 
-//    @OneToMany
-//    @JoinColumn(name = "idLote")
-//    private List<Lote> idLote;
-
     @OneToOne
     @JoinColumn(name = "idPresentacion")
     private Presentacion idPresentacion;
