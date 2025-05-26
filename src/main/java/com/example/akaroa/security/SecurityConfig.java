@@ -23,8 +23,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers(HttpMethod.GET,
-                                    "/registrarventa",
-                                    "/clientes")
+                                    "/clientes",
+                                    "/registrarventa", "/listaventas", "/venta/**", "/venta/{idVenta}/detalles")
                             .hasAnyRole("ADMIN", "MANAGER", "SELLER");
                     http.requestMatchers(HttpMethod.POST,
                                     "/productos/editar/**",
@@ -32,7 +32,9 @@ public class SecurityConfig {
                                     "/atributos/categorias/editar/**",
                                     "/atributos/presentaciones/editar/**",
                                     "/atributos/unidadesmedida/editar/**",
-                                    "/registrarventa",
+                                    "/registrarventa/guardar",
+                                    "/venta/eliminar/**",
+                                    "/venta/editar/{idVenta}",
                                     "/clientes/registrar"
                             )
                             .hasAnyRole("ADMIN", "SELLER", "MANAGER");
@@ -56,12 +58,12 @@ public class SecurityConfig {
                 })
                 .authorizeHttpRequests((auth) -> auth
                         // Rutas publicas sin autenticacion
-                        .requestMatchers("/", "/login"
-                                , "/css/**", "/img/**", "/fonts/**", "/favicon.ico")
+                        .requestMatchers("/", "/login", "/js/**", "/css/**",
+                                "/img/**", "/fonts/**", "/favicon.ico")
                         .permitAll()
                         .requestMatchers("/productos", "/registrarventa")
                         .hasAnyRole("ADMIN", "MANAGER", "SELLER")
-                        .requestMatchers("/lotes", "/proveedores", "/reportes")
+                        .requestMatchers("/lotes", "/proveedores", "/reportes/**")
                         .hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers("/roles", "/usuario", "/registrousuario")
                         .hasRole("ADMIN")

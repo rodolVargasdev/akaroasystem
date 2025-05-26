@@ -1,6 +1,6 @@
 <!-- fragments/header.html -->
 <div th:fragment="headerFragment(title)">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+<!--  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">-->
   <div class="sidebar d-flex flex-column">
 
     <!-- Logo -->
@@ -28,26 +28,40 @@
       <a th:href="@{/lotes}" class="nav-link">
         <i class="bi bi-box-seam"></i> Gestión de Lotes
       </a>
+      <header>
+        <hr>
+        <h4>Contactos</h4>
+      </header>
       <a th:href="@{/proveedores}" class="nav-link">
         <i class="bi bi-truck"></i> Gestión de Proveedores
+      </a>
+      <a th:href="@{/clientes}" class="nav-link">
+        <i class="bi bi-people"></i> Gestión de Clientes
       </a>
       <header>
         <hr>
         <h4>Ventas</h4>
       </header>
-      <a th:href="@{/ventas}" class="nav-link">
+      <a th:href="@{/registrarventa}" class="nav-link">
         <i class="bi bi-cart"></i> Administar Ventas
       </a>
-      <a th:href="@{/reportes}" class="nav-link">
-        <i class="bi bi-bar-chart"></i> Reportes
+      <a th:href="@{/listaventas}" class="nav-link">
+        <i class="bi bi-receipt"></i> Detalles de ventas
+      </a>
+      <header>
+        <hr>
+        <h4>Reportes</h4>
+      </header>
+      <a th:href="@{/reportes/ventas}" class="nav-link">
+        <i class="bi bi-file-earmark"></i> Reportes
       </a>
       <header>
         <hr>
         <h4>Usuarios</h4>
       </header>
-      <a th:href="@{/usuario}" class="nav-link">
-        <i class="bi bi-people"></i> Configuración de usuario
-      </a>
+<!--      <a th:href="@{/usuario}" class="nav-link">-->
+<!--        <i class="bi bi-people"></i> Configuración de usuario-->
+<!--      </a>-->
       <a th:href="@{/registrousuario}" class="nav-link">
         <i class="bi bi-pencil-square"></i> Registro de usuarios
       </a>
@@ -57,5 +71,6 @@
     </nav>
   </div>
 
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </div>

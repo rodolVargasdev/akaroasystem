@@ -1,10 +1,260 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Reportes</title>
+    <style>
+        .report-tab-btn {
+            border: 1px solid #e0e1e6;
+            background: #f7f8fb;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #201E43;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+            border-radius: 8px 8px 0 0;
+            margin-right: 2px;
+        }
+
+        .report-tab-btn.selected-tab {
+            color: #fff;
+            background: #534c98;
+            border-bottom: 3px solid #534c98;
+            z-index: 2;
+        }
+
+        .report-tab-btn:not(.selected-tab):hover {
+            background: #e0e1e6;
+            color: #534c98;
+        }
+
+        .export-btns {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0 18px 0;
+        }
+
+        .export-btns .btn {
+            font-size: 14px;
+            padding: 4px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .export-btns .btn i {
+            margin-right: 4px;
+            font-size: 16px;
+        }
+
+        .tab-bar-bg {
+            background: #e0e1e6;
+            border-radius: 8px 8px 0 0;
+            padding: 0 0 0 2px;
+            margin-bottom: 0;
+            display: flex;
+            align-items: flex-end;
+        }
+    </style>
 </head>
 <body>
-    <h1>Reportes</h1>
+<div th:replace="fragments/header :: headerFragment (title='Reportes')"></div>
+<main class="main-productos-container" style="padding-left: 350px">
+    <div class="registro-main-container">
+        <div class="registro-title-container">
+            <h1>Generación de reportes</h1>
+        </div>
+        <div class="registro-form-background">
+            <div class="tab-bar-bg">
+                <a href="/reportes/ventas" id="tab-btn-ventas" class="report-tab-btn" th:classappend="${activeTab} == 'ventas' ? 'selected-tab' : ''" type="button">
+                    <i class="bi bi-receipt"></i> Reporte de Ventas
+                </a>
+                <a href="/reportes/clientes" id="tab-btn-clientes" class="report-tab-btn" th:classappend="${activeTab} == 'clientes' ? 'selected-tab' : ''" type="button">
+                    <i class="bi bi-people"></i> Reporte de Clientes
+                </a>
+                <a href="/reportes/productos" id="tab-btn-productos" class="report-tab-btn" th:classappend="${activeTab} == 'productos' ? 'selected-tab' : ''" type="button">
+                    <i class="bi bi-basket"></i> Reporte de Productos
+                </a>
+            </div>
+            
+            <!-- Reporte de Ventas -->
+            <div th:if="${ventas != null}" id="content-ventas" class="atributos-selection-main-content showContent">
+                <h3>Reporte de Ventas</h3>
+                <div class="export-btns">
+                    <a href="/reportes/ventas/export/pdf" class="btn btn-outline-primary">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                        Exportar a PDF
+                    </a>
+                    <a href="/reportes/ventas/export/excel" class="btn btn-outline-success">
+                        <i class="bi bi-file-earmark-excel"></i>
+                        Exportar a Excel
+                    </a>
+                </div>
+                <table class="product-table" id="table-ventas">
+                    <thead>
+                    <tr>
+                        <th>ID venta</th>
+                        <th>Fecha</th>
+                        <th>Vendedor</th>
+                        <th>Cliente</th>
+                        <th>Ver detalles</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="venta : ${ventas}">
+                        <td th:text="${venta.idVenta}">ID</td>
+                        <td th:text="${#dates.format(venta.fechaVenta, 'dd/MMM/yyyy')}">Fecha</td>
+                        <td th:text="${venta.idUsuario != null} ? ${venta.idUsuario.nombreCompleto} : 'N/A'">Usuario</td>
+                        <td th:text="${venta.idCliente != null} ? ${venta.idCliente.nombreCliente} : 'N/A'">Cliente</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary detalles-btn"
+                                    th:data-venta-id="${venta.getIdVenta()}">
+                                <i class="bi bi-eye"></i> Detalles
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Reporte de Clientes -->
+            <div th:if="${clientes != null}" id="content-clientes" class="atributos-selection-main-content showContent">
+                <h3>Reporte de Clientes</h3>
+                <div class="export-btns">
+                    <a href="/reportes/clientes/export/pdf" class="btn btn-outline-primary">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                        Exportar a PDF
+                    </a>
+                    <a href="/reportes/clientes/export/excel" class="btn btn-outline-success">
+                        <i class="bi bi-file-earmark-excel"></i>
+                        Exportar a Excel
+                    </a>
+                </div>
+                <table class="product-table" id="table-clientes">
+                    <thead>
+                    <tr>
+                        <th># Cliente</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+<!--                        <th>Compras</th>-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cliente, iterStat : ${clientes}">
+                        <td th:text="${iterStat.index + 1}">#</td>
+                        <td th:text="${cliente.nombreCliente}">Nombre</td>
+                        <td th:text="${cliente.correo}">Email</td>
+                        <td th:text="${cliente.telefono}">Teléfono</td>
+<!--                        <td th:text="${cliente.compras != null ? cliente.compras.size() : 0}">Compras</td>-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Reporte de Productos -->
+            <div th:if="${productos != null}" id="content-productos" class="atributos-selection-main-content showContent">
+                <h3>Reporte de Productos</h3>
+                <div class="export-btns">
+                    <a href="/reportes/productos/export/pdf" class="btn btn-outline-primary">
+                        <i class="bi bi-file-earmark-pdf"></i>
+                        Exportar a PDF
+                    </a>
+                    <a href="/reportes/productos/export/excel" class="btn btn-outline-success">
+                        <i class="bi bi-file-earmark-excel"></i>
+                        Exportar a Excel
+                    </a>
+                </div>
+                <table class="product-table" id="table-productos">
+                    <thead>
+                    <tr>
+                        <th># Producto</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Presentación</th>
+                        <th>U.medida</th>
+<!--                        <th>Stock</th>-->
+                        <th>Precio</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="producto, iterStat : ${productos}">
+                        <td th:text="${producto.idProducto}">#</td>
+                        <td th:text="${producto.nombreProducto}">Nombre</td>
+                        <td th:text="${producto.idCategoria != null ? producto.idCategoria.descripcion : 'N/A'}">Categoría</td>
+                        <td th:text="${producto.idPresentacion != null ? producto.idPresentacion.descripcion : 'N/A'}">Presentación</td>
+                        <td th:text="${producto.idUnidadMedida != null ? producto.idUnidadMedida.descripcion : 'N/A'}">U.med</td>
+<!--                        <td th:text="${producto.stock}">Stock</td>-->
+                        <td th:text="${producto.precio}">Precio</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal para mostrar detalles de venta -->
+        <div class="modal fade" id="detallesVentaModal" tabindex="-1" aria-labelledby="detallesVentaModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detallesVentaModalLabel">Detalles completos de la venta #<span
+                                id="ventaIdHeader"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <h6>Información general</h6>
+                                <p><strong>Fecha:</strong> <span id="ventaFecha"></span></p>
+                                <p><strong>Cliente:</strong> <span id="ventaCliente"></span></p>
+                                <p><strong>Vendedor:</strong> <span id="ventaVendedor"></span></p>
+                            </div>
+                        </div>
+                        <h6>Productos vendidos</h6>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio unitario</th>
+                                    <th>Subtotal</th>
+                                    <th>Lote</th>
+                                </tr>
+                                </thead>
+                                <tbody id="detallesVentaBody">
+                                <!-- Los detalles se llenarán con JavaScript -->
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                                    <td id="ventaTotal" class="fw-bold"></td>
+                                    <td></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+<script>
+    // Ya no es necesario el JS de tabs, pues ahora se navega por URL
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/reportes_detalles.js}"></script>
 </body>
 </html>
