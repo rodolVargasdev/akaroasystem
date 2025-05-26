@@ -79,9 +79,8 @@
                 </a>
             </form>
         </div>
-        <div th:if="${listarLotes != null && listarLotes.isEmpty()}"
-             class="alert alert-info mt-3">
-            No se encontraron lotes con productos que contengan "<span th:text="${terminoBusqueda}"></span>"
+        <div th:if="${errorBusqueda != null}" class="alert alert-info mt-3">
+            <span th:text="${errorBusqueda}"></span>
         </div>
         <div class="product-products-container">
 

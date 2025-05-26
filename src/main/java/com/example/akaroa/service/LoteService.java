@@ -39,6 +39,26 @@ public class LoteService {
         return loteRepository.findByIdProducto(producto);
     }
 
+    public List<Lote> findAllWithStock() {
+        return loteRepository.findByCantidadProductoGreaterThan(0);
+    }
+
+    public List<Lote> findByProductoWithStock(Producto producto) {
+        return loteRepository.findByIdProductoAndCantidadProductoGreaterThan(producto, 0);
+    }
+
+    public List<Lote> findByProductoOrderByFechaVencimientoAscWithStock(Producto producto) {
+        return loteRepository.findByIdProductoAndCantidadProductoGreaterThanOrderByFechaVencimientoAsc(producto, 0);
+    }
+
+    public List<Lote> findByNombreProductoContainingWithStock(String nombreProducto) {
+        return loteRepository.findByNombreProductoContainingAndCantidadProductoGreaterThan(nombreProducto);
+    }
+
+    public List<Lote> findByProductoOrderByFechaVencimientoAsc(Producto producto) {
+        return loteRepository.findByidProductoOrderByFechaVencimientoAsc(producto);
+    }
+
     public List<Lote> findByNombreProductoContaining(String nombreProducto) {
         return loteRepository.findByNombreProductoContaining(nombreProducto);
     }

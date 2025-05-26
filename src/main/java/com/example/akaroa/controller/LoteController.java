@@ -35,9 +35,15 @@ public class LoteController {
         List<Lote> lotes;
 
         if (nombreProducto != null && !nombreProducto.isEmpty()) {
-            lotes = loteService.findByNombreProductoContaining(nombreProducto);
+            lotes = loteService.findByNombreProductoContainingWithStock(nombreProducto);
+            if (lotes.isEmpty()) {
+                model.addAttribute("errorBusqueda", "No se encontraron lotes disponibles con productos que contengan: " + nombreProducto);
+            }
         } else {
-            lotes = loteService.findAll();
+            lotes = loteService.findAllWithStock();
+            if (lotes.isEmpty()) {
+                model.addAttribute("errorBusqueda", "No hay lotes disponibles en este momento");
+            }
         }
 
         model.addAttribute("listarLotes", lotes);
